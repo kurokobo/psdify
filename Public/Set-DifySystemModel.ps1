@@ -15,13 +15,15 @@ function Set-DifySystemModel {
 
     process {
         foreach ($ModelObject in $Model) {
-            if ($ModelObject.Type -notin $ValidTypes) {
-                throw "Invalid value for Type. Must be one of: $($ValidTypes -join ', ')"
-            }
-            $Models += @{
-                "model_type" = $ModelObject.Type
-                "provider"   = $ModelObject.Provider
-                "model"      = $ModelObject.Model
+            if ($ModelObjectl) {
+                if ($ModelObject.Type -notin $ValidTypes) {
+                    throw "Invalid value for Type. Must be one of: $($ValidTypes -join ', ')"
+                }
+                $Models += @{
+                    "model_type" = $ModelObject.Type
+                    "provider"   = $ModelObject.Provider
+                    "model"      = $ModelObject.Model
+                }
             }
         }
     }
@@ -50,7 +52,7 @@ function Set-DifySystemModel {
         $Method = "POST"
         $Body = @{
             "model_settings" = @($Models)
-        } | ConvertTo-Json
+        } | ConvertTo-Json -Depth 10
         Write-Verbose $Body
         try {
             $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN

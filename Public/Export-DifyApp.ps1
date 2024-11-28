@@ -11,6 +11,7 @@ function Export-DifyApp {
         if (-not (Test-Path -Path $Path)) {
             $null = New-Item -Path $Path -ItemType Directory
         }
+        $Path = Convert-Path -Path $Path
         $ExportedApps = @()
         $Apps = @()
     }

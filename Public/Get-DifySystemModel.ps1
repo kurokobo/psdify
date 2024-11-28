@@ -3,6 +3,7 @@ function Get-DifySystemModel {
     param(
         [String[]] $Type = @()
     )
+
     $ValidTypes = @("llm", "text-embedding", "rerank", "speech2text", "tts")
     if ($Type) {
         foreach ($TypeObj in $Type) {

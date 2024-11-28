@@ -1,5 +1,5 @@
 <!-- omit in toc -->
-# PSDify: Dify の管理系操作用 PowerShell モジュール
+# PSDify: Dify のワークスペース管理用 PowerShell モジュール
 
 [🇺🇸 **English**](./README.md) [🇯🇵 **日本語**](./README.ja.md)
 
@@ -17,31 +17,42 @@
 - [テスト済み環境](#テスト済み環境)
 - [クイックスタート](#クイックスタート)
   - [インストール](#インストール)
-  - [Dify への接続](#dify-への接続)
+  - [認証](#認証)
   - [アプリの管理](#アプリの管理)
+  - [ナレッジの管理](#ナレッジの管理)
   - [メンバの管理](#メンバの管理)
   - [モデルの管理](#モデルの管理)
   - [コミュニティ版のインスタンスの初期設定](#コミュニティ版のインスタンスの初期設定)
 
 ## 概要
 
-[Dify](https://github.com/langgenius/dify) の、主に管理系操作をコマンドラインから行えるようにすることを目指した PowerShell モジュールです。
+[Dify](https://github.com/langgenius/dify) のワークスペース管理をコマンドラインから行えるようにすることを目指した PowerShell モジュールです。
 
 例として、次のような操作を行えます。
 
 - ✨ **アプリのエクスポートとインポート**
+- ✨ **ナレッジの作成とファイルのアップロード**
 - ✨ **メンバの取得、招待、削除、ロール変更**
 - ✨ **モデルの追加、システムモデルの変更**
 - ✨ **コミュニティ版のインスタンスの初期設定**
+- ✨ **アプリへのチャットの送信**
+
+完全な一覧は [📚ドキュメント](./Docs/README.ja.md) を参照してください。
 
 ## テスト済み環境
 
-- Windows PowerShell (PowerShell 5.1)
-- PowerShell 7.4
+| バージョン | Dify<br>(Community) | Dify<br>(Cloud) |
+| :---: | :---: | :---: |
+| 0.12.1 | ✅ PSDify 0.0.1 | ✅ PSDify 0.0.1 |
+| 0.11.2 | ✅ PSDify 0.0.1 | ✅ PSDify 0.0.1 |
+
+> [!NOTE]
+> Windows PowerShell (PowerShell 5.1) と PowerShell 7.4 で動作を確認しています。
+> Dify Enterprise Edition（マルチワークスペース環境）はサポートしていません。
 
 ## クイックスタート
 
-利用できるコマンドレットの完全な一覧は [📚ドキュメント](./Docs/README.ja.md) を参照してください。
+利用できるコマンドレットの完全な一覧と、より詳しい使い方は [📚ドキュメント](./Docs/README.ja.md) を参照してください。
 
 ### インストール
 
@@ -49,14 +60,14 @@
 Install-Module -Name PSDify
 ```
 
-### Dify への接続
+### 認証
 
 ```powershell
-# パスワードによる認証（コミュニティ版向け）
-Connect-Dify -AuthMethod "Password" -Server "https://dify.example.com" -Email "dify@example.com"
-
 # メールによる認証（クラウド版向け）
-Connect-Dify -AuthMethod "Code" -Server "https://dify.example.com" -Email "dify@example.com"
+Connect-Dify -AuthMethod "Code" -Email "dify@example.com"
+
+# パスワードによる認証（コミュニティ版向け）
+Connect-Dify -Server "https://dify.example.com" -Email "dify@example.com"
 ```
 
 ### アプリの管理
@@ -70,6 +81,23 @@ Get-DifyApp | Export-DifyApp
 
 # アプリのインポート
 Get-Item -Path "DSLs/*.yml" | Import-DifyApp
+```
+
+### ナレッジの管理
+
+```powershell
+# ナレッジの取得
+Get-DifyKnowledge
+
+# ナレッジの作成
+New-DifyKnowledge -Name "My New Knowledge"
+
+# ナレッジへのファイルのアップロード
+$Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
+Get-Item -Path "Docs/*.md" | Add-DifyDocument -Knowledge $Knowledge
+
+# アップロード後、インデキシングの完了を待つ
+Get-Item -Path "Docs/*.md" | Add-DifyDocument -Knowledge $Knowledge -Wait
 ```
 
 ### メンバの管理

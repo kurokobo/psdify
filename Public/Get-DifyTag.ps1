@@ -6,13 +6,16 @@ function Get-DifyTag {
         [String] $Type = ""
     )
 
-    $Query = @{}
-    if ($Type) {
-        $Query.type = $Type
+    $ValidTypes = @("knowledge", "app")
+    if (-not $Type) {
+        throw "Type is required. Must be one of: $($ValidTypes -join ', ')"
     }
 
     $Endpoint = "$($env:PSDIFY_URL)/console/api/tags"
     $Method = "GET"
+    $Query = @{
+        "type" = $Type
+    }
     $Tags = @()
     try {
         $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Query $Query -Token $env:PSDIFY_CONSOLE_TOKEN

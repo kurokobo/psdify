@@ -3,6 +3,7 @@ function Get-DifyApp {
     param(
         [String] $Id = "",
         [String] $Name = "",
+        [String] $Search = "",
         [String] $Mode = "",
         [String[]] $Tags = @()
     )
@@ -16,8 +17,8 @@ function Get-DifyApp {
         "page"  = 1
         "limit" = 100
     }
-    if ($Name) {
-        $Query.name = $Name
+    if ($Search) {
+        $Query.name = $Search
     }
     if ($Mode) {
         $Query.mode = $Mode
@@ -73,6 +74,10 @@ function Get-DifyApp {
 
         $HasMore = $Response.has_more
         $Query.page++
+    }
+
+    if ($Name) {
+        $Apps = $Apps | Where-Object { $_.Name -eq $Name }
     }
 
     return $Apps

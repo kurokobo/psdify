@@ -107,7 +107,7 @@ function Connect-Dify {
             }
 
             # Login to Dify
-            $Endpoint = "$($env:PSDIFY_URL)/console/api/email-code-login/validity"
+            $Endpoint = "$($Server)/console/api/email-code-login/validity"
             $Method = "POST"
             $Body = @{
                 "email" = $Email
