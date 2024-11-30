@@ -7,8 +7,13 @@ function Invoke-DifyRestMethod {
         [Object] $Body = $null,
         [Hashtable] $Query = $null,
         [String] $Token = $null,
-        [Microsoft.PowerShell.Commands.WebRequestSession] $Session = $null
+        [Microsoft.PowerShell.Commands.WebRequestSession] $Session = $null,
+        [String] $InFile = $null
     )
+
+    if ($Uri -notmatch "^https?://") {
+        throw "No Uri provided. Ensure you have connected to Dify by running Connect-Dify first."
+    }
 
     $Headers = @{}
     if ($Token) {
@@ -20,28 +25,49 @@ function Invoke-DifyRestMethod {
         $Uri = $Uri + "?" + (($Query.GetEnumerator() | ForEach-Object { "$($_.Key)=$($_.Value)" }) -join "&")
     }
 
-    try {
-        Write-Verbose "request: $Method $Uri"
-        if (@("POST", "PUT", "PATCH") -notcontains $Method) {
-            if ($Session) {
-                return Invoke-RestMethod -Uri "$Uri" -Method $Method -ContentType $ContentType -Headers $Headers -WebSession $Session -ErrorAction Stop
-            }
-            else {
-                return Invoke-RestMethod -Uri "$Uri" -Method $Method -ContentType $ContentType -Headers $Headers -ErrorAction Stop
-            }
+    $RestMethodParams = @{
+        Uri         = $Uri
+        Method      = $Method
+        ContentType = $ContentType
+        Headers     = $Headers
+        ErrorAction = 'Stop'
+    }
+    if ($Session) {
+        $RestMethodParams.WebSession = $Session
+    }
+    if (@("POST", "PUT", "PATCH") -contains $Method) {
+        if ($Body) {
+            $RestMethodParams.Body = $Body
+        }
+        if ($InFile) {
+            $RestMethodParams.InFile = $InFile
+        }
+    }
+
+    if ($env:PSDIFY_DISABLE_SSL_VERIFICATION -eq "true") {
+        if ($PSVersionTable.PSVersion.Major -ge 6) {
+            Write-Verbose "Disabling SSL certificate check for PowerShell 6 or higher"
+            $RestMethodParams.SkipCertificateCheck = $true
         }
         else {
-            if ($Session) {
-                return Invoke-RestMethod -Uri "$Uri" -Method $Method -ContentType $ContentType -Headers $Headers -Body $Body -WebSession $Session -ErrorAction Stop
+            Write-Verbose "Disabling SSL certificate check for PowerShell 5 or lower"
+            $DefaultCertPolicy = [System.Net.ServicePointManager]::CertificatePolicy
+            if (-not ([System.Management.Automation.PSTypeName]'PSDifyTrustAllCertsPolicy').Type) {
+                Add-Type -TypeDefinition "using System.Net; using System.Security.Cryptography.X509Certificates; public class PSDifyTrustAllCertsPolicy : ICertificatePolicy { public bool CheckValidationResult(ServicePoint srvPoint, X509Certificate certificate, WebRequest request, int certificateProblem) { return true; } }"
             }
-            else {
-                return Invoke-RestMethod -Uri "$Uri" -Method $Method -ContentType $ContentType -Headers $Headers -Body $Body -ErrorAction Stop
-            }
+            [System.Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName PSDifyTrustAllCertsPolicy
         }
+    }
 
+    try {
+        Write-Verbose "request: $Method $Uri"
+        return Invoke-RestMethod @RestMethodParams
     }
     catch {
-        if ($PSVersionTable.PSVersion.Major -lt 6) {
+        if ($PSVersionTable.PSVersion.Major -ge 6) {
+            throw $_.ErrorDetails.Message
+        }
+        else {
             if ($_.Exception.Response) {
                 $StreamReader = New-Object System.IO.StreamReader($_.Exception.Response.GetResponseStream())
                 $StreamReader.BaseStream.Position = 0
@@ -53,8 +79,14 @@ function Invoke-DifyRestMethod {
                 throw $_.Exception.Message
             }
         }
-        else {
-            throw $_.ErrorDetails.Message
+    }
+    finally {
+        if ($InFile) {
+            Remove-Item $InFile -Force -ErrorAction SilentlyContinue
+        }
+        if ($env:PSDIFY_DISABLE_SSL_VERIFICATION -eq "true" -and $PSVersionTable.PSVersion.Major -le 5) {
+            Write-Verbose "Enabling SSL certificate check for PowerShell 5 or lower"
+            [System.Net.ServicePointManager]::CertificatePolicy = $DefaultCertPolicy
         }
     }
 }

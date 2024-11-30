@@ -46,6 +46,9 @@ function Initialize-Dify {
     }  
     if ($SetUpStatus -eq "not_started" -and $InitStatus -eq "not_started") {
         Write-Verbose "stage to validate init password"
+        if ($env:PSDIFY_INIT_PASSWORD) {
+            $InitPassword = ConvertTo-SecureString -String $env:PSDIFY_INIT_PASSWORD -AsPlainText -Force
+        }
         if (-not $InitPassword) {
             $InitPassword = Read-Host -Prompt "Enter init password for $Server" -AsSecureString
         }

@@ -1,4 +1,5 @@
-# PSDify: A PowerShell Module for Administrative Operations for Dify
+<!-- omit in toc -->
+# PSDify: A PowerShell Module for Workspace Management for Dify
 
 [🇺🇸 **English**](./README.md) [🇯🇵 **日本語**](./README.ja.md)
 
@@ -9,21 +10,44 @@
 > - 🚨 The **Enterprise Edition** of Dify (multi-workspace environments) is **not supported**.
 > - 🚨 Currently, the focus is on "**making it work**." This means **error handling and documentation are incomplete**, and it does not strictly follow PowerShell best practices.
 
+<!-- omit in toc -->
+## Table of Contents
+
+- [Overview](#overview)
+- [Tested Environments](#tested-environments)
+- [Quick Start](#quick-start)
+  - [Installation](#installation)
+  - [Connecting to Dify](#connecting-to-dify)
+  - [Managing Apps](#managing-apps)
+  - [Managing Knowledge](#managing-knowledge)
+  - [Managing Members](#managing-members)
+  - [Managing Models](#managing-models)
+  - [Initializing a Community Edition Instance](#initializing-a-community-edition-instance)
+
 ## Overview
 
-PSDify is a PowerShell module designed to enable administrative operations for [Dify](https://github.com/langgenius/dify) from the command line.
+PSDify is a PowerShell module designed to enable workspace management for [Dify](https://github.com/langgenius/dify) from the command line.
 
 Here are some examples of what you can do with PSDify:
 
 - ✨ **Export and import apps**
+- ✨ **Create knowledge and upload files**
 - ✨ **Manage members: retrieve, invite, remove, and change roles**
 - ✨ **Add models and update system models**
 - ✨ **Initialize instances for the Community Edition**
 
+For a full list of available cmdlets, refer to the [📚Documentation](./Docs/README.md).
+
 ## Tested Environments
 
-- Windows PowerShell (PowerShell 5.1)
-- PowerShell 7.4
+| Version | Dify<br>(Community) | Dify<br>(Cloud) |
+| :---: | :---: | :---: |
+| 0.12.1 | ✅ PSDify 0.0.1 | ✅ PSDify 0.0.1 |
+| 0.11.2 | ✅ PSDify 0.0.1 | ✅ PSDify 0.0.1 |
+
+> [!NOTE]
+> This module has been tested with Windows PowerShell (PowerShell 5.1) and PowerShell 7.4.
+> The Enterprise Edition of Dify (multi-workspace environments) is not supported.
 
 ## Quick Start
 
@@ -56,6 +80,23 @@ Get-DifyApp | Export-DifyApp
 
 # Import apps
 Get-Item -Path "DSLs/*.yml" | Import-DifyApp
+```
+
+### Managing Knowledge
+
+```powershell
+# Retrieve knowledge
+Get-DifyKnowledge
+
+# Create knowledge
+New-DifyKnowledge -Name "My New Knowledge"
+
+# Upload files to knowledge
+$Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
+Get-Item -Path "Docs/*.md" | Add-DifyDocument -Knowledge $Knowledge
+
+# Wait for indexing to complete after uploading
+Get-Item -Path "Docs/*.md" | Add-DifyDocument -Knowledge $Knowledge -Wait
 ```
 
 ### Managing Members

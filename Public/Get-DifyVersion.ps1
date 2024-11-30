@@ -16,6 +16,7 @@ function Get-DifyVersion {
 
     $Version = $Response.version
     return [PSCustomObject]@{
+        "Server"  = $env:PSDIFY_URL
         "Version" = $Version
     }
 }

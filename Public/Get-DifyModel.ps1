@@ -15,7 +15,7 @@ function Get-DifyModel {
             }
         }
     }
-    $ValidTypes = @("llm", "text-embedding", "speech2text", "moderation", "tts")
+    $ValidTypes = @("llm", "text-embedding", "speech2text", "moderation", "tts", "rerank")
     if ($Type) {
         foreach ($TypeObj in $Type) {
             if ($TypeObj -notin $ValidTypes) {

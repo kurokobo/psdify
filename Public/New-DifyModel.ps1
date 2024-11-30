@@ -1,5 +1,4 @@
 function New-DifyModel {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUsePSCredentialType')]
     [CmdletBinding()]
     param(
         [String] $Provider,
@@ -31,7 +30,7 @@ function New-DifyModel {
                     "enabled" = $false
                     "configs" = @()
                 }
-            } | ConvertTo-Json
+            } | ConvertTo-Json -Depth 10
             try {
                 $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
             }
@@ -68,7 +67,7 @@ function New-DifyModel {
                     "enabled" = $false
                     "configs" = @()
                 }
-            } | ConvertTo-Json
+            } | ConvertTo-Json -Depth 10
             try {
                 $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
             }
