@@ -10,6 +10,8 @@
 > - 🚨 The **Enterprise Edition** of Dify (multi-workspace environments) is **not supported**.
 > - 🚨 Currently, the focus is on "**making it work**." This means **error handling and documentation are incomplete**, and it does not strictly follow PowerShell best practices.
 
+![image](https://github.com/user-attachments/assets/fd7a22ea-4ed6-46c3-a2dc-4027c2650f5e)
+
 <!-- omit in toc -->
 ## Table of Contents
 
