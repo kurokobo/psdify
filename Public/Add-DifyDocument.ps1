@@ -76,7 +76,7 @@ function Add-DifyDocument {
         $UploadedFileIds = $UploadedFiles | Select-Object -ExpandProperty Id
 
         # add document
-        $Endpoint = "$($env:PSDIFY_URL)/console/api/datasets/$($Knowledge.Id)/documents"
+        $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/datasets", $Knowledge.Id, "/documents")
         $Method = "POST"
         $Body = @{"data_source"        = @{ 
                 "type"      = "upload_file"

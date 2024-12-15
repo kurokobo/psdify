@@ -2,7 +2,7 @@ function Get-DifyVersion {
     [CmdletBinding()]
     param()
 
-    $Endpoint = "$($env:PSDIFY_URL)/console/api/version"
+    $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/version")
     $Method = "GET"
     $Query = @{
         "current_version" = ""

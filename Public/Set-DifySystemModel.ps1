@@ -48,7 +48,7 @@ function Set-DifySystemModel {
             )
         }
 
-        $Endpoint = "$($env:PSDIFY_URL)/console/api/workspaces/current/default-model"
+        $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/default-model")
         $Method = "POST"
         $Body = @{
             "model_settings" = @($Models)

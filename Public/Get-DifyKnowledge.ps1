@@ -21,7 +21,7 @@ function Get-DifyKnowledge {
 
     $Members = Get-DifyMember
 
-    $Endpoint = "$($env:PSDIFY_URL)/console/api/datasets"
+    $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/datasets")
     $Method = "GET"
     $Knowledges = @()
     $HasMore = $true

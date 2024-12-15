@@ -9,7 +9,7 @@ function New-DifyKnowledge {
         throw "Name is required"
     }
 
-    $Endpoint = "$($env:PSDIFY_URL)/console/api/datasets"
+    $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/datasets")
     $Method = "POST"
     $Body = @{
         "name"        = $Name

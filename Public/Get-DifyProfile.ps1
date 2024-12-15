@@ -2,7 +2,7 @@ function Get-DifyProfile {
     [CmdletBinding()]
     param()
 
-    $Endpoint = "$($env:PSDIFY_URL)/console/api/account/profile"
+    $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/account/profile")
     $Method = "GET"
     
     try {

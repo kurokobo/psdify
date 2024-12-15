@@ -30,8 +30,8 @@ function Initialize-Dify {
     }
 
     # Gather installation status
-    $SetUpEndpoint = "$($Server)/console/api/setup"
-    $InitEndpoint = "$($Server)/console/api/init"
+    $SetUpEndpoint = Join-Url -Segments @($Server, "/console/api/setup")
+    $InitEndpoint = Join-Url -Segments @($Server, "/console/api/init")
     $Method = "GET"
     $Session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
 
@@ -54,7 +54,7 @@ function Initialize-Dify {
         }
         $PlainInitPassword = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($InitPassword))
 
-        $Endpoint = "$($Server)/console/api/init"
+        $Endpoint = Join-Url -Segments @($Server, "/console/api/init")
         $Method = "POST"
         $Body = @{
             "password" = $PlainInitPassword
@@ -91,7 +91,7 @@ function Initialize-Dify {
         }
         $PlainPassword = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password))
 
-        $Endpoint = "$($Server)/console/api/setup"
+        $Endpoint = Join-Url -Segments @($Server, "/console/api/setup")
         $Method = "POST"
         $Body = @{
             "email"    = $Email

@@ -47,7 +47,7 @@ function Connect-Dify {
             $PlainPassword = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password))
 
             # Login to Dify
-            $Endpoint = "$($Server)/console/api/login"
+            $Endpoint = Join-Url -Segments @($Server, "/console/api/login")
             $Method = "POST"
             $Body = @{
                 "email"       = $Email
@@ -81,7 +81,7 @@ function Connect-Dify {
             
             if (-not $Token) {
                 # Request the code to Dify
-                $Endpoint = "$($Server)/console/api/email-code-login"
+                $Endpoint = Join-Url -Segments @($Server, "/console/api/email-code-login")
                 $Method = "POST"
                 $Body = @{
                     "email"    = $Email
@@ -107,7 +107,7 @@ function Connect-Dify {
             }
 
             # Login to Dify
-            $Endpoint = "$($Server)/console/api/email-code-login/validity"
+            $Endpoint = Join-Url -Segments @($Server, "/console/api/email-code-login/validity")
             $Method = "POST"
             $Body = @{
                 "email" = $Email

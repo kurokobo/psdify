@@ -11,7 +11,7 @@ function New-DifyMember {
         throw "Invalid value for Role. Must be one of: $($ValidRoles -join ', ')"
     }
 
-    $Endpoint = "$($env:PSDIFY_URL)/console/api/workspaces/current/members/invite-email"
+    $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/members/invite-email")
     $Method = "POST"
     $Body = @{
         "emails"   = @($Email)

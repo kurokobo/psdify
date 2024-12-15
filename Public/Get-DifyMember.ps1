@@ -6,7 +6,7 @@ function Get-DifyMember {
         [String[]] $Email = @()
     )
 
-    $Endpoint = "$($env:PSDIFY_URL)/console/api/workspaces/current/members"
+    $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/members")
     $Method = "GET"
     
     try {

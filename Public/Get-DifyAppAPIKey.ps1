@@ -10,7 +10,7 @@ function Get-DifyAppAPIKey {
             throw "App is required"
         }
 
-        $Endpoint = "$($env:PSDIFY_URL)/console/api/apps/$($App.Id)/api-keys"
+        $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/apps", $App.Id, "/api-keys")
         $Method = "GET"
         try {
             $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
