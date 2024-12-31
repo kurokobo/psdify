@@ -2,8 +2,9 @@ function Import-DifyApp {
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipeline = $true)]
-        [PSCustomObject[]] $Item = @(),
-        [String[]] $Path = @()
+        [object] $Item,
+        [String[]] $Path = @(),
+        [switch] $Content
     )
 
     begin {
@@ -11,14 +12,24 @@ function Import-DifyApp {
     }
 
     process {
-        foreach ($ItemObject in $Item) {
-            $Files += $ItemObject
+        if ($Content) {
+            $Files = @(
+                [PSCustomObject]@{
+                    FullName = "Inline Content" 
+                    Content  = $Item
+                }
+            )
+        }
+        else {
+            foreach ($ItemObject in $Item) {
+                $Files += $ItemObject
+            }
         }
     }
 
     end {
-        if (-not $Files -and -not $Path) {
-            throw "Path is required"
+        if (-not $Files -and -not $Path -and -not $RawContent) {
+            throw "Path or Content is required"
         }
         if ($Path) {
             $Files += Get-ChildItem -Path $Path
@@ -30,8 +41,12 @@ function Import-DifyApp {
         foreach ($File in $Files) {
             Write-Verbose "importing app from file: $($File.FullName)"
             $UTF8NoBOM = New-Object "System.Text.UTF8Encoding" -ArgumentList @($false)
-            $RawContent = [System.IO.File]::ReadAllText($File.FullName, $UTF8NoBOM)
-
+            if ($Content) {
+                $RawContent = $File.Content
+            }
+            else {
+                $RawContent = [System.IO.File]::ReadAllText($File.FullName, $UTF8NoBOM)
+            }
             if ([System.Version]$env:PSDIFY_VERSION -lt [System.Version]"0.12.0") {
                 $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/apps/import")
                 $Method = "POST"
@@ -80,7 +95,7 @@ function Import-DifyApp {
                     throw "Failed to import apps: $_"
                 }
 
-                if ($Response.status -ne "completed") {
+                if (@("completed", "completed-with-warnings") -notcontains $Response.status) {
                     throw "Failed to import apps: $($Response | ConvertTo-Json -Depth 100 -Compress)"
                 }
 
