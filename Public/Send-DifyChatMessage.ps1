@@ -28,7 +28,7 @@ function Send-DifyChatMessage {
     Write-Host -ForegroundColor Yellow $Message
     Write-Host ""
 
-    $Endpoint = "$($env:PSDIFY_APP_URL)/v1/chat-messages"
+    $Endpoint = Join-Url -Segments @($env:PSDIFY_APP_URL, "/v1/chat-messages")
     $Method = "POST"
     $Body = @{
         "inputs"          = $Inputs
