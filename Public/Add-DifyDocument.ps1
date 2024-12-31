@@ -52,9 +52,6 @@ function Add-DifyDocument {
         }
 
         # not implemented
-        if ($ChunkMode -eq "custom") {
-            throw "ChunkMode: custom is not implemented"
-        }
         if ($RetrievalMode -eq "full_text_search") {
             throw "RetrievalMode: full_text_search is not implemented"
         }
@@ -75,26 +72,54 @@ function Add-DifyDocument {
         $UploadedFiles = Add-DifyFile -Path $Files -Source "datasets"
         $UploadedFileIds = $UploadedFiles | Select-Object -ExpandProperty Id
 
+        # rules
+        $Rules = @{}
+        switch ($ChunkMode) {
+            "automatic" {
+                $Rules = @{}
+            }
+            "custom" {
+                $Rules = @{
+                    "pre_processing_rules" = @(
+                        @{
+                            "id"      = "remove_extra_spaces"
+                            "enabled" = $true
+                        },
+                        @{
+                            "id"      = "remove_urls_emails"
+                            "enabled" = $false
+                        }
+                    )
+                    "segmentation"         = @{
+                        "separator"     = "\n\n"
+                        "max_tokens"    = 500
+                        "chunk_overlap" = 50
+                    }
+                }
+            }
+        }
+
         # add document
         $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/datasets", $Knowledge.Id, "/documents")
         $Method = "POST"
-        $Body = @{"data_source"        = @{ 
+        $Body = @{
+            "data_source"              = @{
                 "type"      = "upload_file"
                 "info_list" = @{ 
                     "data_source_type" = "upload_file"
-                    "file_info_list"   = @{ 
+                    "file_info_list"   = @{
                         "file_ids" = @($UploadedFileIds)
                     } 
                 } 
             }
             "indexing_technique"       = $IndexMode
-            "process_rule"             = @{ 
-                "rules" = @{}
+            "process_rule"             = @{
                 "mode"  = $ChunkMode
+                "rules" = $Rules
             }
             "doc_form"                 = "text_model"
             "doc_language"             = "English"
-            "retrieval_model"          = @{ 
+            "retrieval_model"          = @{
                 "search_method"           = $RetrievalMode
                 "reranking_enable"        = $false
                 "reranking_mode"          = $null
