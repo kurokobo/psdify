@@ -23,6 +23,7 @@ function Wait-Dify {
             }
         }
         catch {
+            Write-Verbose "Waiting for Dify to be ready: $_"
             Start-Sleep -Seconds $Interval
             $Now = Get-Date
         }
