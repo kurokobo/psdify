@@ -11,7 +11,7 @@ function Get-DifyTag {
         throw "Type is required. Must be one of: $($ValidTypes -join ', ')"
     }
 
-    $Endpoint = "$($env:PSDIFY_URL)/console/api/tags"
+    $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/tags")
     $Method = "GET"
     $Query = @{
         "type" = $Type

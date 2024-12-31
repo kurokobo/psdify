@@ -17,7 +17,7 @@ function Remove-DifyKnowledge {
 
     end {
         foreach ($Knowledge in $Knowledges) {
-            $Endpoint = "$($env:PSDIFY_URL)/console/api/datasets/$($Knowledge.Id)"
+            $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/datasets", $Knowledge.Id)
             $Method = "DELETE"
             if ($PSCmdlet.ShouldProcess("$($Knowledge.Name) ($($Knowledge.Id))", "Remove Knowledge")) {
                 try {

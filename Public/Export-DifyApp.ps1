@@ -27,7 +27,7 @@ function Export-DifyApp {
             $Apps = Get-DifyApp
         }
         foreach ($AppObject in $Apps) {
-            $Endpoint = "$($env:PSDIFY_URL)/console/api/apps/$($AppObject.Id)/export"
+            $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/apps", $AppObject.Id, "/export")
             $Method = "GET"
             $Query = @{
                 "include_secret" = $IncludeSecret

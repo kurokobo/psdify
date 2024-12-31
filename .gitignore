@@ -2,3 +2,5 @@ Dist/
 Demo/
 Logs/
 DSLs/
+Tests/Temp/
+Tests/.env.ps1

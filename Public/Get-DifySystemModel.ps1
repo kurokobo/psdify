@@ -18,7 +18,7 @@ function Get-DifySystemModel {
 
     $Models = @()
     foreach ($TypeObj in $Type) {
-        $Endpoint = "$($env:PSDIFY_URL)/console/api/workspaces/current/default-model"
+        $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/default-model")
         $Method = "GET"
         $Query = @{
             "model_type" = $TypeObj

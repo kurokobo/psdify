@@ -35,6 +35,7 @@ PSDify には次のコマンドレットが含まれます。
 | タグの管理 | [Get-DifyKnowledgeTag](#get-difyknowledgetag) | ナレッジ用のタグの情報を取得します。 |
 | 情報取得 | [Get-DifyVersion](#get-difyversion) | Dify のバージョン情報を取得します。 |
 | 情報取得 | [Get-DifyProfile](#get-difyprofile) | 認証したアカウントの情報を取得します。 |
+| インスタンスの初期設定 | [Wait-Dify](#wait-dify) | Dify の起動完了を待ちます。 |
 | インスタンスの初期設定 | [Initialize-Dify](#initialize-dify) | 管理者アカウントを作成します（コミュニティ版のみ）。 |
 | その他 | [Set-PSDifyConfiguration](#set-psdifyconfiguration) | HTTPS 接続時の証明書の検証を無効化できます。 |
 | その他 | [Add-DifyFile](#add-difyfile) | ファイルをアップロードします。 |
@@ -55,6 +56,8 @@ Dify にパスワード認証またはメール認証によるログイン処理
 > $env:PSDIFY_CONSOLE_TOKEN = "..."
 > $env:PSDIFY_CONSOLE_REFRESH_TOKEN = "..."
 > ```
+>
+> この環境変数が既に存在していて、かつその値（トークン）が有効な場合は、`-Force` オプションが指定されていない限り、再認証は行われません。
 
 #### メールによる認証（クラウド版向け）
 
@@ -174,6 +177,9 @@ Get-Item -Path "DSLs/*.yml" | Import-DifyApp
 # アプリのインポート（Get-ChildItem で取得した結果で指定）
 $DSLFiles = Get-ChildItem -Path "DSLs/*.yml"
 Import-DifyApp -Item $DSLFiles
+
+# アプリのインポート（DSL ファイルの中身を直接パイプで指定）
+Get-DifyDSLContent -Path "DSLs/demo.yml" | Import-DifyApp -Content
 ```
 
 ### Export-DifyApp
@@ -197,9 +203,9 @@ Get-DifyApp | Export-DifyApp -IncludeSecret
 
 ### Get-DifyDSLContent / Set-DifyDSLContent
 
-DSL ファイルの内容を文字列として取得したり、文字列を DSL ファイルとして書き込んだりします。
+DSL ファイルの内容を文字列として取得したり、文字列を DSL ファイルとして書き込んだりします。DSL ファイルを一貫して BOM なしの UTF-8 で扱うために用意しています。
 
-既存の DSL ファイルの一部を書き換えて別のファイルとして保存する場合などに便利です。DSL ファイルを一貫して BOM なしの UTF-8 で扱うために用意しています。
+既存の DSL ファイルの一部を書き換えて別のファイルとして保存する場合や、`Import-DifyApp -Content` にそのままパイプしてインポートする場合に利用できます。
 
 ```powershell
 # DSL ファイルの内容の取得
@@ -207,6 +213,9 @@ $RawContent = Get-DifyDSLContent -Path "DSLs/old.yml"
 
 # DSL ファイル中の古いナレッジの ID を新しいナレッジ ID に書き換えて別の DSL ファイルとして保存
 $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35-b296-09231b859667" | Set-DifyDSLContent -Path "DSLs/new.yml"
+
+# DSL ファイル中の古いナレッジの ID を新しいナレッジ ID に書き換えて新しいアプリとしてインポート
+$RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35-b296-09231b859667" | Import-DifyApp -Content
 ```
 
 ### Get-DifyAppAPIKey
@@ -333,6 +342,10 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md"
 # ドキュメントのアップロード（Get-Item や Get-ChildItem からパイプで指定）
 Get-Item -Path "Docs/*.md" | Add-DifyDocument -Knowledge $Knowledge
 
+# ドキュメントのアップロード（チャンク設定を指定）
+## チャンク設定： "automatic", "custom"
+Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -ChunkMode "custom"
+
 # ドキュメントのアップロード（任意のモデルを利用）
 $EmbeddingModel = Get-DifyModel -Provider "openai" -Name "text-embedding-3-small"
 Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -IndexMode "high_quality" -Model $EmbeddingModel
@@ -345,6 +358,19 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait
 
 # 待つ時間を変更
 Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Timeout 600
+```
+
+### Remove-DifyDocument
+
+ドキュメントを削除します。
+
+```powershell
+# ドキュメントの削除（Get-DifyDocument から直接パイプで指定）
+Get-DifyKnowledge -Name "..." | Get-DifyDocument | Remove-DifyDocument
+
+# ドキュメントの削除（Get-DifyDocument で取得した結果で指定）
+$DocumentsToBeRemoved = Get-DifyKnowledge -Name "..." | Get-DifyDocument
+Remove-DifyDocument -Document $DocumentsToBeRemoved
 ```
 
 ## ✨ メンバの管理
@@ -464,6 +490,19 @@ New-DifyModel -Provider "cohere" -From "customizable" `
   }
 ```
 
+### Remove-DifyModel
+
+ワークスペースからモデルを削除します。
+
+```powershell
+# モデルの削除（Get-DifyModel から直接パイプで指定）
+Get-DifyModel -Name "..." | Remove-DifyModel
+
+# モデルの削除（Get-DifyModel で取得した結果で指定）
+$ModelsToBeRemoved = Get-DifyModel -Name "..."
+Remove-DifyModel -Model $ModelsToBeRemoved
+```
+
 ### Get-DifySystemModel
 
 ワークスペースのシステムモデルの情報を取得します。
@@ -562,6 +601,18 @@ Get-DifyProfile
 ```
 
 ## ✨ インスタンスの初期設定
+
+### Wait-Dify
+
+Dify の起動完了を待ちます。`docker compose up -d` を実行したあとに使うと便利です。
+
+```powershell
+# Dify の起動完了を待つ
+Wait-Dify -Server "https://dify.example.com"
+
+# Dify の起動完了を待つ（確認間隔やタイムアウトを指定）
+Wait-Dify -Server "https://dify.example.com" -Interval 5 -Timeout 300
+```
 
 ### Initialize-Dify
 

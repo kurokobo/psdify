@@ -1,14 +1,24 @@
 function Get-DifyVersion {
     [CmdletBinding()]
-    param()
+    param(
+        [String] $Server
+    )
 
-    $Endpoint = "$($env:PSDIFY_URL)/console/api/version"
+    # Validate parameter: Server
+    if ($env:PSDIFY_URL) {
+        $Server = $env:PSDIFY_URL
+    }
+    if (-not $Server) {
+        throw "Server URL is required"
+    }
+
+    $Endpoint = Join-Url -Segments @($Server, "/console/api/version")
     $Method = "GET"
     $Query = @{
         "current_version" = ""
     }
     try {
-        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Query $Query -Token $env:PSDIFY_CONSOLE_TOKEN
+        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Query $Query
     }
     catch {
         throw "Failed to obtain version: $_"
@@ -16,7 +26,7 @@ function Get-DifyVersion {
 
     $Version = $Response.version
     return [PSCustomObject]@{
-        "Server"  = $env:PSDIFY_URL
+        "Server"  = $Server
         "Version" = $Version
     }
 }

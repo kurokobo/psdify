@@ -26,7 +26,7 @@ function Get-DifyModel {
 
     $Models = @()
     if ($Provider) {
-        $Endpoint = "$($env:PSDIFY_URL)/console/api/workspaces/current/model-providers/$($Provider)/models"
+        $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/model-providers", $Provider, "/models")
         $Method = "GET"
         try {
             $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
@@ -51,7 +51,7 @@ function Get-DifyModel {
             $Type = $ValidTypes
         }
         foreach ($TypeObj in $Type) {
-            $Endpoint = "$($env:PSDIFY_URL)/console/api/workspaces/current/models/model-types/$TypeObj"
+            $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/models/model-types", $TypeObj)
             $Method = "GET"
             try {
                 $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN

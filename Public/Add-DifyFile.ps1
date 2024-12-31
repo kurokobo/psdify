@@ -43,7 +43,7 @@ function Add-DifyFile {
             $BinaryWriter.Write($UTF8NoBOM.GetBytes("`r`n--$($Boundary)--`r`n"))
             $BinaryWriter.Close()
 
-            $Endpoint = "$($env:PSDIFY_URL)/console/api/files/upload"
+            $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/files/upload")
             $ContentType = "multipart/form-data; boundary=$($Boundary)"
             $Method = "POST"
             if ($Source) {

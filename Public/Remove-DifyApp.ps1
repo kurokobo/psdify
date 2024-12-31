@@ -17,7 +17,7 @@ function Remove-DifyApp {
 
     end {
         foreach ($App in $Apps) {
-            $Endpoint = "$($env:PSDIFY_URL)/console/api/apps/$($App.Id)"
+            $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/apps", $App.Id)
             $Method = "DELETE"
             if ($PSCmdlet.ShouldProcess("$($App.Name) ($($App.Id))", "Remove App")) {
                 try {

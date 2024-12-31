@@ -35,7 +35,7 @@ function Invoke-DifyRestMethod {
     if ($Session) {
         $RestMethodParams.WebSession = $Session
     }
-    if (@("POST", "PUT", "PATCH") -contains $Method) {
+    if (@("POST", "PUT", "PATCH", "DELETE") -contains $Method) {
         if ($Body) {
             $RestMethodParams.Body = $Body
         }

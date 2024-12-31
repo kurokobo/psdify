@@ -21,7 +21,7 @@ function New-DifyModel {
             if (-not $Credential) {
                 throw "Credential is required when From is 'predefined'"
             }
-            $Endpoint = "$($env:PSDIFY_URL)/console/api/workspaces/current/model-providers/$($Provider)"
+            $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/model-providers", $Provider)
             $Method = "POST"
             $Body = @{
                 "config_from"    = "predefined-model"
@@ -57,7 +57,7 @@ function New-DifyModel {
             if (-not $Credential) {
                 throw "Credential is required when Type is 'Model'"
             }
-            $Endpoint = "$($env:PSDIFY_URL)/console/api/workspaces/current/model-providers/$($Provider)/models"
+            $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/model-providers", $Provider, "/models")
             $Method = "POST"
             $Body = @{
                 "model"          = $Name

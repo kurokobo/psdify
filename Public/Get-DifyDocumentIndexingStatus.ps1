@@ -38,7 +38,7 @@ function Get-DifyDocumentIndexingStatus {
         $WaitUntil = $Now.AddSeconds($Timeout)
 
         while ($Now -lt $WaitUntil) {
-            $Endpoint = "$($env:PSDIFY_URL)/console/api/datasets/$($Knowledge.Id)/batch/$Batch/indexing-status"
+            $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/datasets", $Knowledge.Id, "/batch", $Batch, "/indexing-status")
             $Method = "GET"
 
             try {

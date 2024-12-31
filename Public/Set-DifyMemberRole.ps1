@@ -24,7 +24,7 @@ function Set-DifyMemberRole {
             throw "Member is required"
         }
         foreach ($Member in $Members) {
-            $Endpoint = "$($env:PSDIFY_URL)/console/api/workspaces/current/members/$($Member.Id)/update-role"
+            $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/members", $Member.Id, "/update-role")
             $Method = "PUT"
             $Body = @{
                 "role" = $Role

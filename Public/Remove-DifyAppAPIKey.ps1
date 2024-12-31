@@ -17,7 +17,7 @@ function Remove-DifyAppAPIKey {
 
     end {
         foreach ($APIKey in $APIKeys) {
-            $Endpoint = "$($env:PSDIFY_URL)/console/api/apps/$($APIKey.AppId)/api-keys/$($APIKey.Id)"
+            $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/apps", $APIKey.AppId, "/api-keys", $APIKey.Id)
             $Method = "DELETE"
             if ($PSCmdlet.ShouldProcess("$($APIKey.Name) ($($APIKey.Id))", "Remove APIKey")) {
                 try {

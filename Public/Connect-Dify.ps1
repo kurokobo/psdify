@@ -6,8 +6,24 @@ function Connect-Dify {
         [String] $Email = "",
         [String] $Token = "",
         [String] $Code = "",
-        [SecureString] $Password = $null
+        [SecureString] $Password = $null,
+        [Switch] $Force
     )
+
+    # Validate existing tokens
+    if (-not $Force) {
+        try {
+            $DifyProfile = Get-DifyProfile
+            $DifyVersion = Get-DifyVersion
+            return [PSCustomObject]@{
+                "Server"  = $env:PSDIFY_URL
+                "Version" = $env:PSDIFY_VERSION
+                "Name"    = $DifyProfile.Name
+                "Email"   = $DifyProfile.Email
+            }
+        }
+        catch { }
+    }
 
     # Validate parameter: Server
     if ($env:PSDIFY_URL) {
@@ -16,7 +32,6 @@ function Connect-Dify {
     if (-not $Server) {
         throw "Server URL is required"
     }
-    $Server = $Server.TrimEnd("/")
 
     # Validate parameter: Auth
     if ($env:PSDIFY_AUTH_METHOD) {
@@ -47,7 +62,7 @@ function Connect-Dify {
             $PlainPassword = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password))
 
             # Login to Dify
-            $Endpoint = "$($Server)/console/api/login"
+            $Endpoint = Join-Url -Segments @($Server, "/console/api/login")
             $Method = "POST"
             $Body = @{
                 "email"       = $Email
@@ -81,7 +96,7 @@ function Connect-Dify {
             
             if (-not $Token) {
                 # Request the code to Dify
-                $Endpoint = "$($Server)/console/api/email-code-login"
+                $Endpoint = Join-Url -Segments @($Server, "/console/api/email-code-login")
                 $Method = "POST"
                 $Body = @{
                     "email"    = $Email
@@ -107,7 +122,7 @@ function Connect-Dify {
             }
 
             # Login to Dify
-            $Endpoint = "$($Server)/console/api/email-code-login/validity"
+            $Endpoint = Join-Url -Segments @($Server, "/console/api/email-code-login/validity")
             $Method = "POST"
             $Body = @{
                 "email" = $Email

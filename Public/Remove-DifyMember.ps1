@@ -17,7 +17,7 @@ function Remove-DifyMember {
 
     end {
         foreach ($Member in $Members) {
-            $Endpoint = "$($env:PSDIFY_URL)/console/api/workspaces/current/members/$($Member.Id)"
+            $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/members", $Member.Id)
             $Method = "DELETE"
             if ($PSCmdlet.ShouldProcess("$($Member.Name) ($($Member.Email) / $($Member.Id))", "Remove Member")) {
                 try {
