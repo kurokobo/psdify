@@ -6,8 +6,24 @@ function Connect-Dify {
         [String] $Email = "",
         [String] $Token = "",
         [String] $Code = "",
-        [SecureString] $Password = $null
+        [SecureString] $Password = $null,
+        [Switch] $Force
     )
+
+    # Validate existing tokens
+    if (-not $Force) {
+        try {
+            $DifyProfile = Get-DifyProfile
+            $DifyVersion = Get-DifyVersion
+            return [PSCustomObject]@{
+                "Server"  = $env:PSDIFY_URL
+                "Version" = $env:PSDIFY_VERSION
+                "Name"    = $DifyProfile.Name
+                "Email"   = $DifyProfile.Email
+            }
+        }
+        catch { }
+    }
 
     # Validate parameter: Server
     if ($env:PSDIFY_URL) {
@@ -16,7 +32,6 @@ function Connect-Dify {
     if (-not $Server) {
         throw "Server URL is required"
     }
-    $Server = $Server.TrimEnd("/")
 
     # Validate parameter: Auth
     if ($env:PSDIFY_AUTH_METHOD) {
