@@ -39,6 +39,7 @@
         'New-DifyModel',
         'Remove-DifyApp',
         'Remove-DifyAppAPIKey',
+        'Remove-DifyDocument',
         'Remove-DifyKnowledge',
         'Remove-DifyMember',
         'Remove-DifyModel',
