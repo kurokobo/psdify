@@ -35,6 +35,7 @@ Detailed help is not provided, so please refer to the examples on this page for 
 | Tag Management | [Get-DifyKnowledgeTag](#get-difyknowledgetag) | Retrieve tag information for knowledge. |
 | Information Retrieval | [Get-DifyVersion](#get-difyversion) | Retrieve Dify version information. |
 | Information Retrieval | [Get-DifyProfile](#get-difyprofile) | Retrieve authenticated account information. |
+| Instance Initialization | [Wait-Dify](#wait-dify) | Wait the Dify instance to be ready. |
 | Instance Initialization | [Initialize-Dify](#initialize-dify) | Create an admin account (Community Edition only). |
 | Miscellaneous | [Set-PSDifyConfiguration](#set-psdifyconfiguration) | Disables SSL certificate verification for HTTPS connections. |
 | Miscellaneous | [Add-DifyFile](#add-difyfile) | Upload files. |
@@ -55,6 +56,8 @@ Authenticate with Dify using password or email-based login, enabling operations 
 > $env:PSDIFY_CONSOLE_TOKEN = "..."
 > $env:PSDIFY_CONSOLE_REFRESH_TOKEN = "..."
 > ```
+>
+> If the environment variables are already set and the value (token) is valid, re-authentication will not be performed unless the `-Force` option is specified.
 
 #### Email Authentication (For Cloud Edition)
 
@@ -174,6 +177,9 @@ Get-Item -Path "DSLs/*.yml" | Import-DifyApp
 # Import apps (use result from Get-ChildItem)
 $DSLFiles = Get-ChildItem -Path "DSLs/*.yml"
 Import-DifyApp -Item $DSLFiles
+
+# Import an app (specify the content of the DSL file directly via pipe)
+Get-DifyDSLContent -Path "DSLs/demo.yml" | Import-DifyApp -Content
 ```
 
 ### Export-DifyApp
@@ -197,9 +203,9 @@ Get-DifyApp | Export-DifyApp -IncludeSecret
 
 ### Get-DifyDSLContent / Set-DifyDSLContent
 
-Retrieve content from DSL file as string and write content to DSL file.
+Retrieve content from DSL file as string and write content to DSL file. These are designed to handle DSL files consistently in UTF-8 without BOM.
 
-This is useful when you want to rewrite part of an existing DSL file and save it as another file. It is designed to handle DSL files consistently in UTF-8 without BOM.
+This is useful when you want to rewrite part of an existing DSL file and save it as another file, or when you want to import it directly by piping it to `Import-DifyApp -Content`.
 
 ```powershell
 # Retrieve content from DSL file
@@ -207,6 +213,9 @@ $RawContent = Get-DifyDSLContent -Path "DSLs/old.yml"
 
 # Rewrite the old knowledge ID in the DSL file to the new knowledge ID and save it as another DSL file
 $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35-b296-09231b859667" | Set-DifyDSLContent -Path "DSLs/new.yml"
+
+# Rewrite the old knowledge ID in the DSL file to the new knowledge ID and import it as a new app
+$RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35-b296-09231b859667" | Import-DifyApp -Content
 ```
 
 ### Get-DifyAppAPIKey
@@ -333,6 +342,10 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md"
 # Upload documents (specify from Get-Item or Get-ChildItem via pipe)
 Get-Item -Path "Docs/*.md" | Add-DifyDocument -Knowledge $Knowledge
 
+# Upload documents (specify chunk settings)
+## Chunk settings: "automatic", "custom"
+Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -ChunkMode "custom"
+
 # Upload documents (use any model)
 $EmbeddingModel = Get-DifyModel -Provider "openai" -Name "text-embedding-3-small"
 Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -IndexMode "high_quality" -Model $EmbeddingModel
@@ -345,6 +358,19 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait
 
 # Custom wait settings
 Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Timeout 600
+```
+
+## Remove-DifyDocument
+
+Delete documents.
+
+```powershell
+# Delete documents (specify directly from Get-DifyDocument)
+Get-DifyKnowledge -Name "..." | Get-DifyDocument | Remove-DifyDocument
+
+# Delete documents (use result from Get-DifyDocument)
+$DocumentsToBeRemoved = Get-DifyKnowledge -Name "..." | Get-DifyDocument
+Remove-DifyDocument -Document $DocumentsToBeRemoved
 ```
 
 ## ✨ Member Management
@@ -464,6 +490,19 @@ New-DifyModel -Provider "cohere" -From "customizable" `
   }
 ```
 
+### Remove-DifyModel
+
+Delete models.
+
+```powershell
+# Delete models (specify directly from Get-DifyModel)
+Get-DifyModel -Name "..." | Remove-DifyModel
+
+# Delete models (use result from Get-DifyModel)
+$ModelsToBeRemoved = Get-DifyModel -Name "..."
+Remove-DifyModel -Model $ModelsToBeRemoved
+```
+
 ### Get-DifySystemModel
 
 Retrieve system model information for the workspace.
@@ -562,6 +601,18 @@ Get-DifyProfile
 ```
 
 ## ✨ Instance Initialization
+
+## Wait-Dify
+
+Wait for the Dify instance to be ready. It is useful to use after executing `docker compose up -d`.
+
+```powershell
+# Wait for the Dify instance to be ready
+Wait-Dify -Server "https://dify.example.com"
+
+# Wait for the Dify instance to be ready (specify the interval and timeout)
+Wait-Dify -Server "https://dify.example.com" -Interval 5 -Timeout 300
+```
 
 ### Initialize-Dify
 
