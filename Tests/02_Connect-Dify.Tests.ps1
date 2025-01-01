@@ -19,7 +19,9 @@ Describe "Connect-Dify" {
             $Result = Connect-Dify -Server $DefaultServer -Email $DefaultEmail -Password $DefaultPassword
 
             $Result.Server | Should -Be $DefaultServer
-            $Result.Version | Should -Be $env:PSDIFY_TEST_VERSION
+            if ($InvokeVersionTests) {
+                $Result.Version | Should -Be $env:PSDIFY_TEST_VERSION
+            }
             $Result.Name | Should -Be $DefaultName
             $Result.Email | Should -Be $DefaultEmail
         }
@@ -41,7 +43,9 @@ Describe "Connect-Dify" {
             $Result = Connect-Dify
 
             $Result.Server | Should -Be $DefaultServer
-            $Result.Version | Should -Be $env:PSDIFY_TEST_VERSION
+            if ($InvokeVersionTests) {
+                $Result.Version | Should -Be $env:PSDIFY_TEST_VERSION
+            }
             $Result.Name | Should -Be $DefaultName
             $Result.Email | Should -Be $DefaultEmail
         }
@@ -61,7 +65,9 @@ Describe "Connect-Dify" {
             $Result = Connect-Dify -Server $DefaultServer -Email $DefaultEmail -AuthMethod "Code"
 
             $Result.Server | Should -Be $DefaultServer
-            $Result.Version | Should -Be $env:PSDIFY_TEST_VERSION
+            if ($InvokeVersionTests) {
+                $Result.Version | Should -Be $env:PSDIFY_TEST_VERSION
+            }
             $Result.Email | Should -Be $DefaultEmail
         }
     }

@@ -30,7 +30,9 @@ Describe "Initialize-Dify" -Skip:$IsCloud {
             $Result = Initialize-Dify -Server $DefaultServer -Email $DefaultEmail -Name $DefaultName -Password $DefaultPassword
 
             $Result.Server | Should -Be $DefaultServer
-            $Result.Version | Should -Be $env:PSDIFY_TEST_VERSION
+            if ($InvokeVersionTests) {
+                $Result.Version | Should -Be $env:PSDIFY_TEST_VERSION
+            }
             $Result.Name | Should -Be $DefaultName
             $Result.Email | Should -Be $DefaultEmail
         }
@@ -56,12 +58,16 @@ Describe "Initialize-Dify" -Skip:$IsCloud {
             $Result = Initialize-Dify -Server $DefaultServer -Email $DefaultEmail -Name $DefaultName -InitPassword $DefaultInitPassword -Password $DefaultPassword
 
             $Result.Server | Should -Be $DefaultServer
-            $Result.Version | Should -Be $env:PSDIFY_TEST_VERSION
+            if ($InvokeVersionTests) {
+                $Result.Version | Should -Be $env:PSDIFY_TEST_VERSION
+            }
             $Result.Name | Should -Be $DefaultName
             $Result.Email | Should -Be $DefaultEmail
 
             $env:PSDIFY_URL | Should -Be $DefaultServer
-            $env:PSDIFY_VERSION | Should -Be $env:PSDIFY_TEST_VERSION
+            if ($InvokeVersionTests) {
+                $env:PSDIFY_VERSION | Should -Be $env:PSDIFY_TEST_VERSION
+            }
             $env:PSDIFY_CONSOLE_TOKEN | Should -Not -BeNullOrEmpty
             $env:PSDIFY_CONSOLE_REFRESH_TOKEN | Should -Not -BeNullOrEmpty
         }

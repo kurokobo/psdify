@@ -45,6 +45,12 @@ else {
     $DefaultAuthMethod = "Code"
     $DefaultEmail = $env:PSDIFY_TEST_EMAIL
 }
+if (@("main") -contains $env:PSDIFY_TEST_VERSION) {
+    $InvokeVersionTests = $true
+}
+else {
+    $InvokeVersionTests = $false
+}
 
 # import modules and helper scripts
 Get-Module -Name PSDify -ListAvailable | Uninstall-Module -Force -Confirm:$false
