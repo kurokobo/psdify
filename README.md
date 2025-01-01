@@ -44,6 +44,7 @@ For a full list of available cmdlets, refer to the [📚Documentation](./Docs/RE
 
 | Version | Dify<br>(Community) | Dify<br>(Cloud) |
 | :---: | :---: | :---: |
+| 0.14.2 | ✅ PSDify 0.2.0 | ✅ PSDify 0.2.0 |
 | 0.12.1 | ✅ PSDify 0.1.0 | ✅ PSDify 0.1.0 |
 | 0.11.2 | ✅ PSDify 0.0.1 | ✅ PSDify 0.0.1 |
 

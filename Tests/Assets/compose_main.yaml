@@ -1,0 +1,9 @@
+services:
+  api:
+    image: langgenius/dify-api:main
+
+  worker:
+    image: langgenius/dify-api:main
+
+  web:
+    image: langgenius/dify-web:main
