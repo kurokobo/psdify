@@ -18,6 +18,11 @@ BeforeAll {
 Describe "Get-DifySystemModel" { 
     BeforeAll {
         Get-DifyModel | Remove-DifyModel -Confirm:$false
+        if ($env:PSDIFY_PLUGIN_SUPPORT -eq "true") {
+            if (-not (Get-DifyPlugin -Id "langgenius/openai")) {
+                Find-DifyPlugin -Id "langgenius/openai" | Install-DifyPlugin -Confirm:$false -Wait
+            }
+        }
         $Models = New-DifyModel -Provider "openai" -From "predefined" -Credential @{
             "openai_api_key" = $env:PSDIFY_TEST_OPENAI_KEY
         }

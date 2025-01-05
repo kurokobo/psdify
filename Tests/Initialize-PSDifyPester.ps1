@@ -45,11 +45,14 @@ else {
     $DefaultAuthMethod = "Code"
     $DefaultEmail = $env:PSDIFY_TEST_EMAIL
 }
-if (@("main") -contains $env:PSDIFY_TEST_VERSION) {
-    $InvokeVersionTests = $true
+if ($env:PSDIFY_TEST_OVERRIDE_DEFAULT_SERVER -eq "true") {
+    $DefaultServer = $env:PSDIFY_TEST_DEFAULT_SERVER
+}
+if (@("main", "plugin") -contains $env:PSDIFY_TEST_VERSION) {
+    $InvokeVersionTests = $false
 }
 else {
-    $InvokeVersionTests = $false
+    $InvokeVersionTests = $true
 }
 
 # import modules and helper scripts
@@ -64,8 +67,9 @@ Get-ChildItem -Path $HelperRoot -Filter "*.ps1" | ForEach-Object {
 
 # message for the test mode
 Write-Host "Running tests for:" -ForegroundColor Green
-Write-Host " Mode   : $env:PSDIFY_TEST_MODE" -ForegroundColor Cyan
-Write-Host " Server : $DefaultServer" -ForegroundColor Cyan
+Write-Host " PowerShell : $($PSVersionTable.PSVersion)" -ForegroundColor Cyan
+Write-Host " Mode       : $env:PSDIFY_TEST_MODE" -ForegroundColor Cyan
+Write-Host " Server     : $DefaultServer" -ForegroundColor Cyan
 if ($IsCommunity) {
-    Write-Host " Version: $env:PSDIFY_TEST_VERSION" -ForegroundColor Cyan
+    Write-Host " Version    : $env:PSDIFY_TEST_VERSION" -ForegroundColor Cyan
 }

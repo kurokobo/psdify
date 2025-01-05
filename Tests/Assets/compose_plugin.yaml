@@ -1,0 +1,78 @@
+x-plugin-dify-env: &plugin-dify-env
+  PLUGIN_API_KEY: ${PLUGIN_API_KEY}
+  PLUGIN_API_URL: http://plugin:80
+  PLUGIN_REMOTE_INSTALL_PORT: 5003
+  PLUGIN_REMOTE_INSTALL_HOST: localhost
+  PLUGIN_MAX_PACKAGE_SIZE: 15728640
+  PLUGIN_MAX_BUNDLE_SIZE: 188743680
+  INNER_API: true
+  INNER_API_KEY_FOR_PLUGIN: ${INNER_API_KEY_FOR_PLUGIN}
+  ENDPOINT_URL_TEMPLATE: http://localhost/e/{hook_id}
+  MARKETPLACE_ENABLED: true
+  MARKETPLACE_API_URL: ${MARKETPLACE_API_URL}
+
+x-plugin-web-env: &plugin-web-env
+  MARKETPLACE_API_URL: ${MARKETPLACE_API_URL}
+  MARKETPLACE_URL: ${MARKETPLACE_URL}
+
+x-plugin-daemon-env: &plugin-daemon-env
+  SERVER_PORT: 80
+  SERVER_KEY: ${SERVER_KEY}
+  GIN_MODE: release
+  PLATFORM: local
+  DIFY_INNER_API_KEY: ${DIFY_INNER_API_KEY}
+  DIFY_INNER_API_URL: http://api:5001
+  PLUGIN_REMOTE_INSTALLING_ENABLED: true
+  PLUGIN_REMOTE_INSTALLING_HOST: 0.0.0.0
+  PLUGIN_REMOTE_INSTALLING_PORT: 5003
+  AWS_ACCESS_KEY: 
+  AWS_SECRET_KEY: 
+  AWS_REGION: 
+  PLUGIN_STORAGE_TYPE: local
+  PLUGIN_STORAGE_OSS_BUCKET: 
+  PLUGIN_STORAGE_LOCAL_ROOT: ./storage
+  PLUGIN_INSTALLED_PATH: plugin
+  PLUGIN_WORKING_PATH: cwd
+  PERSISTENCE_STORAGE_PATH: persistence
+  PERSISTENCE_STORAGE_MAX_SIZE: 104857600
+  PLUGIN_WEBHOOK_ENABLED: true
+  ROUTINE_POOL_SIZE: 1024
+  REDIS_HOST: ${REDIS_HOST:-redis}
+  REDIS_PORT: ${REDIS_PORT:-6379}
+  REDIS_PASSWORD: ${REDIS_PASSWORD:-difyai123456}
+  DB_USERNAME: ${DB_USERNAME:-postgres}
+  DB_PASSWORD: ${DB_PASSWORD:-difyai123456}
+  DB_HOST: ${DB_HOST:-db}
+  DB_PORT: ${DB_PORT:-5432}
+  DB_DATABASE: dify_plugin
+  DIFY_INVOCATION_CONNECTION_IDLE_TIMEOUT: 120
+  MAX_PLUGIN_PACKAGE_SIZE: 52428800
+  PYTHON_INTERPRETER_PATH: /usr/bin/python3
+
+services:
+  api:
+    image: registry.example.com/langgenius/dify-api:plugin
+    environment:
+      <<: *plugin-dify-env
+  worker:
+    image: registry.example.com/langgenius/dify-api:plugin
+    environment:
+      <<: *plugin-dify-env
+  web:
+    image: registry.example.com/langgenius/dify-web:plugin
+    environment:
+      <<: *plugin-web-env
+  plugin:
+    image: registry.example.com/langgenius/dify-plugin-daemon:local
+    init: true
+    restart: always
+    environment:
+      <<: *plugin-daemon-env
+    depends_on:
+      - api
+    volumes:
+      - ./volumes/plugin/storage:/app/storage
+    networks:
+      - default
+    ports:
+      - 5003:5003

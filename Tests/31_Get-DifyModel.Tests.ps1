@@ -18,6 +18,11 @@ BeforeAll {
 Describe "Get-DifyModel" { 
     BeforeAll {
         Get-DifyModel | Remove-DifyModel -Confirm:$false
+        if ($env:PSDIFY_PLUGIN_SUPPORT -eq "true") {
+            if (-not (Get-DifyPlugin -Id "langgenius/openai")) {
+                Find-DifyPlugin -Id "langgenius/openai" | Install-DifyPlugin -Confirm:$false -Wait
+            }
+        }
     }
     Context "Manage models" {
         It "should get empty models" -Skip:$IsCloud {
@@ -40,7 +45,7 @@ Describe "Get-DifyModel" {
             }
 
             @($Models).Count | Should -Be 1
-            $Models.Provider | Should -Be "openai"
+            $Models.Provider | Should -Match "openai|langgenius/openai/openai"
             $Models.Model | Should -Be "gpt-4o-mini"
             $Models.Type | Should -Be  "llm"
             $Models.FetchFrom | Should -Be "customizable-model"
@@ -68,7 +73,7 @@ Describe "Get-DifyModel" {
             $Models = Get-DifyModel -Provider "openai" -Name "o1-preview"
 
             @($Models).Count | Should -Be 1
-            $Models.Provider | Should -Be "openai"
+            $Models.Provider | Should -Match "openai|langgenius/openai/openai"
             $Models.Model | Should -Be "o1-preview"
             $Models.Type | Should -Be  "llm"
             $Models.FetchFrom | Should -Be "predefined-model"

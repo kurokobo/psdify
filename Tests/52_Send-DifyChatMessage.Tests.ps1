@@ -22,6 +22,12 @@ Describe "Send-DifyChatMessage" {
         Get-DifyKnowledge | Remove-DifyKnowledge -Confirm:$false
         Get-DifyApp | Remove-DifyApp -Confirm:$false
 
+        if ($env:PSDIFY_PLUGIN_SUPPORT -eq "true") {
+            if (-not (Get-DifyPlugin -Id "langgenius/openai")) {
+                Find-DifyPlugin -Id "langgenius/openai" | Install-DifyPlugin -Confirm:$false -Wait
+            }
+        }
+
         $null = New-DifyModel -Provider "openai" -From "predefined" -Credential @{
             "openai_api_key" = $env:PSDIFY_TEST_OPENAI_KEY
         }
