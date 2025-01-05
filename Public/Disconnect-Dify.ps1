@@ -26,4 +26,7 @@ function Disconnect-Dify {
     Remove-Item Env:\PSDIFY_CONSOLE_REFRESH_TOKEN -ErrorAction SilentlyContinue
     Remove-Item Env:\PSDIFY_VERSION -ErrorAction SilentlyContinue
     Remove-Item Env:\PSDIFY_DISABLE_SSL_VERIFICATION -ErrorAction SilentlyContinue
+
+    Remove-Item Env:\PSDIFY_PLUGIN_SUPPORT -ErrorAction SilentlyContinue
+    Remove-Item Env:\PSDIFY_MARKETPLACE_API_PREFIX -ErrorAction SilentlyContinue
 }

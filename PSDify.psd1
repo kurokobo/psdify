@@ -11,44 +11,61 @@
     PowerShellVersion    = '5.1'
 
     FunctionsToExport    = @(  
-        'Add-DifyDocument',
-        'Add-DifyFile',
+        'Wait-Dify'
+        'Initialize-Dify',
+
         'Connect-Dify',
         'Disconnect-Dify',
-        'Export-DifyApp',
-        'Get-DifyApp',
-        'Get-DifyAppAPIKey',
-        'Get-DifyAppTag',
-        'Get-DifyDocument',
-        'Get-DifyDocumentIndexingStatus',
-        'Get-DifyDSLContent',
-        'Get-DifyKnowledge',
-        'Get-DifyKnowledgeTag',
+
         'Get-DifyMember',
-        'Get-DifyModel',
-        'Get-DifyProfile',
-        'Get-DifySystemModel',
-        'Get-DifyTag',
-        'Get-DifyVersion',
-        'Import-DifyApp',
-        'Initialize-Dify',
-        'Invoke-DifyRestMethod',
-        'New-DifyAppAPIKey',
-        'New-DifyKnowledge',
         'New-DifyMember',
-        'New-DifyModel',
-        'Remove-DifyApp',
-        'Remove-DifyAppAPIKey',
-        'Remove-DifyDocument',
-        'Remove-DifyKnowledge',
-        'Remove-DifyMember',
-        'Remove-DifyModel',
-        'Send-DifyChatMessage',
-        'Set-DifyDSLContent',
         'Set-DifyMemberRole',
+        'Remove-DifyMember',
+
+        'Find-DifyPlugin',
+        'Get-DifyPlugin',
+        'Install-DifyPlugin',
+        'Uninstall-DifyPlugin',
+        'Get-DifyPluginInstallationStatus',
+
+        'Get-DifyModel',
+        'New-DifyModel',
+        'Remove-DifyModel',
+
+        'Get-DifySystemModel',
         'Set-DifySystemModel',
+
+        'Get-DifyKnowledge',
+        'New-DifyKnowledge',
+        'Remove-DifyKnowledge',
+
+        'Get-DifyDocument',
+        'Add-DifyDocument',
+        'Remove-DifyDocument',
+        'Get-DifyDocumentIndexingStatus',
+
+        'Get-DifyApp',
+        'Remove-DifyApp',
+        'Import-DifyApp',
+        'Export-DifyApp',
+        'Get-DifyDSLContent',
+        'Set-DifyDSLContent',
+        'Get-DifyAppAPIKey',
+        'New-DifyAppAPIKey',
+        'Remove-DifyAppAPIKey',
+
+        'Send-DifyChatMessage',
+
+        'Get-DifyTag',
+        'Get-DifyAppTag',
+        'Get-DifyKnowledgeTag',
+
+        'Get-DifyVersion',
+        'Get-DifyProfile',
+
         'Set-PSDifyConfiguration',
-        'Wait-Dify'
+        'Add-DifyFile',
+        'Invoke-DifyRestMethod'
     )
     CmdletsToExport      = @()
     AliasesToExport      = @()

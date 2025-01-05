@@ -149,6 +149,13 @@ function Connect-Dify {
     $DifyVersion = Get-DifyVersion
 
     $env:PSDIFY_VERSION = $DifyVersion.Version
+    if ($DifyVersion.PluginSupport) {
+        $env:PSDIFY_PLUGIN_SUPPORT = "true"
+    }
+    else {
+        $env:PSDIFY_PLUGIN_SUPPORT = "false"
+    }
+    Remove-Item Env:\PSDIFY_MARKETPLACE_API_PREFIX -ErrorAction SilentlyContinue
 
     return [PSCustomObject]@{
         "Server"  = $env:PSDIFY_URL

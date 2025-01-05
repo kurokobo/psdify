@@ -23,10 +23,21 @@ function Get-DifyVersion {
     catch {
         throw "Failed to obtain version: $_"
     }
-
     $Version = $Response.version
+
+    $Endpoint = Join-Url -Segments @($Server, "/console/api/system-features")
+    $Method = "GET"
+    try {
+        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method
+    }
+    catch {
+        throw "Failed to obtain system features: $_"
+    }
+    $PluginSupport = $Response.enable_marketplace -ne $null
+
     return [PSCustomObject]@{
         "Server"  = $Server
         "Version" = $Version
+        "PluginSupport" = $PluginSupport
     }
 }
