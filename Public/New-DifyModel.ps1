@@ -16,7 +16,7 @@ function New-DifyModel {
         throw "Provider is required"
     }
 
-    if ($env:PSDIFY_PLUGIN_SUPPORT -eq "true" -and $Provider -notmatch "/") {
+    if ($env:PSDIFY_PLUGIN_SUPPORT -and $Provider -notmatch "/") {
         $Provider = "langgenius/$($Provider)/$($Provider)"
     }
 

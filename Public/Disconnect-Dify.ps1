@@ -18,15 +18,15 @@ function Disconnect-Dify {
         throw "Failed to logout"
     }
 
-    Remove-Item Env:\PSDIFY_URL -ErrorAction SilentlyContinue
-    Remove-Item Env:\PSDIFY_AUTH_METHOD -ErrorAction SilentlyContinue
-    Remove-Item Env:\PSDIFY_EMAIL -ErrorAction SilentlyContinue
-    Remove-Item Env:\PSDIFY_PASSWORD -ErrorAction SilentlyContinue
-    Remove-Item Env:\PSDIFY_CONSOLE_TOKEN -ErrorAction SilentlyContinue
-    Remove-Item Env:\PSDIFY_CONSOLE_REFRESH_TOKEN -ErrorAction SilentlyContinue
-    Remove-Item Env:\PSDIFY_VERSION -ErrorAction SilentlyContinue
-    Remove-Item Env:\PSDIFY_DISABLE_SSL_VERIFICATION -ErrorAction SilentlyContinue
+    $env:PSDIFY_URL = $null
+    $env:PSDIFY_AUTH_METHOD = $null
+    $env:PSDIFY_EMAIL = $null
+    $env:PSDIFY_PASSWORD = $null
+    $env:PSDIFY_CONSOLE_TOKEN = $null
+    $env:PSDIFY_CONSOLE_REFRESH_TOKEN = $null
+    $env:PSDIFY_VERSION = $null
+    $env:PSDIFY_DISABLE_SSL_VERIFICATION = $null
 
-    Remove-Item Env:\PSDIFY_PLUGIN_SUPPORT -ErrorAction SilentlyContinue
-    Remove-Item Env:\PSDIFY_MARKETPLACE_API_PREFIX -ErrorAction SilentlyContinue
+    $env:PSDIFY_PLUGIN_SUPPORT = $null
+    $env:PSDIFY_MARKETPLACE_API_PREFIX = $null
 }

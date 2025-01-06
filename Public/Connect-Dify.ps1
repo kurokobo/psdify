@@ -153,9 +153,9 @@ function Connect-Dify {
         $env:PSDIFY_PLUGIN_SUPPORT = "true"
     }
     else {
-        $env:PSDIFY_PLUGIN_SUPPORT = "false"
+        $env:PSDIFY_PLUGIN_SUPPORT = $null
     }
-    Remove-Item Env:\PSDIFY_MARKETPLACE_API_PREFIX -ErrorAction SilentlyContinue
+    $env:PSDIFY_MARKETPLACE_API_PREFIX = $null
 
     return [PSCustomObject]@{
         "Server"  = $env:PSDIFY_URL

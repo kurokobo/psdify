@@ -27,7 +27,7 @@ function Get-DifyModel {
     }
 
     $FormattedProviders = @()
-    if ($env:PSDIFY_PLUGIN_SUPPORT -eq "true") {
+    if ($env:PSDIFY_PLUGIN_SUPPORT) {
         foreach ($ProviderObj in $Provider) {
             if ($ProviderObj -notmatch "/") {
                 $ProviderObj = "langgenius/$($ProviderObj)/$($ProviderObj)"

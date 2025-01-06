@@ -10,7 +10,7 @@ function Set-PSDifyConfiguration {
             Write-Host -ForegroundColor Yellow "[PSDify] SSL verification is disabled"
         }
         $false {
-            Remove-Item Env:\PSDIFY_DISABLE_SSL_VERIFICATION -ErrorAction SilentlyContinue
+            $env:PSDIFY_DISABLE_SSL_VERIFICATION = $null
             Write-Host -ForegroundColor Green "[PSDify] SSL verification is enabled"
         }
     }
