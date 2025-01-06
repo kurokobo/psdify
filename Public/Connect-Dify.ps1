@@ -11,7 +11,7 @@ function Connect-Dify {
     )
 
     # Validate existing tokens
-    if (-not $Force) {
+    if (-not $Force -and $env:PSDIFY_URL -and $env:PSDIFY_CONSOLE_TOKEN -and (-not $Server -or $Server -eq $env:PSDIFY_URL)) {
         try {
             $DifyProfile = Get-DifyProfile
             $DifyVersion = Get-DifyVersion
