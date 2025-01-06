@@ -25,7 +25,7 @@ function Find-DifyPlugin {
         $Response = Invoke-WebRequest -Uri $Endpoint -UseBasicParsing
         $MarketPlaceApiPrefix = $Response.Content -match 'data-marketplace-api-prefix="([^"]+)"'
         if ($MarketPlaceApiPrefix) {
-            $MarketPlaceApiPrefix = $Matches[1]
+            $MarketPlaceApiPrefix = $Matches[1].Trim()
         }
         else {
             throw "Could not find the marketplace api prefix."
