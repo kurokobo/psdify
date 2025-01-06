@@ -11,6 +11,9 @@ function Install-DifyPlugin {
     )
 
     begin {
+        if (-not $env:PSDIFY_PLUGIN_SUPPORT) {
+            throw "The Dify server currently logged in does not support plugins."
+        }
         $Plugins = @()
     }
 

@@ -8,6 +8,10 @@ function Get-DifyPlugin {
         [String] $Search = ""
     )
 
+    if (-not $env:PSDIFY_PLUGIN_SUPPORT) {
+        throw "The Dify server currently logged in does not support plugins."
+    }
+
     $ValidCategories = @("model", "tool", "agent", "extension", "bundle")
     if ($Category -and $Category -notin $ValidCategories) {
         throw "Invalid value for Category. Must be one of: $($ValidCategories -join ', ')"
