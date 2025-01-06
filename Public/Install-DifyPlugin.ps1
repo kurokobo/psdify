@@ -57,6 +57,11 @@ function Install-DifyPlugin {
             TaskId       = $Response.task_id
         }
 
+        If ($TaskInfo.AllInstalled) {
+            $InstalledPlugins = Get-DifyPlugin -UniqueIdentifier $Identifiers
+            return $InstalledPlugins
+        }
+
         if ($Wait) {
             $Status = $TaskInfo | Get-DifyPluginInstallationStatus -Wait -Interval $Interval -Timeout $Timeout
 
