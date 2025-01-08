@@ -11,9 +11,6 @@ function New-DifyInstance {
     if ($env:PSDIFY_TEST_MODE -eq "cloud") {
         return
     }
-    if ($Version -eq "plugin") {
-        return New-DifyInstanceWithPluginSupport -Path $Path -EnvFile $EnvFile
-    }
 
     $CurrentLocation = Get-Location
     $FullPath = [System.IO.Path]::GetFullPath($Path)
@@ -26,13 +23,16 @@ function New-DifyInstance {
     git clone --quiet --depth=1 -b $Version https://github.com/langgenius/dify.git $Path
 
     if ($Version -eq "main") {
-        Copy-Item (Join-Path -Path $AssetsRoot -ChildPath "compose_main.yaml") -Destination (Join-Path -Path $DockerPath -ChildPath "docker-compose.override.yaml") -Force
+        Copy-Item (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "compose_main.yaml") -Destination (Join-Path -Path $DockerPath -ChildPath "docker-compose.override.yaml") -Force
     }
 
     Set-Location -Path $DockerPath
     Copy-Item -Path ".env.example" -Destination ".env" -Force
     if ($EnvFile) {
         Get-Content $EnvFile | Add-Content -Path ".env"
+    }
+    if ($env:PSDIFY_TEST_ENV_FILE -and $env:PSDIFY_TEST_ENV_FILE -ne "none") {
+        Get-Content (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath $env:PSDIFY_TEST_ENV_FILE) | Add-Content -Path ".env"
     }
     Write-Host "Pulling container images." -ForegroundColor Magenta
     docker compose pull

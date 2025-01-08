@@ -47,7 +47,8 @@ function Import-DifyApp {
             else {
                 $RawContent = [System.IO.File]::ReadAllText($File.FullName, $UTF8NoBOM)
             }
-            if ([System.Version]$env:PSDIFY_VERSION -lt [System.Version]"0.12.0") {
+            $SimplifiedVersion = $env:PSDIFY_VERSION -replace "[-+].*$", ""
+            if ([System.Version]$SimplifiedVersion -lt [System.Version]"0.12.0") {
                 $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/apps/import")
                 $Method = "POST"
                 $Body = $UTF8NoBOM.GetBytes((@{

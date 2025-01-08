@@ -1,23 +1,26 @@
 #Requires -Modules @{ ModuleName="Pester"; ModuleVersion="5.6" }
 
 BeforeDiscovery {
-    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Tests/Set-PSDifyTestMode.ps1")
+    $PesterPhase = "BeforeDiscovery"
+    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 }
 
 BeforeAll {
-    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Tests/Initialize-PSDifyPester.ps1")
+    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 
-    $env:PSDIFY_URL = $DefaultServer
-    $env:PSDIFY_EMAIL = $DefaultEmail
-    $env:PSDIFY_PASSWORD = $DefaultPlainPassword
-    $env:PSDIFY_AUTH_METHOD = $DefaultAuthMethod
-    Start-DifyInstance -Path $DifyRoot -Version $env:PSDIFY_TEST_VERSION
-    Connect-Dify
+    Start-DifyInstance -Path $env:PSDIFY_TEST_ROOT_DIFY -Version $env:PSDIFY_TEST_VERSION
+    Show-DifyConnectionStatus (Connect-Dify -Server $DefaultServer -Email $DefaultEmail -Password $DefaultPassword -AuthMethod $DefaultAuthMethod)
 }
 
-Describe "Get-DifyMember" -Skip:$IsCloud { 
+Describe "Connection" -Tag "member" {
+    It "should connect correct server" {
+        $env:PSDIFY_URL | Should -Be $DefaultServer
+    }
+}
+
+Describe "Get-DifyMember" -Tag "member" -Skip:($env:PSDIFY_TEST_MODE -ne "community") {
     BeforeAll {
-        Get-DifyMember | Where-Object { $_.Email -ne $env:PSDIFY_EMAIL } | Remove-DifyMember -Confirm:$false
+        Get-DifyMember | Where-Object { $_.Email -ne $DefaultEmail } | Remove-DifyMember -Confirm:$false
     }
     Context "Manage members" {
         It "should get only owner" {
@@ -25,7 +28,7 @@ Describe "Get-DifyMember" -Skip:$IsCloud {
 
             @($Members).Count | Should -Be 1
             $Members.Name | Should -Be "Dify"
-            $Members.Email | Should -Be $env:PSDIFY_EMAIL
+            $Members.Email | Should -Be $DefaultEmail
             $Members.Role | Should -Be "owner"
             $Members.Status | Should -Be "active"
         }
@@ -55,7 +58,7 @@ Describe "Get-DifyMember" -Skip:$IsCloud {
                 $Member.Name | Should -Be ($NewMemberInfo.Email -split "@")[0]
                 $Member.Email | Should -Be $NewMemberInfo.Email
                 $Member.Role | Should -Be $NewMemberInfo.Role
-                $Member.InvitationLink | Should -BeLike "/activate*"
+                $Member.InvitationLink | Should -BeLike "*/activate*"
             }
         }
 
@@ -94,7 +97,7 @@ Describe "Get-DifyMember" -Skip:$IsCloud {
         }
 
         It "should remove all members" {
-            Get-DifyMember | Where-Object { $_.Email -ne $env:PSDIFY_EMAIL } | Remove-DifyMember -Confirm:$false
+            Get-DifyMember | Where-Object { $_.Email -ne $DefaultEmail } | Remove-DifyMember -Confirm:$false
             $Members = Get-DifyMember
 
             @($Members).Count | Should -Be 1

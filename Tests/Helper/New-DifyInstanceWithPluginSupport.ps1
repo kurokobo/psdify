@@ -19,20 +19,15 @@ function New-DifyInstanceWithPluginSupport {
     $DockerPath = Join-Path -Path $Path -ChildPath "docker"
 
     Write-Host "Cloning Dify repository to $Path." -ForegroundColor Magenta
-    git clone --quiet --depth=1 -b $env:PLUGIN_BRANCH https://github.com/langgenius/dify.git $Path
+    git clone --quiet --depth=1 -b $env:PSDIFY_TEST_BRANCH_PLUGIN https://github.com/langgenius/dify.git $Path
 
-    Copy-Item (Join-Path -Path $AssetsRoot -ChildPath "compose_plugin.yaml") -Destination (Join-Path -Path $DockerPath -ChildPath "docker-compose.override.yaml") -Force
+    Copy-Item (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "compose_plugin.yaml") -Destination (Join-Path -Path $DockerPath -ChildPath "docker-compose.override.yaml") -Force
 
     Set-Location -Path $DockerPath
-    $NginxTemplatePath = "nginx/conf.d/default.conf.template"
-    $InsertContent = "location /e { proxy_pass http://plugin:80; include proxy.conf; }"
-    (Get-Content $NginxTemplatePath) -replace '    location / {', "$($InsertContent)`n    location / {" | Set-Content $NginxTemplatePath
     Copy-Item -Path ".env.example" -Destination ".env" -Force
     if ($EnvFile) {
         Get-Content $EnvFile | Add-Content -Path ".env"
     }
-    $null = New-Item -ItemType Directory -Path "volumes/plugin/storage/plugin" -ErrorAction SilentlyContinue
-    $null = New-Item -ItemType Directory -Path "volumes/plugin/storage/persistence" -ErrorAction SilentlyContinue
     Write-Host "Pulling container images." -ForegroundColor Magenta
     docker compose pull
     Write-Host "Starting Dify instance." -ForegroundColor Magenta

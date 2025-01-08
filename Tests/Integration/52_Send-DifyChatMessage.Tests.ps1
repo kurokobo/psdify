@@ -1,30 +1,33 @@
 #Requires -Modules @{ ModuleName="Pester"; ModuleVersion="5.6" }
 
 BeforeDiscovery {
-    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Tests/Set-PSDifyTestMode.ps1")
+    $PesterPhase = "BeforeDiscovery"
+    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 }
 
 BeforeAll {
-    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Tests/Initialize-PSDifyPester.ps1")
+    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 
-    $env:PSDIFY_URL = $DefaultServer
-    $env:PSDIFY_EMAIL = $DefaultEmail
-    $env:PSDIFY_PASSWORD = $DefaultPlainPassword
-    $env:PSDIFY_AUTH_METHOD = $DefaultAuthMethod
-    Start-DifyInstance -Path $DifyRoot -Version $env:PSDIFY_TEST_VERSION
-    Connect-Dify
+    Start-DifyInstance -Path $env:PSDIFY_TEST_ROOT_DIFY -Version $env:PSDIFY_TEST_VERSION
+    Show-DifyConnectionStatus (Connect-Dify -Server $DefaultServer -Email $DefaultEmail -Password $DefaultPassword -AuthMethod $DefaultAuthMethod)
 
     $env:PSDIFY_APP_URL = $DefaultAPIServer
 }
 
-Describe "Send-DifyChatMessage" { 
+Describe "Connection" -Tag "chat" {
+    It "should connect correct server" {
+        $env:PSDIFY_URL | Should -Be $DefaultServer
+    }
+}
+
+Describe "Send-DifyChatMessage" -Tag "chat" { 
     BeforeAll {
         Get-DifyKnowledge | Remove-DifyKnowledge -Confirm:$false
         Get-DifyApp | Remove-DifyApp -Confirm:$false
 
-        if ($env:PSDIFY_PLUGIN_SUPPORT -eq "true") {
+        if ($env:PSDIFY_PLUGIN_SUPPORT) {
             if (-not (Get-DifyPlugin -Id "langgenius/openai")) {
-                Find-DifyPlugin -Id "langgenius/openai" | Install-DifyPlugin -Confirm:$false -Wait
+                Find-DifyPlugin -Id "langgenius/openai" | Install-DifyPlugin -Wait
             }
         }
 
@@ -35,11 +38,11 @@ Describe "Send-DifyChatMessage" {
         $null = Set-DifySystemModel -Type "text-embedding" -Provider "openai" -Name "text-embedding-3-small"
 
         $TestKnowledge = New-DifyKnowledge -Name "Test Knowledge"
-        $null = Add-DifyDocument -Knowledge $TestKnowledge -Path (Join-Path -Path $AssetsRoot -ChildPath "document_test*.md") -Wait
+        $null = Add-DifyDocument -Knowledge $TestKnowledge -Path (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "document_test*.md") -Wait
 
         $OldKnowledgeId = "c1410caa-1a19-4a86-b9c8-a4c252d6e930"
-        $TestAppWithoutKnowledge = Import-DifyApp -Path (Join-Path -Path $AssetsRoot -ChildPath "app_chat.yml")
-        $TestAppWithKnowledge = (Get-DifyDSLContent -Path (Join-Path -Path $AssetsRoot -ChildPath "app_knowledge.yml")) -replace $OldKnowledgeId, $TestKnowledge.Id | Import-DifyApp -Content
+        $TestAppWithoutKnowledge = Import-DifyApp -Path (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "app_chat.yml")
+        $TestAppWithKnowledge = (Get-DifyDSLContent -Path (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "app_knowledge.yml")) -replace $OldKnowledgeId, $TestKnowledge.Id | Import-DifyApp -Content
         $TestAppWithoutKnowledgeAPIKey = $TestAppWithoutKnowledge | New-DifyAppAPIKey
         $TestAppWithKnowledgeAPIKey = $TestAppWithKnowledge | New-DifyAppAPIKey
 
