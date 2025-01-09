@@ -1,23 +1,38 @@
 #Requires -Modules @{ ModuleName="Pester"; ModuleVersion="5.6" }
 
 BeforeDiscovery {
-    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Tests/Set-PSDifyTestMode.ps1")
+    $PesterPhase = "BeforeDiscovery"
+    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 }
 
 BeforeAll {
-    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Tests/Initialize-PSDifyPester.ps1")
+    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 
-    $env:PSDIFY_URL = $DefaultServer
-    $env:PSDIFY_EMAIL = $DefaultEmail
-    $env:PSDIFY_PASSWORD = $DefaultPlainPassword
-    $env:PSDIFY_AUTH_METHOD = $DefaultAuthMethod
-    Start-DifyInstance -Path $DifyRoot -Version $env:PSDIFY_TEST_VERSION
-    Connect-Dify
+    Start-DifyInstance -Path $env:PSDIFY_TEST_ROOT_DIFY -Version $env:PSDIFY_TEST_VERSION
+    Show-DifyConnectionStatus (Connect-Dify -Server $DefaultServer -Email $DefaultEmail -Password $DefaultPassword -AuthMethod $DefaultAuthMethod)
 }
 
-Describe "Get-DifyDoument" { 
+Describe "Connection" -Tag "document" {
+    It "should connect correct server" {
+        $env:PSDIFY_URL | Should -Be $DefaultServer
+    }
+}
+
+Describe "Get-DifyDoument" -Tag "document" { 
     BeforeAll {
         Get-DifyKnowledge | Remove-DifyKnowledge -Confirm:$false
+
+        if ($env:PSDIFY_PLUGIN_SUPPORT) {
+            if (-not (Get-DifyPlugin -Id "langgenius/openai")) {
+                Find-DifyPlugin -Id "langgenius/openai" | Install-DifyPlugin -Wait
+            }
+        }
+
+        $null = New-DifyModel -Provider "openai" -From "predefined" -Credential @{
+            "openai_api_key" = $env:PSDIFY_TEST_OPENAI_KEY
+        }
+        $null = Set-DifySystemModel -Type "text-embedding" -Provider "openai" -Name "text-embedding-3-small"
+
         $TestKnowledge1 = New-DifyKnowledge -Name "Test Knowledge 1"
         $TestKnowledge2 = New-DifyKnowledge -Name "Test Knowledge 2"
     }
@@ -33,18 +48,18 @@ Describe "Get-DifyDoument" {
 
         It "should add new documents" {
             $TestFiles = @(
-                (Join-Path -Path $AssetsRoot -ChildPath "document_test1.md"),
-                (Join-Path -Path $AssetsRoot -ChildPath "document_test2.md")
+                (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "document_test1.md"),
+                (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "document_test2.md")
             )
-            $Documents = Add-DifyDocument -Knowledge $TestKnowledge1 -Path $TestFiles -IndexMode "economy"
+            $Documents = Add-DifyDocument -Knowledge $TestKnowledge1 -Path $TestFiles
 
             @($Documents).Count | Should -Be 2
             $Documents[0].Batch | Should -Not -BeNullOrEmpty
         }
 
         It "should add new documents and wait for indexing" {
-            $TestFile = Join-Path -Path $AssetsRoot -ChildPath "document_test3.md"
-            $Document = Add-DifyDocument -Knowledge $TestKnowledge1 -Path $TestFile -IndexMode "economy" -Wait
+            $TestFile = Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "document_test3.md"
+            $Document = Add-DifyDocument -Knowledge $TestKnowledge1 -Path $TestFile -Wait
 
             @($Document).Count | Should -Be 1
             $Document.Name | Should -Be "document_test3.md"
@@ -88,16 +103,16 @@ Describe "Get-DifyDoument" {
 
     Context "Chunking modes" {
         It "should add new documents with automatic mode" {
-            $TestFile = Join-Path -Path $AssetsRoot -ChildPath "document_test1.md"
-            $Document = Add-DifyDocument -Knowledge $TestKnowledge2 -Path $TestFile -IndexMode "economy"
+            $TestFile = Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "document_test1.md"
+            $Document = Add-DifyDocument -Knowledge $TestKnowledge2 -Path $TestFile
 
             @($Document).Count | Should -Be 1
             $Document.Name | Should -Be "document_test1.md"
         }
 
         It "should add new documents with custom mode" {
-            $TestFile = Join-Path -Path $AssetsRoot -ChildPath "document_test2.md"
-            $Document = Add-DifyDocument -Knowledge $TestKnowledge2 -Path $TestFile -ChunkMode "custom" -IndexMode "economy"
+            $TestFile = Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "document_test2.md"
+            $Document = Add-DifyDocument -Knowledge $TestKnowledge2 -Path $TestFile -ChunkMode "custom"
 
             @($Document).Count | Should -Be 1
             $Document.Name | Should -Be "document_test2.md"

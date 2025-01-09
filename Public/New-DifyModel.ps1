@@ -16,6 +16,10 @@ function New-DifyModel {
         throw "Provider is required"
     }
 
+    if ($env:PSDIFY_PLUGIN_SUPPORT -and $Provider -notmatch "/") {
+        $Provider = "langgenius/$($Provider)/$($Provider)"
+    }
+
     switch ($From) {
         "predefined" {
             if (-not $Credential) {

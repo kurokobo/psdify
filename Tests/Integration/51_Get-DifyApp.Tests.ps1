@@ -1,24 +1,33 @@
 ﻿#Requires -Modules @{ ModuleName="Pester"; ModuleVersion="5.6" }
 
 BeforeDiscovery {
-    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Tests/Set-PSDifyTestMode.ps1")
+    $PesterPhase = "BeforeDiscovery"
+    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 }
 
 BeforeAll {
-    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Tests/Initialize-PSDifyPester.ps1")
+    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 
-    $env:PSDIFY_URL = $DefaultServer
-    $env:PSDIFY_EMAIL = $DefaultEmail
-    $env:PSDIFY_PASSWORD = $DefaultPlainPassword
-    $env:PSDIFY_AUTH_METHOD = $DefaultAuthMethod
-    Start-DifyInstance -Path $DifyRoot -Version $env:PSDIFY_TEST_VERSION
-    Connect-Dify
+    Start-DifyInstance -Path $env:PSDIFY_TEST_ROOT_DIFY -Version $env:PSDIFY_TEST_VERSION
+    Show-DifyConnectionStatus (Connect-Dify -Server $DefaultServer -Email $DefaultEmail -Password $DefaultPassword -AuthMethod $DefaultAuthMethod)
 }
 
-Describe "Get-DifyApp" { 
+Describe "Connection" -Tag "app" {
+    It "should connect correct server" {
+        $env:PSDIFY_URL | Should -Be $DefaultServer
+    }
+}
+
+Describe "Get-DifyApp" -Tag "app" { 
     BeforeAll {
         Get-DifyKnowledge | Remove-DifyKnowledge -Confirm:$false
         Get-DifyApp | Remove-DifyApp -Confirm:$false
+
+        if ($env:PSDIFY_PLUGIN_SUPPORT) {
+            if (-not (Get-DifyPlugin -Id "langgenius/openai")) {
+                Find-DifyPlugin -Id "langgenius/openai" | Install-DifyPlugin -Wait
+            }
+        }
 
         $null = New-DifyModel -Provider "openai" -From "predefined" -Credential @{
             "openai_api_key" = $env:PSDIFY_TEST_OPENAI_KEY
@@ -27,14 +36,14 @@ Describe "Get-DifyApp" {
         $null = Set-DifySystemModel -Type "text-embedding" -Provider "openai" -Name "text-embedding-3-small"
 
         $TestKnowledge = New-DifyKnowledge -Name "Test Knowledge"
-        $null = Add-DifyDocument -Knowledge $TestKnowledge -Path (Join-Path -Path $AssetsRoot -ChildPath "document_test*.md") -Wait
+        $null = Add-DifyDocument -Knowledge $TestKnowledge -Path (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "document_test*.md") -Wait
         $TestFiles = @(
             @{
-                Path = (Join-Path -Path $AssetsRoot -ChildPath "app_chat.yml")
+                Path = (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "app_chat.yml")
                 Name = "Simple Chatbot"
             },
             @{
-                Path = (Join-Path -Path $AssetsRoot -ChildPath "app_knowledge.yml")
+                Path = (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "app_knowledge.yml")
                 Name = "Simple Chatbot with Knowledge"
             }
         )
@@ -181,7 +190,7 @@ Describe "Get-DifyApp" {
 
         It "should save DSL content" {
             $DSLContent = Get-DifyDSLContent -Path $TestFiles[1].Path
-            $DSLFile = $DSLContent -replace $OldKnowledgeId, $TestKnowledge.Id | Set-DifyDSLContent -Path (Join-Path -Path $TempRoot -ChildPath "app_knowledge_modified.yml")
+            $DSLFile = $DSLContent -replace $OldKnowledgeId, $TestKnowledge.Id | Set-DifyDSLContent -Path (Join-Path -Path $env:PSDIFY_TEST_ROOT_TEMP -ChildPath "app_knowledge_modified.yml")
             $ModifiedDSLContent = Get-DifyDSLContent -Path $DSLFile.FullName
 
             $DSLFile.FullName | Should -BeLike "*app_knowledge_modified.yml"

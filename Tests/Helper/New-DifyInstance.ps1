@@ -19,10 +19,11 @@ function New-DifyInstance {
     }
     $DockerPath = Join-Path -Path $Path -ChildPath "docker"
 
-    git clone --depth=1 -b $Version https://github.com/langgenius/dify.git $Path
+    Write-Host "Cloning Dify repository to $($Path)." -ForegroundColor Magenta
+    git clone --quiet --depth=1 -b $Version https://github.com/langgenius/dify.git $Path
 
     if ($Version -eq "main") {
-        Copy-Item (Join-Path -Path $AssetsRoot -ChildPath "compose_main.yaml") -Destination (Join-Path -Path $DockerPath -ChildPath "docker-compose.override.yaml") -Force
+        Copy-Item (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "compose_main.yaml") -Destination (Join-Path -Path $DockerPath -ChildPath "docker-compose.override.yaml") -Force
     }
 
     Set-Location -Path $DockerPath
@@ -30,9 +31,15 @@ function New-DifyInstance {
     if ($EnvFile) {
         Get-Content $EnvFile | Add-Content -Path ".env"
     }
+    if ($env:PSDIFY_TEST_ENV_FILE -and $env:PSDIFY_TEST_ENV_FILE -ne "none") {
+        Get-Content (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath $env:PSDIFY_TEST_ENV_FILE) | Add-Content -Path ".env"
+    }
+    Write-Host "Pulling container images." -ForegroundColor Magenta
     docker compose pull
+    Write-Host "Starting Dify instance." -ForegroundColor Magenta
     docker compose up -d
     Set-Location -Path $CurrentLocation
 
+    Write-Host "Waiting Dify instance to be started." -ForegroundColor Magenta
     Wait-Dify -Server "http://host.docker.internal/"
 }

@@ -4,7 +4,9 @@ function Get-DifyModel {
         [String[]] $Provider = @(),
         [String[]] $From = @(),
         [String[]] $Name = @(),
-        [String[]] $Type = @()
+        [String[]] $Type = @(),
+        [Switch] $Active,
+        [Switch] $NoConfigure
     )
 
     $ValidFroms = @("predefined", "customizable")
@@ -24,25 +26,40 @@ function Get-DifyModel {
         }
     }
 
-    $Models = @()
-    if ($Provider) {
-        $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/model-providers", $Provider, "/models")
-        $Method = "GET"
-        try {
-            $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
+    $FormattedProviders = @()
+    if ($env:PSDIFY_PLUGIN_SUPPORT) {
+        foreach ($ProviderObj in $Provider) {
+            if ($ProviderObj -notmatch "/") {
+                $ProviderObj = "langgenius/$($ProviderObj)/$($ProviderObj)"
+            }
+            $FormattedProviders += $ProviderObj
         }
-        catch {
-            throw "Failed to get models from provider: $_"
-        }
+    }
+    else {
+        $FormattedProviders = $Provider
+    }
 
-        foreach ($Model in $Response.data) {
-            $Models += [PSCustomObject]@{
-                "Provider"   = $Model.provider.provider
-                "Model"      = $Model.model
-                "Type"       = $Model.model_type
-                "FetchFrom"  = $Model.fetch_from
-                "Deprecated" = $Model.deprecated
-                "Status"     = $Model.status
+    $Models = @()
+    if ($FormattedProviders) {
+        foreach ($FormattedProvider in $FormattedProviders) {
+            $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/model-providers", $FormattedProvider, "/models")
+            $Method = "GET"
+            try {
+                $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
+            }
+            catch {
+                throw "Failed to get models from provider: $_"
+            }
+
+            foreach ($Model in $Response.data) {
+                $Models += [PSCustomObject]@{
+                    "Provider"   = $Model.provider.provider
+                    "Model"      = $Model.model
+                    "Type"       = $Model.model_type
+                    "FetchFrom"  = $Model.fetch_from
+                    "Deprecated" = $Model.deprecated
+                    "Status"     = $Model.status
+                }
             }
         }
     }
@@ -75,8 +92,8 @@ function Get-DifyModel {
         }
     }
 
-    if ($Provider) {
-        $Models = $Models | Where-Object { $_.Provider -in $Provider }
+    if ($FormattedProviders) {
+        $Models = $Models | Where-Object { $_.Provider -in $FormattedProviders }
     }
     if ($From) {
         $From = $From | ForEach-Object { "$($_)-model" }
@@ -87,6 +104,13 @@ function Get-DifyModel {
     }
     if ($Type) {
         $Models = $Models | Where-Object { $_.Type -in $Type }
+    }
+
+    if ($Active) {
+        $Models = $Models | Where-Object { $_.Status -eq "active" }
+    }
+    if ($NoConfigure) {
+        $Models = $Models | Where-Object { $_.Status -eq "no-configure" }
     }
 
     return $Models

@@ -1,21 +1,24 @@
 #Requires -Modules @{ ModuleName="Pester"; ModuleVersion="5.6" }
 
 BeforeDiscovery {
-    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Tests/Set-PSDifyTestMode.ps1")
+    $PesterPhase = "BeforeDiscovery"
+    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 }
 
 BeforeAll {
-    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Tests/Initialize-PSDifyPester.ps1")
+    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 
-    $env:PSDIFY_URL = $DefaultServer
-    $env:PSDIFY_EMAIL = $DefaultEmail
-    $env:PSDIFY_PASSWORD = $DefaultPlainPassword
-    $env:PSDIFY_AUTH_METHOD = $DefaultAuthMethod
-    Start-DifyInstance -Path $DifyRoot -Version $env:PSDIFY_TEST_VERSION
-    Connect-Dify
+    Start-DifyInstance -Path $env:PSDIFY_TEST_ROOT_DIFY -Version $env:PSDIFY_TEST_VERSION
+    Show-DifyConnectionStatus (Connect-Dify -Server $DefaultServer -Email $DefaultEmail -Password $DefaultPassword -AuthMethod $DefaultAuthMethod)
 }
 
-Describe "Get-DifyKnowledge" { 
+Describe "Connection" -Tag "knowledge" {
+    It "should connect correct server" {
+        $env:PSDIFY_URL | Should -Be $DefaultServer
+    }
+}
+
+Describe "Get-DifyKnowledge" -Tag "knowledge" { 
     BeforeAll {
         Get-DifyKnowledge | Remove-DifyKnowledge -Confirm:$false
     }

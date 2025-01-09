@@ -39,6 +39,9 @@ function Set-DifySystemModel {
             throw "Name is required"
         }
         if (-not $Models) {
+            if ($env:PSDIFY_PLUGIN_SUPPORT -and $Provider -notmatch "/") {
+                $Provider = "langgenius/$($Provider)/$($Provider)"
+            }
             $Models = @(
                 @{
                     "model_type" = $Type

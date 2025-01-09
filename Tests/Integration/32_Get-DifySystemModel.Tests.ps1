@@ -1,23 +1,31 @@
 #Requires -Modules @{ ModuleName="Pester"; ModuleVersion="5.6" }
 
 BeforeDiscovery {
-    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Tests/Set-PSDifyTestMode.ps1")
+    $PesterPhase = "BeforeDiscovery"
+    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 }
 
 BeforeAll {
-    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Tests/Initialize-PSDifyPester.ps1")
+    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 
-    $env:PSDIFY_URL = $DefaultServer
-    $env:PSDIFY_EMAIL = $DefaultEmail
-    $env:PSDIFY_PASSWORD = $DefaultPlainPassword
-    $env:PSDIFY_AUTH_METHOD = $DefaultAuthMethod
-    Start-DifyInstance -Path $DifyRoot -Version $env:PSDIFY_TEST_VERSION
-    Connect-Dify
+    Start-DifyInstance -Path $env:PSDIFY_TEST_ROOT_DIFY -Version $env:PSDIFY_TEST_VERSION
+    Show-DifyConnectionStatus (Connect-Dify -Server $DefaultServer -Email $DefaultEmail -Password $DefaultPassword -AuthMethod $DefaultAuthMethod)
 }
 
-Describe "Get-DifySystemModel" { 
+Describe "Connection" -Tag "systemmodel" {
+    It "should connect correct server" {
+        $env:PSDIFY_URL | Should -Be $DefaultServer
+    }
+}
+
+Describe "Get-DifySystemModel" -Tag "systemmodel" { 
     BeforeAll {
         Get-DifyModel | Remove-DifyModel -Confirm:$false
+        if ($env:PSDIFY_PLUGIN_SUPPORT) {
+            if (-not (Get-DifyPlugin -Id "langgenius/openai")) {
+                Find-DifyPlugin -Id "langgenius/openai" | Install-DifyPlugin -Wait
+            }
+        }
         $Models = New-DifyModel -Provider "openai" -From "predefined" -Credential @{
             "openai_api_key" = $env:PSDIFY_TEST_OPENAI_KEY
         }
@@ -60,7 +68,7 @@ Describe "Get-DifySystemModel" {
                 $SystemModel = Set-DifySystemModel -Type $NewSystemModel.Type -Provider $NewSystemModel.Provider -Name $NewSystemModel.Name
 
                 $SystemModel.Type | Should -Be $NewSystemModel.Type
-                $SystemModel.Provider | Should -Be $NewSystemModel.Provider
+                $SystemModel.Provider | Should -Match $NewSystemModel.Provider
                 $SystemModel.Model | Should -Be $NewSystemModel.Name
             }
         }
@@ -71,7 +79,7 @@ Describe "Get-DifySystemModel" {
                 $SystemModel = $SystemModels | Where-Object { $_.Type -eq $NewSystemModel.Type }
 
                 $SystemModel.Type | Should -Be $NewSystemModel.Type
-                $SystemModel.Provider | Should -Be $NewSystemModel.Provider
+                $SystemModel.Provider | Should -Match $NewSystemModel.Provider
                 $SystemModel.Model | Should -Be $NewSystemModel.Name
             }
         }

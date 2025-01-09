@@ -1,25 +1,26 @@
 #Requires -Modules @{ ModuleName="Pester"; ModuleVersion="5.6" }
 
 BeforeDiscovery {
-    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Tests/Set-PSDifyTestMode.ps1")
+    $PesterPhase = "BeforeDiscovery"
+    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 }
 
 BeforeAll {
-    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Tests/Initialize-PSDifyPester.ps1")
+    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 }
 
-Describe "Connect-Dify" {
+Describe "Connect-Dify" -Tag "auth" {
     BeforeAll {
-        Start-DifyInstance -Path $DifyRoot -Version $env:PSDIFY_TEST_VERSION
+        Start-DifyInstance -Path $env:PSDIFY_TEST_ROOT_DIFY -Version $env:PSDIFY_TEST_VERSION
         Disconnect-Dify -Force
     }
 
-    Context "Password authentication against Dify Community Edition" -Skip:$IsCloud {
+    Context "Password authentication against Dify Community Edition" -Skip:($env:PSDIFY_TEST_MODE -ne "community") {
         It "should connect Dify by arguments" {
             $Result = Connect-Dify -Server $DefaultServer -Email $DefaultEmail -Password $DefaultPassword
 
             $Result.Server | Should -Be $DefaultServer
-            if ($InvokeVersionTests) {
+            if ($env:PSDIFY_TEST_ALLOW_VERSION_TEST) {
                 $Result.Version | Should -Be $env:PSDIFY_TEST_VERSION
             }
             $Result.Name | Should -Be $DefaultName
@@ -43,7 +44,7 @@ Describe "Connect-Dify" {
             $Result = Connect-Dify
 
             $Result.Server | Should -Be $DefaultServer
-            if ($InvokeVersionTests) {
+            if ($env:PSDIFY_TEST_ALLOW_VERSION_TEST) {
                 $Result.Version | Should -Be $env:PSDIFY_TEST_VERSION
             }
             $Result.Name | Should -Be $DefaultName
@@ -60,14 +61,11 @@ Describe "Connect-Dify" {
         }
     }
 
-    Context "Password authentication against Dify Cloud Edition" -Skip:$IsCommunity {
+    Context "Password authentication against Dify Cloud Edition" -Skip:($env:PSDIFY_TEST_MODE -ne "cloud") {
         It "should connect Dify by arguments" {
             $Result = Connect-Dify -Server $DefaultServer -Email $DefaultEmail -AuthMethod "Code"
 
             $Result.Server | Should -Be $DefaultServer
-            if ($InvokeVersionTests) {
-                $Result.Version | Should -Be $env:PSDIFY_TEST_VERSION
-            }
             $Result.Email | Should -Be $DefaultEmail
         }
     }

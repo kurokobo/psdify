@@ -1,19 +1,20 @@
 #Requires -Modules @{ ModuleName="Pester"; ModuleVersion="5.6" }
 
 BeforeDiscovery {
-    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Tests/Set-PSDifyTestMode.ps1")
+    $PesterPhase = "BeforeDiscovery"
+    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 }
 
 BeforeAll {
-    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Tests/Initialize-PSDifyPester.ps1")
+    . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 }
 
-Describe "Initialize-Dify" -Skip:$IsCloud {
+Describe "Initialize-Dify" -Tag "init" -Skip:($env:PSDIFY_TEST_MODE -ne "community") {
 
     Context "Initialize vanilla Dify instance" {
         BeforeAll {
-            Remove-DifyInstance -Path $DifyRoot
-            New-DifyInstance -Path $DifyRoot -Version $env:PSDIFY_TEST_VERSION
+            Remove-DifyInstance -Path $env:PSDIFY_TEST_ROOT_DIFY
+            New-DifyInstance -Path $env:PSDIFY_TEST_ROOT_DIFY -Version $env:PSDIFY_TEST_VERSION
         }
 
         It "should not initialized" {
@@ -30,7 +31,7 @@ Describe "Initialize-Dify" -Skip:$IsCloud {
             $Result = Initialize-Dify -Server $DefaultServer -Email $DefaultEmail -Name $DefaultName -Password $DefaultPassword
 
             $Result.Server | Should -Be $DefaultServer
-            if ($InvokeVersionTests) {
+            if ($env:PSDIFY_TEST_ALLOW_VERSION_TEST) {
                 $Result.Version | Should -Be $env:PSDIFY_TEST_VERSION
             }
             $Result.Name | Should -Be $DefaultName
@@ -40,8 +41,8 @@ Describe "Initialize-Dify" -Skip:$IsCloud {
 
     Context "Initialize Dify instance which has INIT_PASSWORD" {
         BeforeAll {
-            Remove-DifyInstance -Path $DifyRoot
-            New-DifyInstance -Path $DifyRoot -Version $env:PSDIFY_TEST_VERSION -EnvFile (Join-Path -Path $AssetsRoot -ChildPath "env_init_password.env")
+            Remove-DifyInstance -Path $env:PSDIFY_TEST_ROOT_DIFY
+            New-DifyInstance -Path $env:PSDIFY_TEST_ROOT_DIFY -Version $env:PSDIFY_TEST_VERSION -EnvFile (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "env_init_password.env")
         }
 
         It "should not initialized" {
@@ -58,14 +59,14 @@ Describe "Initialize-Dify" -Skip:$IsCloud {
             $Result = Initialize-Dify -Server $DefaultServer -Email $DefaultEmail -Name $DefaultName -InitPassword $DefaultInitPassword -Password $DefaultPassword
 
             $Result.Server | Should -Be $DefaultServer
-            if ($InvokeVersionTests) {
+            if ($env:PSDIFY_TEST_ALLOW_VERSION_TEST) {
                 $Result.Version | Should -Be $env:PSDIFY_TEST_VERSION
             }
             $Result.Name | Should -Be $DefaultName
             $Result.Email | Should -Be $DefaultEmail
 
             $env:PSDIFY_URL | Should -Be $DefaultServer
-            if ($InvokeVersionTests) {
+            if ($env:PSDIFY_TEST_ALLOW_VERSION_TEST) {
                 $env:PSDIFY_VERSION | Should -Be $env:PSDIFY_TEST_VERSION
             }
             $env:PSDIFY_CONSOLE_TOKEN | Should -Not -BeNullOrEmpty

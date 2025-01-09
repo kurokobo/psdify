@@ -11,7 +11,7 @@ function Connect-Dify {
     )
 
     # Validate existing tokens
-    if (-not $Force) {
+    if (-not $Force -and $env:PSDIFY_URL -and $env:PSDIFY_CONSOLE_TOKEN -and (-not $Server -or $Server -eq $env:PSDIFY_URL)) {
         try {
             $DifyProfile = Get-DifyProfile
             $DifyVersion = Get-DifyVersion
@@ -149,6 +149,13 @@ function Connect-Dify {
     $DifyVersion = Get-DifyVersion
 
     $env:PSDIFY_VERSION = $DifyVersion.Version
+    if ($DifyVersion.PluginSupport) {
+        $env:PSDIFY_PLUGIN_SUPPORT = "true"
+    }
+    else {
+        $env:PSDIFY_PLUGIN_SUPPORT = $null
+    }
+    $env:PSDIFY_MARKETPLACE_API_PREFIX = $null
 
     return [PSCustomObject]@{
         "Server"  = $env:PSDIFY_URL
