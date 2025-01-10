@@ -1,4 +1,4 @@
-#Requires -Modules @{ ModuleName="Pester"; ModuleVersion="5.6" }
+﻿#Requires -Modules @{ ModuleName="Pester"; ModuleVersion="5.6" }
 
 BeforeDiscovery {
     $PesterPhase = "BeforeDiscovery"
@@ -60,6 +60,12 @@ Describe "Send-DifyChatMessage" -Tag "chat" {
             Send-DifyChatMessage -Message "Ping"
 
             Assert-MockCalled -ModuleName PSDify -CommandName Write-Host -ParameterFilter { $Object -like "*Pong*" }
+        }
+        It "should send messages without knowledge with multibyte characters" {
+            $env:PSDIFY_APP_TOKEN = $TestAppWithoutKnowledgeAPIKey.Token
+            Send-DifyChatMessage -NewSession -Message "日本語で朝の挨拶は？ ひらがなで。"
+
+            Assert-MockCalled -ModuleName PSDify -CommandName Write-Host -ParameterFilter { $Object -like "*おはよ*" }
         }
         It "should send messages with knowledge" {
             $env:PSDIFY_APP_TOKEN = $TestAppWithKnowledgeAPIKey.Token

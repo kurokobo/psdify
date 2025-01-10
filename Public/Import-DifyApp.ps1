@@ -51,9 +51,9 @@ function Import-DifyApp {
             if ([System.Version]$SimplifiedVersion -lt [System.Version]"0.12.0") {
                 $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/apps/import")
                 $Method = "POST"
-                $Body = $UTF8NoBOM.GetBytes((@{
-                            "data" = $RawContent
-                        } | ConvertTo-Json))
+                $Body = @{
+                    "data" = $RawContent
+                } | ConvertTo-Json
                 try {
                     $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
                 }
@@ -85,10 +85,10 @@ function Import-DifyApp {
             else {
                 $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/apps/imports")
                 $Method = "POST"
-                $Body = $UTF8NoBOM.GetBytes((@{
-                            "mode"         = "yaml-content"
-                            "yaml_content" = $RawContent
-                        } | ConvertTo-Json))
+                $Body = @{
+                    "mode"         = "yaml-content"
+                    "yaml_content" = $RawContent
+                } | ConvertTo-Json
                 try {
                     $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
                 }
