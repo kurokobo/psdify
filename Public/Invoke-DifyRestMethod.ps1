@@ -4,7 +4,7 @@ function Invoke-DifyRestMethod {
         [String] $Uri,
         [String] $Method = "GET",
         [String] $ContentType = "application/json",
-        [Object] $Body = $null,
+        [String] $Body = $null,
         [Hashtable] $Query = $null,
         [String] $Token = $null,
         [Microsoft.PowerShell.Commands.WebRequestSession] $Session = $null,
@@ -37,7 +37,8 @@ function Invoke-DifyRestMethod {
     }
     if (@("POST", "PUT", "PATCH", "DELETE") -contains $Method) {
         if ($Body) {
-            $RestMethodParams.Body = $Body
+            $UTF8NoBOM = New-Object "System.Text.UTF8Encoding" -ArgumentList @($false)
+            $RestMethodParams.Body = $UTF8NoBOM.GetBytes($Body)
         }
         if ($InFile) {
             $RestMethodParams.InFile = $InFile
