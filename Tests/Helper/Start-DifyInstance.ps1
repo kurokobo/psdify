@@ -32,7 +32,7 @@ function Start-DifyInstance {
         }
     }
 
-    if ($IsRunning -and ($CurrentVersion -eq $Version)) {
+    if ($IsRunning -and ($CurrentVersion -eq ($Version -replace "/", "-"))) {
         Write-Host "Skipping starting Dify instance since it is already running with the specified version." -ForegroundColor Magenta
         return
     }

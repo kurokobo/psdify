@@ -26,18 +26,20 @@ $Environments = @(
     @{
         Id      = "community-release"
         Mode    = "community"
-        Version = "0.15.0"
+        Version = "0.15.2"
     },
     @{
-        Id      = "community-main"
-        Mode    = "community"
-        Version = "main"
+        Id       = "community-main"
+        Mode     = "community"
+        Version  = "main"
+        Override = "compose_main.yaml"
     },
     @{
-        Id      = "community-plugin"
-        Mode    = "community"
-        Version = "1.0.0-beta.1"
-        Env     = "env_plugin.env"
+        Id       = "community-plugin"
+        Mode     = "community"
+        Version  = "plugins/beta"
+        Override = "compose_plugin.yaml"
+        Env      = "env_plugin.env"
     }
 )
 
@@ -98,6 +100,12 @@ foreach ($Environment in $Environments) {
         $env:PSDIFY_TEST_OVERRIDE_SERVER = $Environment.Server
         $env:PSDIFY_TEST_OVERRIDE_API_SERVER = $Environment.ApiServer
         $env:PSDIFY_TEST_OVERRIDE_EMAIL = $Environment.Email
+        if ($Environment.Override) {
+            $env:PSDIFY_TEST_OVERRIDE_OVERRIDE_FILE = $Environment.Override
+        }
+        else {
+            $env:PSDIFY_TEST_OVERRIDE_OVERRIDE_FILE = "none"
+        }
         if ($Environment.Env) {
             $env:PSDIFY_TEST_OVERRIDE_ENV_FILE = $Environment.Env
         }
