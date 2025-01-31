@@ -15,15 +15,13 @@ function Set-DifySystemModel {
 
     process {
         foreach ($ModelObject in $Model) {
-            if ($ModelObjectl) {
-                if ($ModelObject.Type -notin $ValidTypes) {
-                    throw "Invalid value for Type. Must be one of: $($ValidTypes -join ', ')"
-                }
-                $Models += @{
-                    "model_type" = $ModelObject.Type
-                    "provider"   = $ModelObject.Provider
-                    "model"      = $ModelObject.Model
-                }
+            if ($ModelObject.Type -notin $ValidTypes) {
+                throw "Invalid value for Type. Must be one of: $($ValidTypes -join ', ')"
+            }
+            $Models += @{
+                "model_type" = $ModelObject.Type
+                "provider"   = $ModelObject.Provider
+                "model"      = $ModelObject.Model
             }
         }
     }

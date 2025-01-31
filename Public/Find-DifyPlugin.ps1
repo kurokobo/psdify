@@ -16,7 +16,7 @@ function Find-DifyPlugin {
         throw "Invalid value for Category. Must be one of: $($ValidCategories -join ', ')"
     }
     if ($Category -eq "agent") {
-        $Category = "agent_strategy"
+        $Category = "agent-strategy"
     }
 
     # find the marketplace api prefix
