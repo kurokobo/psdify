@@ -38,23 +38,17 @@ Here are some examples of what you can do with PSDify:
 - ✨ **Add models and update system models**
 - ✨ **Initialize instances for the Community Edition**
 
-For a full list of available cmdlets, refer to the [📚Documentation](./Docs/README.md).
+For a full list of available cmdlets, refer to the [📚Documentation](https://kurokobo.github.io/psdify/).
 
 ## Tested Environments
 
-| Version | Dify<br>(Community) | Dify<br>(Cloud) |
-| :---: | :---: | :---: |
-| 0.14.2 | ✅ PSDify 0.2.0 | ✅ PSDify 0.2.0 |
-| 0.12.1 | ✅ PSDify 0.1.0 | ✅ PSDify 0.1.0 |
-| 0.11.2 | ✅ PSDify 0.0.1 | ✅ PSDify 0.0.1 |
+This module has been tested mainly against the latest version of Dify, with Windows PowerShell (PowerShell 5.1) and PowerShell 7.4.
 
-> [!NOTE]
-> This module has been tested with Windows PowerShell (PowerShell 5.1) and PowerShell 7.4.
-> The Enterprise Edition of Dify (multi-workspace environments) is not supported.
+The Enterprise Edition of Dify (multi-workspace environments) is not supported.
 
 ## Quick Start
 
-For a full list of available cmdlets, refer to the [📚Documentation](./Docs/README.md).
+For a full list of available cmdlets, refer to the [📚Documentation](https://kurokobo.github.io/psdify/).
 
 ### Installation
 
