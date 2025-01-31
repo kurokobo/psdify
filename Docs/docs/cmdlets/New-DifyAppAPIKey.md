@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,30 +8,34 @@ schema: 2.0.0
 # New-DifyAppAPIKey
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Creates a new API key for a specified app.
 
 ## SYNTAX
 
-```
-New-DifyAppAPIKey [[-App] <PSObject>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```powershell
+New-DifyAppAPIKey [[-App] <PSObject>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `New-DifyAppAPIKey` cmdlet generates a new API key for the given app. API keys are used to authenticate and authorize app-related operations.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Get-DifyApp -Name "..." | New-DifyAppAPIKey
 ```
 
-{{ Add example description here }}
+Creates a new API key for the app named "...".
 
 ## PARAMETERS
 
 ### -App
-{{ Fill App Description }}
+
+The app for which the API key should be created. This parameter accepts an app object, typically retrieved using the `Get-DifyApp` cmdlet.
 
 ```yaml
 Type: PSObject
@@ -45,23 +49,9 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -70,6 +60,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
+
+- The app object must be provided either through the pipeline or directly as a parameter.
+- Ensure that the `$env:PSDIFY_CONSOLE_TOKEN` environment variable is set and contains a valid token for authentication.
 
 ## RELATED LINKS

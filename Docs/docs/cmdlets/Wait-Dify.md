@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,31 +8,43 @@ schema: 2.0.0
 # Wait-Dify
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Waits for the Dify instance to become ready.
 
 ## SYNTAX
 
-```
-Wait-Dify [[-Server] <String>] [[-Interval] <Int32>] [[-Timeout] <Int32>] [-ProgressAction <ActionPreference>]
+```powershell
+Wait-Dify [[-Server] <String>] [[-Interval] <Int32>] [[-Timeout] <Int32>]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Wait-Dify` cmdlet waits for the Dify instance to become ready. It polls the specified server at regular intervals until it is ready or the timeout is exceeded. This is useful for scenarios where you need to ensure the Dify instance is operational before proceeding with other operations.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Wait-Dify -Server "https://dify.example.com"
 ```
 
-{{ Add example description here }}
+Wait for the Dify instance at `<https://dify.example.com>` to be ready.
+
+### Example 2
+
+```powershell
+Wait-Dify -Server "https://dify.example.com" -Interval 5 -Timeout 300
+```
+
+Wait for the Dify instance at `<https://dify.example.com>` to be ready, specifying an interval of 5 seconds and a maximum timeout of 300 seconds.
 
 ## PARAMETERS
 
 ### -Interval
-{{ Fill Interval Description }}
+
+Specifies the interval, in seconds, between each poll to check if the Dify instance is ready.
 
 ```yaml
 Type: Int32
@@ -41,28 +53,14 @@ Aliases:
 
 Required: False
 Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
+Default value: 5
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Server
-{{ Fill Server Description }}
+
+Specifies the URL of the Dify server to check. If the `$env:PSDIFY_URL` environment variable is set, this parameter is optional.
 
 ```yaml
 Type: String
@@ -77,7 +75,8 @@ Accept wildcard characters: False
 ```
 
 ### -Timeout
-{{ Fill Timeout Description }}
+
+Specifies the maximum time, in seconds, to wait for the Dify instance to become ready. If the timeout is exceeded, the cmdlet throws an error.
 
 ```yaml
 Type: Int32
@@ -86,13 +85,14 @@ Aliases:
 
 Required: False
 Position: 2
-Default value: None
+Default value: 300
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -101,6 +101,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
+
+- If the `Server` parameter is not provided, the cmdlet uses the `$env:PSDIFY_URL` environment variable.
+- Writes verbose output during the waiting process if the `-Verbose` flag is used.
 
 ## RELATED LINKS

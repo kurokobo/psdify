@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,31 +8,54 @@ schema: 2.0.0
 # Install-DifyPlugin
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Install plugins from the Dify Marketplace into the current workspace.
 
 ## SYNTAX
 
-```
+```powershell
 Install-DifyPlugin [[-Item] <PSObject[]>] [[-Id] <String[]>] [[-UniqueIdentifier] <String[]>] [-Wait]
- [[-Interval] <Int32>] [[-Timeout] <Int32>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+ [[-Interval] <Int32>] [[-Timeout] <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Install-DifyPlugin` cmdlet installs plugins from the Dify Marketplace into the current workspace. You can specify plugins to install by their ID, unique identifier, or via pipeline input.
+
+If the `-Wait` parameter is specified, the cmdlet waits for the installation task to complete and returns the installed plugins. Otherwise, it returns a task object with installation status information.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Install-DifyPlugin -Id "plugin-id-123" -Wait
 ```
 
-{{ Add example description here }}
+Install a plugin with the specified ID and wait for the installation to complete.
+
+### Example 2
+
+```powershell
+Install-DifyPlugin -UniqueIdentifier "unique-plugin-456" -Interval 10 -Timeout 600 -Wait
+```
+
+Install a plugin using its unique identifier, wait for the installation to complete, and specify custom interval and timeout settings.
+
+### Example 3
+
+```powershell
+$Plugins = Find-DifyPlugin -Search "example"
+Install-DifyPlugin -Item $Plugins -Wait
+```
+
+Search for plugins using `Find-DifyPlugin` and install the resulting plugins.
 
 ## PARAMETERS
 
 ### -Id
-{{ Fill Id Description }}
+
+Specifies the IDs of the plugins to install.
 
 ```yaml
 Type: String[]
@@ -47,7 +70,8 @@ Accept wildcard characters: False
 ```
 
 ### -Interval
-{{ Fill Interval Description }}
+
+Specifies the interval, in seconds, between status checks when `-Wait` is used.
 
 ```yaml
 Type: Int32
@@ -56,13 +80,14 @@ Aliases:
 
 Required: False
 Position: 3
-Default value: None
+Default value: 5
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Item
-{{ Fill Item Description }}
+
+Specifies the plugin objects to install. This parameter can accept pipeline input.
 
 ```yaml
 Type: PSObject[]
@@ -76,23 +101,9 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Timeout
-{{ Fill Timeout Description }}
+
+Specifies the timeout, in seconds, for the installation task when `-Wait` is used.
 
 ```yaml
 Type: Int32
@@ -101,13 +112,14 @@ Aliases:
 
 Required: False
 Position: 4
-Default value: None
+Default value: 300
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -UniqueIdentifier
-{{ Fill UniqueIdentifier Description }}
+
+Specifies the unique identifiers of the plugins to install.
 
 ```yaml
 Type: String[]
@@ -122,7 +134,8 @@ Accept wildcard characters: False
 ```
 
 ### -Wait
-{{ Fill Wait Description }}
+
+Indicates that the cmdlet waits for the installation task to complete before returning.
 
 ```yaml
 Type: SwitchParameter
@@ -137,7 +150,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -146,6 +160,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
+
+- This cmdlet requires the `$env:PSDIFY_PLUGIN_SUPPORT` environment variable to be set to indicate that the server supports plugins.
+- If `-Wait` is not specified and not all plugins are installed immediately, a task object with installation status information is returned.
 
 ## RELATED LINKS

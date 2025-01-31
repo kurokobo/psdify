@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,31 +8,67 @@ schema: 2.0.0
 # Get-DifyPlugin
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Retrieve plugin information from the current Dify workspace.
 
 ## SYNTAX
 
-```
+```powershell
 Get-DifyPlugin [[-Category] <String>] [[-Id] <String[]>] [[-Name] <String[]>] [[-UniqueIdentifier] <String[]>]
- [[-Search] <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+ [[-Search] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Get-DifyPlugin` cmdlet retrieves a list of plugins available in the current Dify workspace. You can filter the plugins by category, ID, name, unique identifier, or search term. The cmdlet returns information such as the plugin's category, name, display name, ID, description, version, and unique identifier.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Get-DifyPlugin
 ```
 
-{{ Add example description here }}
+Retrieve all plugins.
+
+### Example 2
+
+```powershell
+Get-DifyPlugin -Category "model"
+```
+
+Retrieve plugins by category.
+
+### Example 3
+
+```powershell
+Get-DifyPlugin -Id "plugin-id-1234"
+```
+
+Retrieve a plugin by its ID.
+
+### Example 4
+
+```powershell
+Get-DifyPlugin -Search "example"
+```
+
+Search for plugins by name or description.
 
 ## PARAMETERS
 
 ### -Category
-{{ Fill Category Description }}
+
+Specifies the category of plugins to retrieve.
+
+Valid categories are:
+
+- "model"
+- "tool"
+- "agent"
+- "extension"
+- "bundle"
 
 ```yaml
 Type: String
@@ -47,7 +83,8 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-{{ Fill Id Description }}
+
+Specifies the IDs of plugins to retrieve.
 
 ```yaml
 Type: String[]
@@ -62,7 +99,8 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{ Fill Name Description }}
+
+Specifies the names of plugins to retrieve.
 
 ```yaml
 Type: String[]
@@ -76,23 +114,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Search
-{{ Fill Search Description }}
+
+Specifies a search term to filter plugins by their ID, name, or display name. Supports partial matches.
 
 ```yaml
 Type: String
@@ -107,7 +131,8 @@ Accept wildcard characters: False
 ```
 
 ### -UniqueIdentifier
-{{ Fill UniqueIdentifier Description }}
+
+Specifies the unique identifiers of plugins to retrieve.
 
 ```yaml
 Type: String[]
@@ -122,7 +147,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -131,6 +157,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
+
+If the currently logged-in Dify server does not support plugins, an error will be thrown.
 
 ## RELATED LINKS

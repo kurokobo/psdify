@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,31 +8,59 @@ schema: 2.0.0
 # Get-DifyMember
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Retrieve workspace member information.
 
 ## SYNTAX
 
-```
+```powershell
 Get-DifyMember [[-Id] <String[]>] [[-Name] <String[]>] [[-Email] <String[]>]
- [-ProgressAction <ActionPreference>] [<CommonParameters>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Get-DifyMember` cmdlet retrieves information about members in the workspace. You can filter members by their ID, name, or email address.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Get-DifyMember
 ```
 
-{{ Add example description here }}
+Get all members.
+
+### Example 2
+
+```powershell
+Get-DifyMember -Id "..."
+```
+
+Get member by ID.
+
+### Example 3
+
+```powershell
+Get-DifyMember -Name "..."
+```
+
+Get member by name.
+
+### Example 4
+
+```powershell
+Get-DifyMember -Email "..."
+```
+
+Get member by email.
 
 ## PARAMETERS
 
 ### -Email
-{{ Fill Email Description }}
+
+Specify one or more email addresses to filter the members by their email.
 
 ```yaml
 Type: String[]
@@ -47,7 +75,8 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-{{ Fill Id Description }}
+
+Specify one or more IDs to filter the members by their unique identifier.
 
 ```yaml
 Type: String[]
@@ -62,7 +91,8 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{ Fill Name Description }}
+
+Specify one or more names to filter the members by their name.
 
 ```yaml
 Type: String[]
@@ -76,23 +106,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -101,6 +117,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
 
 ## RELATED LINKS

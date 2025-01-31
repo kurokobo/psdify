@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,32 +8,97 @@ schema: 2.0.0
 # Add-DifyDocument
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Uploads documents to a specified knowledge base in Dify, with options for chunking, indexing, and waiting for indexing to complete.
 
 ## SYNTAX
 
-```
+```powershell
 Add-DifyDocument [[-Item] <PSObject[]>] [[-Path] <String[]>] [[-Knowledge] <PSObject>] [[-ChunkMode] <String>]
  [[-IndexMode] <String>] [[-EmbeddingModel] <PSObject>] [[-RetrievalMode] <String>] [-Wait]
- [[-Interval] <Int32>] [[-Timeout] <Int32>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+ [[-Interval] <Int32>] [[-Timeout] <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Add-DifyDocument` cmdlet allows users to upload documents to a specified Knowledge in Dify. It supports various options such as chunking mode, indexing mode, embedding models, and retrieval modes. Users can also wait for the indexing process to complete with a customizable interval and timeout.
+
+Currently, detailed configuration is not implemented.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+$Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
+Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md"
 ```
 
-{{ Add example description here }}
+Upload documents (specify file paths, supports wildcards and multiple paths).
+
+### Example 2
+
+```powershell
+$Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
+Get-Item -Path "Docs/*.md" | Add-DifyDocument -Knowledge $Knowledge
+```
+
+Upload documents (specify from Get-Item or Get-ChildItem via pipe).
+
+### Example 3
+
+```powershell
+$Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
+Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -ChunkMode "custom"
+```
+
+Upload documents (specify chunk settings).
+
+### Example 4
+
+```powershell
+$Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
+$EmbeddingModel = Get-DifyModel -Provider "openai" -Name "text-embedding-3-small"
+Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -IndexMode "high_quality" -Model $EmbeddingModel
+```
+
+Upload documents (use any model).
+
+### Example 5
+
+```powershell
+$Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
+Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -IndexMode "economy"
+```
+
+Upload documents (use economy mode).
+
+### Example 6
+
+```powershell
+$Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
+Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait
+```
+
+Wait for indexing to complete.
+
+### Example 7
+
+```powershell
+$Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
+Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Timeout 600
+```
+
+Custom wait settings.
 
 ## PARAMETERS
 
 ### -ChunkMode
-{{ Fill ChunkMode Description }}
+
+Defines the chunking mode for document processing. Valid values are:
+
+- "automatic" (default): Automatically determines chunking rules.
+- "custom": Allows specifying custom chunking rules.
 
 ```yaml
 Type: String
@@ -48,7 +113,8 @@ Accept wildcard characters: False
 ```
 
 ### -EmbeddingModel
-{{ Fill EmbeddingModel Description }}
+
+Specifies the embedding model to use for high-quality indexing. If omitted, the system's default embedding model is used.
 
 ```yaml
 Type: PSObject
@@ -63,7 +129,11 @@ Accept wildcard characters: False
 ```
 
 ### -IndexMode
-{{ Fill IndexMode Description }}
+
+Determines the indexing mode for documents. Valid values are:
+
+- "high_quality" (default): Uses advanced embedding models.
+- "economy": Uses a less resource-intensive indexing method.
 
 ```yaml
 Type: String
@@ -78,7 +148,8 @@ Accept wildcard characters: False
 ```
 
 ### -Interval
-{{ Fill Interval Description }}
+
+Specifies the interval (in seconds) to wait between indexing status checks when `-Wait` is used.
 
 ```yaml
 Type: Int32
@@ -93,7 +164,8 @@ Accept wildcard characters: False
 ```
 
 ### -Item
-{{ Fill Item Description }}
+
+Specifies the document objects to upload. Accepts objects from the pipeline.
 
 ```yaml
 Type: PSObject[]
@@ -108,7 +180,8 @@ Accept wildcard characters: False
 ```
 
 ### -Knowledge
-{{ Fill Knowledge Description }}
+
+Specifies the knowledge base to which the documents will be uploaded. Only one knowledge base can be specified.
 
 ```yaml
 Type: PSObject
@@ -123,7 +196,8 @@ Accept wildcard characters: False
 ```
 
 ### -Path
-{{ Fill Path Description }}
+
+Specifies the file paths of the documents to upload. Supports wildcards and multiple paths.
 
 ```yaml
 Type: String[]
@@ -137,23 +211,13 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -RetrievalMode
-{{ Fill RetrievalMode Description }}
+
+Defines the retrieval mode for document search. Valid values are:
+
+- "semantic_search" (default): Uses semantic search.
+- "full_text_search": Not yet implemented.
+- "hybrid_search": Not yet implemented.
 
 ```yaml
 Type: String
@@ -168,7 +232,8 @@ Accept wildcard characters: False
 ```
 
 ### -Timeout
-{{ Fill Timeout Description }}
+
+Specifies the maximum time (in seconds) to wait for indexing completion when `-Wait` is used.
 
 ```yaml
 Type: Int32
@@ -183,7 +248,8 @@ Accept wildcard characters: False
 ```
 
 ### -Wait
-{{ Fill Wait Description }}
+
+Indicates whether to wait for indexing to complete before returning.
 
 ```yaml
 Type: SwitchParameter
@@ -198,7 +264,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -207,6 +274,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
 
 ## RELATED LINKS

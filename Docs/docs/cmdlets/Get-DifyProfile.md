@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,45 +8,34 @@ schema: 2.0.0
 # Get-DifyProfile
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Retrieve the authenticated account's profile information.
 
 ## SYNTAX
 
-```
-Get-DifyProfile [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```powershell
+Get-DifyProfile [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Get-DifyProfile` cmdlet retrieves the profile information of the currently authenticated account. It fetches details such as the account ID, name, email, interface language, timezone, last login information, and the account creation date.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Get-DifyProfile
 ```
 
-{{ Add example description here }}
+Retrieve and display the profile information of the currently authenticated account.
 
 ## PARAMETERS
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -55,6 +44,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
+
+- Ensure that the `$env:PSDIFY_CONSOLE_TOKEN` environment variable is correctly set and contains a valid token prior to running this cmdlet.
+- Errors will be thrown if the profile data cannot be retrieved.
 
 ## RELATED LINKS

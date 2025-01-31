@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,31 +8,35 @@ schema: 2.0.0
 # Uninstall-DifyPlugin
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Uninstalls one or more plugins from the current Dify workspace.
 
 ## SYNTAX
 
-```
-Uninstall-DifyPlugin [[-Plugin] <PSObject[]>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm]
+```powershell
+Uninstall-DifyPlugin [[-Plugin] <PSObject[]>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Uninstall-DifyPlugin` cmdlet is used to uninstall plugins from the current Dify workspace. You can specify plugins to uninstall either by passing them as pipeline objects or directly using the `-Plugin` parameter. The cmdlet requires the Dify server to support plugins, and it will throw an error if plugin support is not available.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Get-DifyPlugin -Name "ExamplePlugin" | Uninstall-DifyPlugin
 ```
 
-{{ Add example description here }}
+Uninstalls the plugin named "ExamplePlugin" from the current workspace.
 
 ## PARAMETERS
 
 ### -Plugin
-{{ Fill Plugin Description }}
+
+Specifies the plugin(s) to uninstall. You can pass the plugin objects directly or pipe them from `Get-DifyPlugin`.
 
 ```yaml
 Type: PSObject[]
@@ -46,22 +50,8 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Confirm
+
 Prompts you for confirmation before running the cmdlet.
 
 ```yaml
@@ -77,8 +67,8 @@ Accept wildcard characters: False
 ```
 
 ### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
+
+Shows what would happen if the cmdlet runs. The cmdlet is not run.
 
 ```yaml
 Type: SwitchParameter
@@ -93,7 +83,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -102,6 +93,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
+
+- This cmdlet will throw an error if the current Dify server does not support plugins.
+- The `-WhatIf` and `-Confirm` parameters can be used to preview or confirm the operation before execution.
 
 ## RELATED LINKS

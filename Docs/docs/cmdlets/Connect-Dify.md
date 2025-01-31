@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,32 +8,67 @@ schema: 2.0.0
 # Connect-Dify
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Authenticate with Dify using password or email-based login, enabling operations with other PSDify cmdlets.
 
 ## SYNTAX
 
-```
+```powershell
 Connect-Dify [[-Server] <String>] [[-AuthMethod] <String>] [[-Email] <String>] [[-Token] <String>]
- [[-Code] <String>] [[-Password] <SecureString>] [-Force] [-ProgressAction <ActionPreference>]
+ [[-Code] <String>] [[-Password] <SecureString>] [-Force]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Connect-Dify` cmdlet allows you to authenticate with a Dify server using various methods such as password-based login or email-based code authentication. After successful authentication, environment variables required for subsequent operations are set.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Connect-Dify -AuthMethod "Code" -Email "dify@example.com"
 ```
 
-{{ Add example description here }}
+Email authentication, mainly for the Dify Cloud Edition. Enter the code manually which will be sent to your email address after execution.
+
+SSO-authenticated accounts can also log in via email authentication using the associated email address.
+
+You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://cloud.dify.ai"`, `$env:PSDIFY_AUTH_METHOD = "Code"`, `$env:PSDIFY_EMAIL = "dify@example.com"`.
+
+### Example 2
+
+```powershell
+Connect-Dify -Server "https://dify.example.com" -Email "dify@example.com"
+```
+
+Password authentication, mainly for the Dify Community Edition. Enter the password manually after execution.
+
+If using a self-signed certificate for HTTPS in the Community Edition, disable certificate verification by `Set-PSDifyConfiguration -IgnoreSSLVerification $true` or set `$env:PSDIFY_DISABLE_SSL_VERIFICATION = "true"` before invoking `Connect-Dify`.
+
+You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://dify.example.com"`, `$env:PSDIFY_AUTH_METHOD = "Password"`, `$env:PSDIFY_EMAIL = "dify@example.com`, `$env:PSDIFY_PASSWORD = "AwesomeDify123!"`.
+
+### Example 3
+
+```powershell
+$DifyPassword = ConvertTo-SecureString -String "AwesomeDify123!" -AsPlainText -Force
+Connect-Dify -Server "https://dify.example.com" -Email "dify@example.com" -Password $DifyPassword
+```
+
+Password authentication (use predefined password).
 
 ## PARAMETERS
 
 ### -AuthMethod
-{{ Fill AuthMethod Description }}
+
+Specifies the authentication method to use. Valid values are:
+
+- `Password`: Authenticate using an email and password.
+- `Code`: Authenticate using an email and a code sent via email.
+- `Token`: Authenticate directly using a console access token.
+
+This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`.
 
 ```yaml
 Type: String
@@ -48,7 +83,8 @@ Accept wildcard characters: False
 ```
 
 ### -Code
-{{ Fill Code Description }}
+
+Specifies the one-time code sent to the email address for email-based code authentication.
 
 ```yaml
 Type: String
@@ -63,7 +99,10 @@ Accept wildcard characters: False
 ```
 
 ### -Email
-{{ Fill Email Description }}
+
+Specifies the email address to use for authentication. This is required for both password-based and email-based code authentication methods.
+
+This also can be set using the environment variable `$env:PSDIFY_EMAIL`.
 
 ```yaml
 Type: String
@@ -78,7 +117,8 @@ Accept wildcard characters: False
 ```
 
 ### -Force
-{{ Fill Force Description }}
+
+Forces re-authentication even if valid tokens are already set in the environment variables.
 
 ```yaml
 Type: SwitchParameter
@@ -93,7 +133,10 @@ Accept wildcard characters: False
 ```
 
 ### -Password
-{{ Fill Password Description }}
+
+Specifies the password to use for password-based authentication. This parameter accepts a secure string.
+
+This also can be set using the environment variable `$env:PSDIFY_PASSWORD`.
 
 ```yaml
 Type: SecureString
@@ -107,23 +150,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Server
-{{ Fill Server Description }}
+
+Specifies the server URL to connect to. If not specified, the default value is `https://cloud.dify.ai`.
+
+This also can be set using the environment variable `$env:PSDIFY_URL`.
 
 ```yaml
 Type: String
@@ -138,7 +169,8 @@ Accept wildcard characters: False
 ```
 
 ### -Token
-{{ Fill Token Description }}
+
+Specifies the access token to use for token-based authentication.
 
 ```yaml
 Type: String
@@ -153,7 +185,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -162,6 +195,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
+
+After successful authentication, the following environment variables are set:
+
+- `$env:PSDIFY_CONSOLE_TOKEN`
+- `$env:PSDIFY_CONSOLE_REFRESH_TOKEN`
+
+If these variables are already set and valid, re-authentication is not performed unless the `-Force` parameter is specified.
 
 ## RELATED LINKS

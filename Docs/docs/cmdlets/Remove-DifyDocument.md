@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,31 +8,44 @@ schema: 2.0.0
 # Remove-DifyDocument
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Deletes documents from a Dify knowledge base.
 
 ## SYNTAX
 
-```
-Remove-DifyDocument [[-Document] <PSObject[]>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm]
+```powershell
+Remove-DifyDocument [[-Document] <PSObject[]>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Remove-DifyDocument` cmdlet removes specified documents from a Dify knowledge base. You can specify the documents to be removed directly, or pipe them from other cmdlets like `Get-DifyDocument`.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Get-DifyKnowledge -Name "..." | Get-DifyDocument | Remove-DifyDocument
 ```
 
-{{ Add example description here }}
+Retrieve documents from a knowledge base and remove them directly.
+
+### Example 2
+
+```powershell
+$DocumentsToBeRemoved = Get-DifyKnowledge -Name "..." | Get-DifyDocument
+Remove-DifyDocument -Document $DocumentsToBeRemoved
+```
+
+Store documents in a variable before removing them.
 
 ## PARAMETERS
 
 ### -Document
-{{ Fill Document Description }}
+
+Specifies the documents to be removed. This parameter accepts an array of document objects, which can be piped from other cmdlets like `Get-DifyDocument`.
 
 ```yaml
 Type: PSObject[]
@@ -46,22 +59,8 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Confirm
+
 Prompts you for confirmation before running the cmdlet.
 
 ```yaml
@@ -77,8 +76,8 @@ Accept wildcard characters: False
 ```
 
 ### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
+
+Shows what would happen if the cmdlet runs. The cmdlet is not run.
 
 ```yaml
 Type: SwitchParameter
@@ -93,7 +92,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -102,6 +102,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
+
+The cmdlet uses REST API calls for document deletion. Ensure that `$env:PSDIFY_URL` and `$env:PSDIFY_CONSOLE_TOKEN` are configured properly to authenticate and specify the target Dify instance.
 
 ## RELATED LINKS

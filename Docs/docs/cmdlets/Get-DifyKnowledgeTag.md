@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,31 +8,51 @@ schema: 2.0.0
 # Get-DifyKnowledgeTag
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Retrieve tag information for knowledge.
 
 ## SYNTAX
 
-```
-Get-DifyKnowledgeTag [[-Id] <String[]>] [[-Name] <String[]>] [-ProgressAction <ActionPreference>]
+```powershell
+Get-DifyKnowledgeTag [[-Id] <String[]>] [[-Name] <String[]>]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Get-DifyKnowledgeTag` cmdlet retrieves tag information associated with knowledge in the workspace. This is equivalent to executing `Get-DifyTag -Type "knowledge"`.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Get-DifyKnowledgeTag
 ```
 
-{{ Add example description here }}
+Retrieve all knowledge tags.
+
+### Example 2
+
+```powershell
+Get-DifyKnowledgeTag -Id "..."
+```
+
+Retrieve knowledge tags by ID.
+
+### Example 3
+
+```powershell
+Get-DifyKnowledgeTag -Name "..."
+```
+
+Retrieve knowledge tags by name.
 
 ## PARAMETERS
 
 ### -Id
-{{ Fill Id Description }}
+
+Specifies the IDs of the knowledge tags to retrieve.
 
 ```yaml
 Type: String[]
@@ -47,7 +67,8 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{ Fill Name Description }}
+
+Specifies the names of the knowledge tags to retrieve.
 
 ```yaml
 Type: String[]
@@ -61,23 +82,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -86,6 +93,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
 
 ## RELATED LINKS

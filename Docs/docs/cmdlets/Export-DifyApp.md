@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,31 +8,60 @@ schema: 2.0.0
 # Export-DifyApp
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Export apps to DSL files. By default, files are saved in the `DSLs` directory.
 
 ## SYNTAX
 
-```
-Export-DifyApp [[-App] <PSObject[]>] [[-Path] <String>] [-IncludeSecret] [-ProgressAction <ActionPreference>]
+```powershell
+Export-DifyApp [[-App] <PSObject[]>] [[-Path] <String>] [-IncludeSecret]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Export-DifyApp` cmdlet allows you to export applications as DSL files. You can specify the directory where the files should be saved and include sensitive information (like secrets) in the export if needed.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Get-DifyApp | Export-DifyApp
 ```
 
-{{ Add example description here }}
+Export app (specify directly from Get-DifyApp).
+
+### Example 2
+
+```powershell
+$AppsToBeExported = Get-DifyApp
+Export-DifyApp -App $AppsToBeExported
+```
+
+Export app (use result from Get-DifyApp).
+
+### Example 3
+
+```powershell
+Get-DifyApp | Export-DifyApp -Path "./path/to/your/directory"
+```
+
+Export app (change target directory).
+
+### Example 4
+
+```powershell
+Get-DifyApp | Export-DifyApp -IncludeSecret
+```
+
+Export app (include secrets).
 
 ## PARAMETERS
 
 ### -App
-{{ Fill App Description }}
+
+Specifies the application object(s) to export. This parameter accepts input from the pipeline.
 
 ```yaml
 Type: PSObject[]
@@ -47,7 +76,8 @@ Accept wildcard characters: False
 ```
 
 ### -IncludeSecret
-{{ Fill IncludeSecret Description }}
+
+Includes sensitive information (like secrets) in the exported DSL files.
 
 ```yaml
 Type: SwitchParameter
@@ -62,7 +92,8 @@ Accept wildcard characters: False
 ```
 
 ### -Path
-{{ Fill Path Description }}
+
+Specifies the directory where the exported DSL files should be saved. If the directory does not exist, it will be created.
 
 ```yaml
 Type: String
@@ -76,23 +107,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -101,6 +118,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
 
 ## RELATED LINKS

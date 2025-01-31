@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,45 +8,34 @@ schema: 2.0.0
 # Get-DifyVersion
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Retrieve the version information for Dify.
 
 ## SYNTAX
 
-```
-Get-DifyVersion [[-Server] <String>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```powershell
+Get-DifyVersion [[-Server] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Get-DifyVersion` cmdlet retrieves the version information of the Dify server, along with details about plugin support.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Get-DifyVersion
 ```
 
-{{ Add example description here }}
+Retrieve the version information of the Dify server.
 
 ## PARAMETERS
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Server
-{{ Fill Server Description }}
+
+Specifies the server URL for the Dify instance. If not provided, the `$env:PSDIFY_URL` environment variable will be used.
 
 ```yaml
 Type: String
@@ -61,7 +50,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -70,6 +60,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
+
+The cmdlet uses the `$env:PSDIFY_URL` environment variable if the `-Server` parameter is not specified. Ensure the environment variable is set correctly for seamless operation.
 
 ## RELATED LINKS

@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,31 +8,83 @@ schema: 2.0.0
 # Get-DifyApp
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Retrieve app information from Dify.
 
 ## SYNTAX
 
-```
+```powershell
 Get-DifyApp [[-Id] <String>] [[-Name] <String>] [[-Search] <String>] [[-Mode] <String>] [[-Tags] <String[]>]
- [-ProgressAction <ActionPreference>] [<CommonParameters>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Get-DifyApp` cmdlet allows you to retrieve app information from Dify. You can filter the results by specifying an app ID, name, search term, mode, or tags.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Get-DifyApp
 ```
 
-{{ Add example description here }}
+Get all apps.
+
+### Example 2
+
+```powershell
+Get-DifyApp -Id "..."
+```
+
+Get apps by ID.
+
+### Example 3
+
+```powershell
+Get-DifyApp -Name "..."
+```
+
+Get apps by name (complete match).
+
+### Example 4
+
+```powershell
+Get-DifyApp -Search "..."
+```
+
+Get apps by name (partial match).
+
+### Example 5
+
+```powershell
+Get-DifyApp -Mode "chat"
+```
+
+Get apps by mode.
+
+### Example 6
+
+```powershell
+Get-DifyApp -Tags "...", "..."
+```
+
+Get apps by tags (multiple tags can be specified).
+
+### Example 7
+
+```powershell
+Get-DifyApp -Name "..." -Mode "chat"
+```
+
+Combine filters to get apps by name and mode.
 
 ## PARAMETERS
 
 ### -Id
-{{ Fill Id Description }}
+
+The unique identifier of the app to retrieve.
 
 ```yaml
 Type: String
@@ -47,7 +99,8 @@ Accept wildcard characters: False
 ```
 
 ### -Mode
-{{ Fill Mode Description }}
+
+The mode of the app to retrieve. Valid values are "chat", "workflow", "agent-chat", "channel", and "all".
 
 ```yaml
 Type: String
@@ -62,7 +115,8 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{ Fill Name Description }}
+
+The name of the app to retrieve (exact match).
 
 ```yaml
 Type: String
@@ -76,23 +130,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Search
-{{ Fill Search Description }}
+
+A partial name or search term to filter apps.
 
 ```yaml
 Type: String
@@ -107,7 +147,8 @@ Accept wildcard characters: False
 ```
 
 ### -Tags
-{{ Fill Tags Description }}
+
+A list of tags to filter apps by.
 
 ```yaml
 Type: String[]
@@ -122,7 +163,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -131,6 +173,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
 
 ## RELATED LINKS

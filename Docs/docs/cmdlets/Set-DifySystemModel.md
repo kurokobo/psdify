@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,31 +8,54 @@ schema: 2.0.0
 # Set-DifySystemModel
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Set the default system model for the workspace.
 
 ## SYNTAX
 
-```
+```powershell
 Set-DifySystemModel [[-Model] <PSObject[]>] [[-Type] <String>] [[-Provider] <String>] [[-Name] <String>]
- [-ProgressAction <ActionPreference>] [<CommonParameters>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Set-DifySystemModel` cmdlet configures the default system model for the workspace. It can take a model object from the pipeline or specify the type, provider, and name directly. This allows granular control over the system model used for different functionalities like LLM, text embedding, speech-to-text, and more.
+
+The cmdlet validates the input parameters to ensure they conform to the supported model types and providers.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Set-DifySystemModel -Type "llm" -Provider "openai" -Name "gpt-4o-mini"
 ```
 
-{{ Add example description here }}
+Set the system model for "llm" using the OpenAI "gpt-4o-mini" model by directly specifying parameters.
+
+### Example 2
+
+```powershell
+Get-DifySystemModel -Type "llm" -Provider "openai" -Name "gpt-4o-mini" | Set-DifySystemModel
+```
+
+Set the system model using the result from `Get-DifySystemModel`.
+
+### Example 3
+
+```powershell
+$SystemModelToBeChanged = Get-DifySystemModel -Type "llm" -Provider "openai" -Name "gpt-4o-mini"
+Set-DifySystemModel -Model $SystemModelToBeChanged
+```
+
+Set the system model by passing a model object.
 
 ## PARAMETERS
 
 ### -Model
-{{ Fill Model Description }}
+
+Specifies the model object(s) to configure as the default system model. It can be passed directly via the pipeline.
 
 ```yaml
 Type: PSObject[]
@@ -47,7 +70,8 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{ Fill Name Description }}
+
+Specifies the name of the model to set as the default system model. This is required if no model object is provided.
 
 ```yaml
 Type: String
@@ -61,23 +85,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Provider
-{{ Fill Provider Description }}
+
+Specifies the provider of the model to set as the default system model. This is required if no model object is provided.
 
 ```yaml
 Type: String
@@ -92,7 +102,8 @@ Accept wildcard characters: False
 ```
 
 ### -Type
-{{ Fill Type Description }}
+
+Specifies the type of the model. Valid values are: "llm", "text-embedding", "rerank", "speech2text", "tts". This is required if no model object is provided.
 
 ```yaml
 Type: String
@@ -107,7 +118,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -116,6 +128,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
+
+- The cmdlet validates the input model types, provider, and name to ensure compatibility with the workspace.
+- If no model object is provided, the `Type`, `Provider`, and `Name` parameters must be specified.
 
 ## RELATED LINKS

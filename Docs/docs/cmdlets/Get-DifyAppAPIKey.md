@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,30 +8,43 @@ schema: 2.0.0
 # Get-DifyAppAPIKey
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Retrieve the API key(s) associated with a specific app.
 
 ## SYNTAX
 
-```
-Get-DifyAppAPIKey [[-App] <PSObject>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+```powershell
+Get-DifyAppAPIKey [[-App] <PSObject>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Get-DifyAppAPIKey` cmdlet retrieves API key(s) for a specified app in your Dify workspace. You can provide the app object as input, either directly or via a pipeline from `Get-DifyApp`.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Get-DifyApp -Name "MyApp" | Get-DifyAppAPIKey
 ```
 
-{{ Add example description here }}
+Get API key (specify directly from Get-DifyApp).
+
+### Example 2
+
+```powershell
+$AppsToGetAPIKey = Get-DifyApp -Name "MyApp"
+Get-DifyAppAPIKey -App $AppsToGetAPIKey
+```
+
+Get API key (use result from Get-DifyApp).
 
 ## PARAMETERS
 
 ### -App
-{{ Fill App Description }}
+
+Specifies the app object for which the API key(s) will be retrieved. The app object can be passed directly or via a pipeline from `Get-DifyApp`.
 
 ```yaml
 Type: PSObject
@@ -45,23 +58,9 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -70,6 +69,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
+
+- This cmdlet requires the `$env:PSDIFY_CONSOLE_TOKEN` environment variable to authenticate the request.
+- Ensure the app object provided contains a valid `Id` property for successful API key retrieval.
 
 ## RELATED LINKS

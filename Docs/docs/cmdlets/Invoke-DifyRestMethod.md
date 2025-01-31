@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,32 +8,66 @@ schema: 2.0.0
 # Invoke-DifyRestMethod
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Invokes REST API methods for Dify.
 
 ## SYNTAX
 
-```
+```powershell
 Invoke-DifyRestMethod [[-Uri] <String>] [[-Method] <String>] [[-ContentType] <String>] [[-Body] <String>]
  [[-Query] <Hashtable>] [[-Token] <String>] [[-Session] <WebRequestSession>] [[-InFile] <String>]
- [-ProgressAction <ActionPreference>] [<CommonParameters>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+`Invoke-DifyRestMethod` enables users to interact with the Dify REST API by constructing and sending HTTP requests. It supports GET, POST, PUT, PATCH, and DELETE methods. Users can specify URIs, headers, query parameters, and request bodies, as well as manage authentication via tokens or sessions.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+$Query = @{
+    "page"  = 1
+    "limit" = 100
+}
+Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/apps" -Query $Query -Token $env:PSDIFY_CONSOLE_TOKEN
 ```
 
-{{ Add example description here }}
+Invoke REST API (GET).
+
+### Example 2
+
+```powershell
+$Body =  @{
+    "model_settings" = @(
+        @{
+            "model_type" = "llm"
+            "provider"   = "openai"
+            "model"      = "gpt-4o-mini"
+        }
+    )
+} | ConvertTo-Json
+Invoke-DifyRestMethod -Method "POST" -Uri "https://dify.example.com/console/api/workspaces/current/default-model" -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
+```
+
+Invoke REST API (POST).
+
+### Example 3
+
+```powershell
+$DifySession = New-Object Microsoft.PowerShell.Commands.WebRequestSession
+Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/setup" -Session $DifySession
+```
+
+Invoke REST API using a session.
 
 ## PARAMETERS
 
 ### -Body
-{{ Fill Body Description }}
+
+Specifies the body content of the HTTP request. Typically used for POST, PUT, or PATCH methods.
 
 ```yaml
 Type: String
@@ -48,7 +82,8 @@ Accept wildcard characters: False
 ```
 
 ### -ContentType
-{{ Fill ContentType Description }}
+
+Defines the content type of the request. The default is "application/json".
 
 ```yaml
 Type: String
@@ -63,7 +98,8 @@ Accept wildcard characters: False
 ```
 
 ### -InFile
-{{ Fill InFile Description }}
+
+Specifies the path to a file to be used as input for the request body.
 
 ```yaml
 Type: String
@@ -78,7 +114,8 @@ Accept wildcard characters: False
 ```
 
 ### -Method
-{{ Fill Method Description }}
+
+Specifies the HTTP method to use, such as GET, POST, PUT, PATCH, or DELETE. The default is GET.
 
 ```yaml
 Type: String
@@ -92,23 +129,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Query
-{{ Fill Query Description }}
+
+Defines query parameters to append to the URI as a hashtable.
 
 ```yaml
 Type: Hashtable
@@ -123,7 +146,8 @@ Accept wildcard characters: False
 ```
 
 ### -Session
-{{ Fill Session Description }}
+
+Specifies a web request session to use for the HTTP request.
 
 ```yaml
 Type: WebRequestSession
@@ -138,7 +162,8 @@ Accept wildcard characters: False
 ```
 
 ### -Token
-{{ Fill Token Description }}
+
+Specifies the bearer token for authentication.
 
 ```yaml
 Type: String
@@ -153,7 +178,8 @@ Accept wildcard characters: False
 ```
 
 ### -Uri
-{{ Fill Uri Description }}
+
+Specifies the full URI for the API request.
 
 ```yaml
 Type: String
@@ -168,7 +194,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -177,6 +204,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
+
+This cmdlet is useful for advanced users who need to interact directly with the Dify REST API. It requires knowledge of the API endpoints and parameters.
 
 ## RELATED LINKS

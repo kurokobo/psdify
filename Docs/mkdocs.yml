@@ -1,7 +1,35 @@
 site_name: PSDify Documentation
+site_author: "kurokobo"
+repo_url: https://github.com/kurokobo/psdify
+docs_dir: docs
+
 theme:
   name: material
-docs_dir: docs
+  palette:
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+  features:
+    - navigation.sections
+    - navigation.path
+
+markdown_extensions:
+    - admonition
+    - pymdownx.superfences
+
+extra:
+    search:
+        language: "en, ja"
+    social:
+        - icon: fontawesome/brands/github-alt
+          link: "https://github.com/kurokobo"
+        - icon: fontawesome/brands/x-twitter
+          link: "https://x.com/kurokobo"
 
 nav:
   - Home: index.md
@@ -60,7 +88,3 @@ nav:
       - cmdlets/Set-PSDifyConfiguration.md
       - cmdlets/Add-DifyFile.md
       - cmdlets/Invoke-DifyRestMethod.md
-
-markdown_extensions:
-  - pymdownx.snippets:
-      base_path: docs

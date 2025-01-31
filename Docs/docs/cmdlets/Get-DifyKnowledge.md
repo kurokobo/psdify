@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,31 +8,67 @@ schema: 2.0.0
 # Get-DifyKnowledge
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Retrieve knowledge information from the Dify workspace.
 
 ## SYNTAX
 
-```
+```powershell
 Get-DifyKnowledge [[-Id] <String>] [[-Name] <String>] [[-Search] <String>] [[-Tags] <String[]>]
- [-ProgressAction <ActionPreference>] [<CommonParameters>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Get-DifyKnowledge` cmdlet retrieves knowledge information from the Dify workspace. You can filter the results by specifying knowledge ID, name, search keyword, or associated tags. If no parameters are provided, all available knowledge information is returned.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Get-DifyKnowledge
 ```
 
-{{ Add example description here }}
+Get all knowledge.
+
+### Example 2
+
+```powershell
+Get-DifyKnowledge -Id "..."
+```
+
+Get knowledge by ID.
+
+### Example 3
+
+```powershell
+Get-DifyKnowledge -Name "..."
+```
+
+Get knowledge by name (complete match).
+
+### Example 4
+
+```powershell
+Get-DifyKnowledge -Search "..."
+```
+
+Get knowledge by name (partial match).
+
+### Example 5
+
+```powershell
+Get-DifyKnowledge -Tags "...", "..."
+```
+
+Get knowledge by tags (multiple tags can be specified).
 
 ## PARAMETERS
 
 ### -Id
-{{ Fill Id Description }}
+
+Specifies the unique identifier of the knowledge to retrieve.
 
 ```yaml
 Type: String
@@ -47,7 +83,8 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{ Fill Name Description }}
+
+Specifies the name of the knowledge to retrieve. This performs an exact match search.
 
 ```yaml
 Type: String
@@ -61,23 +98,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Search
-{{ Fill Search Description }}
+
+Specifies a keyword to perform a partial match search on the knowledge name.
 
 ```yaml
 Type: String
@@ -92,7 +115,8 @@ Accept wildcard characters: False
 ```
 
 ### -Tags
-{{ Fill Tags Description }}
+
+Specifies one or more tags to filter knowledge by associated tags.
 
 ```yaml
 Type: String[]
@@ -107,7 +131,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -116,6 +141,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
+
+- If no filters are specified, the cmdlet retrieves all knowledge information available in the workspace.
+- When filtering by tags, ensure the tags exist in the workspace.
 
 ## RELATED LINKS

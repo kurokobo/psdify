@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,31 +8,46 @@ schema: 2.0.0
 # Remove-DifyKnowledge
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Removes knowledge entries from the Dify workspace.
 
 ## SYNTAX
 
-```
-Remove-DifyKnowledge [[-Knowledge] <PSObject[]>] [-ProgressAction <ActionPreference>] [-WhatIf] [-Confirm]
+```powershell
+Remove-DifyKnowledge [[-Knowledge] <PSObject[]>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Remove-DifyKnowledge` cmdlet deletes specified knowledge entries from the Dify workspace. It supports pipeline input, allowing you to pipe the result of `Get-DifyKnowledge` directly into this cmdlet for deletion. This cmdlet also supports confirmation prompts and WhatIf scenarios to preview the deletion without executing it.
 
 ## EXAMPLES
 
 ### Example 1
+
+### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Get-DifyKnowledge -Name "..." | Remove-DifyKnowledge
 ```
 
-{{ Add example description here }}
+Delete knowledge, specifying directly from `Get-DifyKnowledge`.
+
+### Example 2
+
+```powershell
+$KnowledgeToBeRemoved = Get-DifyKnowledge -Name "..."
+Remove-DifyKnowledge -Knowledge $KnowledgeToBeRemoved
+```
+
+Delete knowledge using the result from `Get-DifyKnowledge`.
 
 ## PARAMETERS
 
 ### -Knowledge
-{{ Fill Knowledge Description }}
+
+Specifies the knowledge objects to be removed. Accepts pipeline input from another cmdlet such as `Get-DifyKnowledge`.
 
 ```yaml
 Type: PSObject[]
@@ -46,22 +61,8 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Confirm
+
 Prompts you for confirmation before running the cmdlet.
 
 ```yaml
@@ -77,8 +78,8 @@ Accept wildcard characters: False
 ```
 
 ### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
+
+Shows what would happen if the cmdlet runs. The cmdlet is not run.
 
 ```yaml
 Type: SwitchParameter
@@ -93,7 +94,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -102,6 +104,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
+
+If the specified knowledge is not found or deletion fails, an error is thrown.
 
 ## RELATED LINKS

@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,31 +8,44 @@ schema: 2.0.0
 # Get-DifyPluginInstallationStatus
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Retrieve the installation status of a plugin task in the Dify workspace.
 
 ## SYNTAX
 
-```
+```powershell
 Get-DifyPluginInstallationStatus [[-TaskInfo] <PSObject>] [[-TaskId] <String>] [-Wait] [[-Interval] <Int32>]
- [[-Timeout] <Int32>] [-ProgressAction <ActionPreference>] [<CommonParameters>]
+ [[-Timeout] <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Get-DifyPluginInstallationStatus` cmdlet retrieves the current status of a plugin installation task in a Dify workspace. The status includes information about the task, such as its ID, status, and associated plugins. You can optionally wait for the task to complete by using the `-Wait` parameter.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+$TaskInfo = Install-DifyPlugin -Id "plugin-id-123"
+Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo
 ```
 
-{{ Add example description here }}
+Retrieve the installation status of a plugin task using task information returned from another cmdlet.
+
+### Example 2
+
+```powershell
+Get-DifyPluginInstallationStatus -TaskId "1234567890" -Wait -Interval 10 -Timeout 600
+```
+
+Waits for the plugin task with the specified ID to complete, checking the status every 10 seconds and timing out after 600 seconds.
 
 ## PARAMETERS
 
 ### -Interval
-{{ Fill Interval Description }}
+
+Specifies the interval, in seconds, between status checks when using the `-Wait` parameter.
 
 ```yaml
 Type: Int32
@@ -41,28 +54,14 @@ Aliases:
 
 Required: False
 Position: 2
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
+Default value: 5
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -TaskId
-{{ Fill TaskId Description }}
+
+Specifies the ID of the plugin task to retrieve the status for. Either `-TaskId` or `-TaskInfo` is required.
 
 ```yaml
 Type: String
@@ -77,7 +76,8 @@ Accept wildcard characters: False
 ```
 
 ### -TaskInfo
-{{ Fill TaskInfo Description }}
+
+Specifies the task information object to retrieve the status for. Either `-TaskId` or `-TaskInfo` is required.
 
 ```yaml
 Type: PSObject
@@ -92,7 +92,8 @@ Accept wildcard characters: False
 ```
 
 ### -Timeout
-{{ Fill Timeout Description }}
+
+Specifies the maximum time, in seconds, to wait for the task to complete when using the `-Wait` parameter.
 
 ```yaml
 Type: Int32
@@ -101,13 +102,14 @@ Aliases:
 
 Required: False
 Position: 3
-Default value: None
+Default value: 300
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Wait
-{{ Fill Wait Description }}
+
+Indicates that the cmdlet should wait for the task to complete before returning.
 
 ```yaml
 Type: SwitchParameter
@@ -116,13 +118,14 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -131,6 +134,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
+
+The cmdlet requires the `$env:PSDIFY_URL` and `$env:PSDIFY_CONSOLE_TOKEN` environment variables to be set for proper operation.
 
 ## RELATED LINKS

@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PSDify-help.xml
 Module Name: PSDify
 online version:
@@ -8,31 +8,51 @@ schema: 2.0.0
 # Add-DifyFile
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+
+Upload files to the Dify platform. This is not designed to invoke manually, but rather to be used by other cmdlets.
 
 ## SYNTAX
 
-```
+```powershell
 Add-DifyFile [[-Item] <PSObject[]>] [[-Path] <String[]>] [[-Source] <String>]
- [-ProgressAction <ActionPreference>] [<CommonParameters>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+
+The `Add-DifyFile` cmdlet uploads one or more files to the Dify platform. You can specify files directly using the `-Path` parameter or pass file objects through the pipeline to the `-Item` parameter. An optional `-Source` parameter can be used to provide additional source information for the uploaded files.
 
 ## EXAMPLES
 
 ### Example 1
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Add-DifyFile -Path "Files/*"
 ```
 
-{{ Add example description here }}
+Upload files (specify file paths, supports wildcards and multiple paths).
+
+### Example 2
+
+```powershell
+Get-Item -Path "Files/*" | Add-DifyFile
+```
+
+Upload files (specify from Get-Item or Get-ChildItem via pipe).
+
+### Example 3
+
+```powershell
+Get-Item -Path "Files/*" | Add-DifyFile -Source "..."
+```
+
+Upload files (specify source information).
 
 ## PARAMETERS
 
 ### -Item
-{{ Fill Item Description }}
+
+A collection of file objects to upload. You can pass file objects to this parameter through the pipeline.
 
 ```yaml
 Type: PSObject[]
@@ -47,7 +67,8 @@ Accept wildcard characters: False
 ```
 
 ### -Path
-{{ Fill Path Description }}
+
+One or more file paths to upload. Wildcards are supported.
 
 ```yaml
 Type: String[]
@@ -61,23 +82,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProgressAction
-{{ Fill ProgressAction Description }}
-
-```yaml
-Type: ActionPreference
-Parameter Sets: (All)
-Aliases: proga
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Source
-{{ Fill Source Description }}
+
+Specifies additional source information for the uploaded files.
 
 ```yaml
 Type: String
@@ -92,7 +99,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutBuffer, -OutVariable, -PipelineVariable, -ProgressAction, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -101,6 +109,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## OUTPUTS
 
 ### System.Object
+
 ## NOTES
 
 ## RELATED LINKS
