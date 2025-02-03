@@ -169,3 +169,13 @@ function Repair-LintErrors {
 Get-ChildItem -Path $OutputFolder -Filter "*.md" | ForEach-Object {
     Repair-LintErrors -Path $_.FullName
 }
+
+# Update index.md for MkDocs
+$IndexFile = "Docs/docs/index.md"
+$ReadmeFile = "README.md"
+$Content = Get-Content -Path $ReadmeFile
+$Content = $Content -replace '> \[!WARNING\]', '!!! warning'
+$Content = $Content -replace '> \[!NOTE\]', '!!! note'
+$Content = $Content -replace '^>$', ''
+$Content = $Content -replace '> ', '    '
+$Content | Out-File -Encoding utf8 -FilePath $IndexFile
