@@ -5,7 +5,7 @@
     GUID                 = 'b791c4c0-ed46-4561-8713-5d4242e6bac7'
     Author               = 'kurokobo'
     CompanyName          = ''
-    Copyright            = '(c) 2024 kurokobo.'
+    Copyright            = '(c) 2025 kurokobo.'
 
     Description          = 'PowerShell module for Dify.'
     PowerShellVersion    = '5.1'

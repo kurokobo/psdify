@@ -2,6 +2,7 @@ $PublishDirectories = @(
     "Private",
     "Public",
     "LICENSE",
+    "PSDify-help.xml",
     "PSDify.psd1",
     "PSDify.psm1"
 )
