@@ -7,9 +7,13 @@ schema: 2.0.0
 
 # Add-DifyDocument
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
-Uploads documents to a specified knowledge base in Dify, with options for chunking, indexing, and waiting for indexing to complete.
+Uploads documents to a specified knowledge in Dify, with options for chunking, indexing, and waiting for indexing to complete.
 
 ## SYNTAX
 
@@ -25,6 +29,8 @@ The `Add-DifyDocument` cmdlet allows users to upload documents to a specified Kn
 
 Currently, detailed configuration is not implemented.
 
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## EXAMPLES
 
 ### Example 1
@@ -34,7 +40,7 @@ $Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
 Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md"
 ```
 
-Upload documents (specify file paths, supports wildcards and multiple paths).
+Upload documents by specifying file paths, supports wildcards and multiple paths.
 
 ### Example 2
 
@@ -43,7 +49,7 @@ $Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
 Get-Item -Path "Docs/*.md" | Add-DifyDocument -Knowledge $Knowledge
 ```
 
-Upload documents (specify from Get-Item or Get-ChildItem via pipe).
+Upload documents by specifing files from Get-Item or Get-ChildItem via pipe.
 
 ### Example 3
 
@@ -52,7 +58,7 @@ $Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
 Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -ChunkMode "custom"
 ```
 
-Upload documents (specify chunk settings).
+Upload documents with specifying chunk settings.
 
 ### Example 4
 
@@ -62,7 +68,7 @@ $EmbeddingModel = Get-DifyModel -Provider "openai" -Name "text-embedding-3-small
 Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -IndexMode "high_quality" -Model $EmbeddingModel
 ```
 
-Upload documents (use any model).
+Upload documents with specifying embedding model.
 
 ### Example 5
 
@@ -71,7 +77,7 @@ $Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
 Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -IndexMode "economy"
 ```
 
-Upload documents (use economy mode).
+Upload documents with specifying indexing mode.
 
 ### Example 6
 
@@ -258,7 +264,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Send-DifyChatMessage
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Sends chat messages to the app and displays the response in the console.
@@ -21,6 +25,8 @@ Send-DifyChatMessage [-NewSession] [[-Message] <String>] [[-Inputs] <Hashtable>]
 ## DESCRIPTION
 
 The `Send-DifyChatMessage` cmdlet allows users to send chat messages to a Dify app. It requires environment variables `$env:PSDIFY_APP_URL` (URL of the Dify API server) and `$env:PSDIFY_APP_TOKEN` (application token) to function. The cmdlet starts a new conversation if `-NewSession` is specified. It also logs the conversation and response in the `Logs` folder.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -94,7 +100,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -112,8 +118,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-- Ensure that the environment variables `$env:PSDIFY_APP_URL` and `$env:PSDIFY_APP_TOKEN` are set before using this cmdlet.
-- Logs are saved in the `Logs` folder for every session and response.
 
 ## RELATED LINKS

@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Wait-Dify
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Waits for the Dify instance to become ready.
@@ -22,6 +26,8 @@ Wait-Dify [[-Server] <String>] [[-Interval] <Int32>] [[-Timeout] <Int32>]
 
 The `Wait-Dify` cmdlet waits for the Dify instance to become ready. It polls the specified server at regular intervals until it is ready or the timeout is exceeded. This is useful for scenarios where you need to ensure the Dify instance is operational before proceeding with other operations.
 
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## EXAMPLES
 
 ### Example 1
@@ -30,7 +36,7 @@ The `Wait-Dify` cmdlet waits for the Dify instance to become ready. It polls the
 Wait-Dify -Server "https://dify.example.com"
 ```
 
-Wait for the Dify instance at `<https://dify.example.com>` to be ready.
+Wait for the Dify instance at `\<https://dify.example.com\>` to be ready.
 
 ### Example 2
 
@@ -38,7 +44,7 @@ Wait for the Dify instance at `<https://dify.example.com>` to be ready.
 Wait-Dify -Server "https://dify.example.com" -Interval 5 -Timeout 300
 ```
 
-Wait for the Dify instance at `<https://dify.example.com>` to be ready, specifying an interval of 5 seconds and a maximum timeout of 300 seconds.
+Wait for the Dify instance at `\<https://dify.example.com\>` to be ready, specifying an interval of 5 seconds and a maximum timeout of 300 seconds.
 
 ## PARAMETERS
 
@@ -103,8 +109,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-- If the `Server` parameter is not provided, the cmdlet uses the `$env:PSDIFY_URL` environment variable.
-- Writes verbose output during the waiting process if the `-Verbose` flag is used.
 
 ## RELATED LINKS

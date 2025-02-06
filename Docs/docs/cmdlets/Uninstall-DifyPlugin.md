@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Uninstall-DifyPlugin
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Uninstalls one or more plugins from the current Dify workspace.
@@ -20,7 +24,9 @@ Uninstall-DifyPlugin [[-Plugin] <PSObject[]>] [-WhatIf] [-Confirm]
 
 ## DESCRIPTION
 
-The `Uninstall-DifyPlugin` cmdlet is used to uninstall plugins from the current Dify workspace. You can specify plugins to uninstall either by passing them as pipeline objects or directly using the `-Plugin` parameter. The cmdlet requires the Dify server to support plugins, and it will throw an error if plugin support is not available.
+The `Uninstall-DifyPlugin` cmdlet is used to uninstall plugins from the current Dify workspace. You can specify plugins to uninstall either by passing them as pipeline objects or directly using the `-Plugin` parameter.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -61,7 +67,7 @@ Aliases: cf
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -77,7 +83,7 @@ Aliases: wi
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -95,8 +101,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-- This cmdlet will throw an error if the current Dify server does not support plugins.
-- The `-WhatIf` and `-Confirm` parameters can be used to preview or confirm the operation before execution.
 
 ## RELATED LINKS

@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # New-DifyMember
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Add (invite) a new member to the workspace.
@@ -20,7 +24,9 @@ New-DifyMember [[-Email] <String>] [[-Role] <String>] [[-Language] <String>]
 
 ## DESCRIPTION
 
-The `New-DifyMember` cmdlet allows you to invite a new member to the workspace by specifying their email address, role, and preferred language for the invitation. The user will receive an invitation link to join the workspace.
+The `New-DifyMember` cmdlet allows you to invite a new member to the workspace by specifying their email address, role, and preferred language for the invitation.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -95,8 +101,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-- If the role specified is invalid, the cmdlet will throw an error.
-- The invitation link for the user will be appended to the returned member object.
 
 ## RELATED LINKS

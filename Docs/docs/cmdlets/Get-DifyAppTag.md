@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Get-DifyAppTag
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Retrieve tag information for apps.
@@ -21,6 +25,8 @@ Get-DifyAppTag [[-Id] <String[]>] [[-Name] <String[]>]
 ## DESCRIPTION
 
 The `Get-DifyAppTag` cmdlet retrieves tag information for apps. This is equivalent to `Get-DifyTag -Type "app"`.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 

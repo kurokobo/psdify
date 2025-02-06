@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Get-DifyModel
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Retrieve workspace model information.
@@ -21,6 +25,8 @@ Get-DifyModel [[-Provider] <String[]>] [[-From] <String[]>] [[-Name] <String[]>]
 ## DESCRIPTION
 
 The `Get-DifyModel` cmdlet retrieves information about models available in the workspace. You can filter the models by provider, type, name, and other criteria. It supports retrieving both predefined and customizable models. The cmdlet provides details about model providers, types, and their current status.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -85,7 +91,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -133,7 +139,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -183,7 +189,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-This cmdlet retrieves and processes data about models configured in the Dify workspace. The retrieved information can be used for further operations such as adding, modifying, or removing models.
 
 ## RELATED LINKS

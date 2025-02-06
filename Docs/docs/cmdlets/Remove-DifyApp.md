@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Remove-DifyApp
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Deletes specified apps from Dify.
@@ -20,7 +24,9 @@ Remove-DifyApp [[-App] <PSObject[]>] [-WhatIf] [-Confirm]
 
 ## DESCRIPTION
 
-The `Remove-DifyApp` cmdlet deletes one or more apps from Dify. It uses the app ID to identify the apps to be removed. This cmdlet supports pipeline input, allowing you to pass app objects directly from other cmdlets like `Get-DifyApp`.
+The `Remove-DifyApp` cmdlet deletes one or more apps from Dify. This cmdlet supports pipeline input, allowing you to pass app objects directly from other cmdlets like `Get-DifyApp`.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -70,7 +76,7 @@ Aliases: cf
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -86,7 +92,7 @@ Aliases: wi
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -104,8 +110,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-- Ensure you have sufficient permissions to delete the apps.
-- Be cautious when running this cmdlet, especially with bulk operations, as it permanently removes apps.
 
 ## RELATED LINKS

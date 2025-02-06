@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Remove-DifyDocument
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Deletes documents from a Dify knowledge base.
@@ -20,7 +24,9 @@ Remove-DifyDocument [[-Document] <PSObject[]>] [-WhatIf] [-Confirm]
 
 ## DESCRIPTION
 
-The `Remove-DifyDocument` cmdlet removes specified documents from a Dify knowledge base. You can specify the documents to be removed directly, or pipe them from other cmdlets like `Get-DifyDocument`.
+The `Remove-DifyDocument` cmdlet removes specified documents from a Dify knowledge. You can specify the documents to be removed directly, or pipe them from other cmdlets like `Get-DifyDocument`.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -70,7 +76,7 @@ Aliases: cf
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -86,7 +92,7 @@ Aliases: wi
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -104,7 +110,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-The cmdlet uses REST API calls for document deletion. Ensure that `$env:PSDIFY_URL` and `$env:PSDIFY_CONSOLE_TOKEN` are configured properly to authenticate and specify the target Dify instance.
 
 ## RELATED LINKS

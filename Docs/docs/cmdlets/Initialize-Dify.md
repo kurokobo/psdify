@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Initialize-Dify
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Initialize the Dify instance by creating an admin account (Community Edition only).
@@ -21,6 +25,8 @@ Initialize-Dify [[-Server] <String>] [[-Email] <String>] [[-Name] <String>] [[-I
 ## DESCRIPTION
 
 The `Initialize-Dify` cmdlet is used to initialize the Dify instance by creating an admin account. This is applicable for the Community Edition of Dify. The cmdlet validates the initial setup password (if required), creates an admin account using the specified email and password, and logs in as the admin after successful initialization.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -119,7 +125,7 @@ Accept wildcard characters: False
 
 ### -Server
 
-Specifies the server URL of the Dify instance to be initialized. Defaults to "<https://cloud.dify.ai>" if not specified.
+Specifies the server URL of the Dify instance to be initialized. Defaults to <https://cloud.dify.ai> if not specified.
 
 ```yaml
 Type: String
@@ -146,7 +152,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
 - This cmdlet is only applicable for the Community Edition of Dify.
 - Ensure that the `Server` parameter points to the correct Dify instance URL.
 - You can use environment variables (`$env:PSDIFY_URL`, `$env:PSDIFY_EMAIL`, etc.) to simplify cmdlet arguments.

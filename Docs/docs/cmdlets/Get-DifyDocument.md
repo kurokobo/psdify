@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Get-DifyDocument
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Retrieve document information in knowledge.
@@ -20,7 +24,9 @@ Get-DifyDocument [[-Knowledge] <PSObject>] [[-Id] <String>] [[-Name] <String>] [
 
 ## DESCRIPTION
 
-The `Get-DifyDocument` cmdlet retrieves document information associated with a specified knowledge object. You can filter documents by ID, name, or search keyword. This cmdlet can return all documents for a given knowledge object or specific documents based on the provided parameters.
+The `Get-DifyDocument` cmdlet retrieves document information associated with a specified knowledge. You can filter documents by ID, name, or search keyword. This cmdlet can return all documents for a given knowledge or specific documents based on the provided parameters.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -85,7 +91,7 @@ Accept wildcard characters: False
 
 ### -Knowledge
 
-Specifies the knowledge object from which to retrieve documents. This parameter supports pipeline input.
+Specifies the knowledge from which to retrieve documents. This parameter supports pipeline input.
 
 ```yaml
 Type: PSObject
@@ -144,7 +150,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-Ensure that the `$env:PSDIFY_URL` and `$env:PSDIFY_CONSOLE_TOKEN` environment variables are set correctly before using this cmdlet. These variables are required for successful API communication with the Dify instance.
 
 ## RELATED LINKS

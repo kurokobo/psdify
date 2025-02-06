@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Get-DifyVersion
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Retrieve the version information for Dify.
@@ -20,6 +24,8 @@ Get-DifyVersion [[-Server] <String>] [<CommonParameters>]
 ## DESCRIPTION
 
 The `Get-DifyVersion` cmdlet retrieves the version information of the Dify server, along with details about plugin support.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -62,7 +68,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-The cmdlet uses the `$env:PSDIFY_URL` environment variable if the `-Server` parameter is not specified. Ensure the environment variable is set correctly for seamless operation.
 
 ## RELATED LINKS

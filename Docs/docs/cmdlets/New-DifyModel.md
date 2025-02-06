@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # New-DifyModel
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Creates a new model in the workspace, either predefined or customizable, depending on the specified parameters.
@@ -21,6 +25,8 @@ New-DifyModel [[-Provider] <String>] [[-From] <String>] [[-Name] <String>] [[-Ty
 ## DESCRIPTION
 
 The `New-DifyModel` cmdlet allows you to add new models to the workspace. The credentials required depend on the provider and the model. You can choose between predefined models and customizable models. For customizable models, additional details such as model name, type, and credentials must be specified.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 

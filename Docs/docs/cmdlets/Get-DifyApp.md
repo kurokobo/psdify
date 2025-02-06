@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Get-DifyApp
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Retrieve app information from Dify.
@@ -21,6 +25,8 @@ Get-DifyApp [[-Id] <String>] [[-Name] <String>] [[-Search] <String>] [[-Mode] <S
 ## DESCRIPTION
 
 The `Get-DifyApp` cmdlet allows you to retrieve app information from Dify. You can filter the results by specifying an app ID, name, search term, mode, or tags.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -46,7 +52,7 @@ Get apps by ID.
 Get-DifyApp -Name "..."
 ```
 
-Get apps by name (complete match).
+Get apps by name with complete match.
 
 ### Example 4
 
@@ -54,7 +60,7 @@ Get apps by name (complete match).
 Get-DifyApp -Search "..."
 ```
 
-Get apps by name (partial match).
+Get apps by name with partial match.
 
 ### Example 5
 
@@ -70,7 +76,7 @@ Get apps by mode.
 Get-DifyApp -Tags "...", "..."
 ```
 
-Get apps by tags (multiple tags can be specified).
+Get apps by tags, multiple tags can be specified.
 
 ### Example 7
 

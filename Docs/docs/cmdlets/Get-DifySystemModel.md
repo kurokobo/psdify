@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Get-DifySystemModel
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Retrieve system model information for the workspace.
@@ -20,6 +24,8 @@ Get-DifySystemModel [[-Type] <String[]>] [<CommonParameters>]
 ## DESCRIPTION
 
 The `Get-DifySystemModel` cmdlet retrieves information about the system models configured in the workspace. These models are categorized by type, such as "llm" (Large Language Model), "text-embedding", "rerank", "speech2text", and "tts". You can specify one or more types to filter the results or retrieve all available types by default.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -70,7 +76,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-This cmdlet uses the `$env:PSDIFY_CONSOLE_TOKEN` environment variable to authenticate with the Dify server. Ensure that the token is set and valid before using the cmdlet.
 
 ## RELATED LINKS

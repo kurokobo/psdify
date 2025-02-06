@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Find-DifyPlugin
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Retrieve available plugins from the Dify Marketplace.
@@ -21,6 +25,8 @@ Find-DifyPlugin [[-Category] <String>] [[-Id] <String>] [[-Name] <String>] [[-Se
 ## DESCRIPTION
 
 The `Find-DifyPlugin` cmdlet retrieves information about available plugins from the Dify Marketplace. You can filter plugins by category, ID, name, or search string. This cmdlet requires a Dify server that supports plugins.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -135,8 +141,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-- The Dify server must support plugins for this cmdlet to function. If the server does not support plugins, an error is thrown.
-- The `agent` category is internally mapped to `agent-strategy`.
 
 ## RELATED LINKS

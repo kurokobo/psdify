@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Get-DifyKnowledge
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Retrieve knowledge information from the Dify workspace.
@@ -21,6 +25,8 @@ Get-DifyKnowledge [[-Id] <String>] [[-Name] <String>] [[-Search] <String>] [[-Ta
 ## DESCRIPTION
 
 The `Get-DifyKnowledge` cmdlet retrieves knowledge information from the Dify workspace. You can filter the results by specifying knowledge ID, name, search keyword, or associated tags. If no parameters are provided, all available knowledge information is returned.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -46,7 +52,7 @@ Get knowledge by ID.
 Get-DifyKnowledge -Name "..."
 ```
 
-Get knowledge by name (complete match).
+Get knowledge by name with complete match.
 
 ### Example 4
 
@@ -54,7 +60,7 @@ Get knowledge by name (complete match).
 Get-DifyKnowledge -Search "..."
 ```
 
-Get knowledge by name (partial match).
+Get knowledge by name with partial match.
 
 ### Example 5
 
@@ -62,7 +68,7 @@ Get knowledge by name (partial match).
 Get-DifyKnowledge -Tags "...", "..."
 ```
 
-Get knowledge by tags (multiple tags can be specified).
+Get knowledge by tags, multiple tags can be specified.
 
 ## PARAMETERS
 
@@ -143,8 +149,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-- If no filters are specified, the cmdlet retrieves all knowledge information available in the workspace.
-- When filtering by tags, ensure the tags exist in the workspace.
 
 ## RELATED LINKS

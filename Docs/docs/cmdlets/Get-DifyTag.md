@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Get-DifyTag
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Retrieve tag information for either apps or knowledge.
@@ -21,6 +25,8 @@ Get-DifyTag [[-Id] <String[]>] [[-Name] <String[]>] [[-Type] <String>]
 ## DESCRIPTION
 
 The `Get-DifyTag` cmdlet retrieves tag information from the Dify platform. Tags can be filtered by their type (`app` or `knowledge`), ID, or name.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -111,8 +117,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-- The `-Type` parameter is mandatory because the cmdlet requires a tag type to filter results (`app` or `knowledge`).
-- Ensure the `$env:PSDIFY_CONSOLE_TOKEN` environment variable is set and valid before executing this cmdlet.
 
 ## RELATED LINKS

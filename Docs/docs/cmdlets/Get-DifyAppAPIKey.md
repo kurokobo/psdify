@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Get-DifyAppAPIKey
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Retrieve the API key(s) associated with a specific app.
@@ -20,6 +24,8 @@ Get-DifyAppAPIKey [[-App] <PSObject>] [<CommonParameters>]
 ## DESCRIPTION
 
 The `Get-DifyAppAPIKey` cmdlet retrieves API key(s) for a specified app in your Dify workspace. You can provide the app object as input, either directly or via a pipeline from `Get-DifyApp`.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -71,8 +77,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-- This cmdlet requires the `$env:PSDIFY_CONSOLE_TOKEN` environment variable to authenticate the request.
-- Ensure the app object provided contains a valid `Id` property for successful API key retrieval.
 
 ## RELATED LINKS

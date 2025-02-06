@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Get-DifyPluginInstallationStatus
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Retrieve the installation status of a plugin task in the Dify workspace.
@@ -21,6 +25,8 @@ Get-DifyPluginInstallationStatus [[-TaskInfo] <PSObject>] [[-TaskId] <String>] [
 ## DESCRIPTION
 
 The `Get-DifyPluginInstallationStatus` cmdlet retrieves the current status of a plugin installation task in a Dify workspace. The status includes information about the task, such as its ID, status, and associated plugins. You can optionally wait for the task to complete by using the `-Wait` parameter.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -136,7 +142,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-The cmdlet requires the `$env:PSDIFY_URL` and `$env:PSDIFY_CONSOLE_TOKEN` environment variables to be set for proper operation.
 
 ## RELATED LINKS

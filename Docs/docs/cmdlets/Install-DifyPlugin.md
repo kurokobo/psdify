@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Install-DifyPlugin
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Install plugins from the Dify Marketplace into the current workspace.
@@ -23,6 +27,8 @@ Install-DifyPlugin [[-Item] <PSObject[]>] [[-Id] <String[]>] [[-UniqueIdentifier
 The `Install-DifyPlugin` cmdlet installs plugins from the Dify Marketplace into the current workspace. You can specify plugins to install by their ID, unique identifier, or via pipeline input.
 
 If the `-Wait` parameter is specified, the cmdlet waits for the installation task to complete and returns the installed plugins. Otherwise, it returns a task object with installation status information.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -144,7 +150,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -162,8 +168,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-- This cmdlet requires the `$env:PSDIFY_PLUGIN_SUPPORT` environment variable to be set to indicate that the server supports plugins.
-- If `-Wait` is not specified and not all plugins are installed immediately, a task object with installation status information is returned.
 
 ## RELATED LINKS

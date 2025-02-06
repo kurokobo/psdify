@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Set-DifySystemModel
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Set the default system model for the workspace.
@@ -23,6 +27,8 @@ Set-DifySystemModel [[-Model] <PSObject[]>] [[-Type] <String>] [[-Provider] <Str
 The `Set-DifySystemModel` cmdlet configures the default system model for the workspace. It can take a model object from the pipeline or specify the type, provider, and name directly. This allows granular control over the system model used for different functionalities like LLM, text embedding, speech-to-text, and more.
 
 The cmdlet validates the input parameters to ensure they conform to the supported model types and providers.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -130,8 +136,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-- The cmdlet validates the input model types, provider, and name to ensure compatibility with the workspace.
-- If no model object is provided, the `Type`, `Provider`, and `Name` parameters must be specified.
 
 ## RELATED LINKS

@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Connect-Dify
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Authenticate with Dify using password or email-based login, enabling operations with other PSDify cmdlets.
@@ -22,6 +26,8 @@ Connect-Dify [[-Server] <String>] [[-AuthMethod] <String>] [[-Email] <String>] [
 ## DESCRIPTION
 
 The `Connect-Dify` cmdlet allows you to authenticate with a Dify server using various methods such as password-based login or email-based code authentication. After successful authentication, environment variables required for subsequent operations are set.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -56,7 +62,7 @@ $DifyPassword = ConvertTo-SecureString -String "AwesomeDify123!" -AsPlainText -F
 Connect-Dify -Server "https://dify.example.com" -Email "dify@example.com" -Password $DifyPassword
 ```
 
-Password authentication (use predefined password).
+Password authentication with predefined password.
 
 ## PARAMETERS
 
@@ -68,7 +74,7 @@ Specifies the authentication method to use. Valid values are:
 - `Code`: Authenticate using an email and a code sent via email.
 - `Token`: Authenticate directly using a console access token.
 
-This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`.
+This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`. The default value is `Password`.
 
 ```yaml
 Type: String
@@ -127,7 +133,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -198,7 +204,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-After successful authentication, the following environment variables are set:
+After a successful authentication, the following environment variables, along with others, are set:
 
 - `$env:PSDIFY_CONSOLE_TOKEN`
 - `$env:PSDIFY_CONSOLE_REFRESH_TOKEN`

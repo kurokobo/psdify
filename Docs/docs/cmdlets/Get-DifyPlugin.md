@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Get-DifyPlugin
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Retrieve plugin information from the current Dify workspace.
@@ -21,6 +25,8 @@ Get-DifyPlugin [[-Category] <String>] [[-Id] <String[]>] [[-Name] <String[]>] [[
 ## DESCRIPTION
 
 The `Get-DifyPlugin` cmdlet retrieves a list of plugins available in the current Dify workspace. You can filter the plugins by category, ID, name, unique identifier, or search term. The cmdlet returns information such as the plugin's category, name, display name, ID, description, version, and unique identifier.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -159,7 +165,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-If the currently logged-in Dify server does not support plugins, an error will be thrown.
 
 ## RELATED LINKS

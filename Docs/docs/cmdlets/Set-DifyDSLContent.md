@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Set-DifyDSLContent
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Writes the provided content to a DSL file at the specified path, ensuring UTF-8 encoding without BOM.
@@ -21,6 +25,8 @@ Set-DifyDSLContent [[-Content] <String>] [[-Path] <String>]
 ## DESCRIPTION
 
 The `Set-DifyDSLContent` cmdlet writes content to a specified DSL file. If the file does not exist, it creates a new file. The content is written in UTF-8 encoding without a byte order mark (BOM). This cmdlet is particularly useful for modifying DSL files programmatically or preparing them for other cmdlets that use DSL files.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -80,7 +86,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-Ensure both `Content` and `Path` parameters are provided; otherwise, the cmdlet will throw an error. The cmdlet writes files in UTF-8 encoding without BOM to maintain compatibility.
 
 ## RELATED LINKS

@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Remove-DifyAppAPIKey
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Delete the API key of the app.
@@ -20,7 +24,9 @@ Remove-DifyAppAPIKey [[-APIKey] <PSObject[]>] [-WhatIf] [-Confirm]
 
 ## DESCRIPTION
 
-The `Remove-DifyAppAPIKey` cmdlet deletes API keys associated with a specific app in Dify. You can provide the API keys directly or pipe them as input. The cmdlet sends a DELETE request to the Dify server to remove the specified API keys.
+The `Remove-DifyAppAPIKey` cmdlet deletes API keys associated with a specific app in Dify. You can provide the API keys directly or pipe them as input.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -70,7 +76,7 @@ Aliases: cf
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -86,7 +92,7 @@ Aliases: wi
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -104,8 +110,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-- Ensure you have the appropriate permissions to delete API keys in your Dify workspace.
-- The cmdlet interacts with the Dify REST API. Make sure your environment variables `$env:PSDIFY_URL` and `$env:PSDIFY_CONSOLE_TOKEN` are set and valid.
 
 ## RELATED LINKS

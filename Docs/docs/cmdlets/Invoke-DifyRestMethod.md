@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Invoke-DifyRestMethod
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Invokes REST API methods for Dify.
@@ -22,6 +26,8 @@ Invoke-DifyRestMethod [[-Uri] <String>] [[-Method] <String>] [[-ContentType] <St
 ## DESCRIPTION
 
 `Invoke-DifyRestMethod` enables users to interact with the Dify REST API by constructing and sending HTTP requests. It supports GET, POST, PUT, PATCH, and DELETE methods. Users can specify URIs, headers, query parameters, and request bodies, as well as manage authentication via tokens or sessions.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -206,7 +212,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-This cmdlet is useful for advanced users who need to interact directly with the Dify REST API. It requires knowledge of the API endpoints and parameters.
 
 ## RELATED LINKS

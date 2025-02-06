@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Get-DifyKnowledgeTag
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Retrieve tag information for knowledge.
@@ -21,6 +25,8 @@ Get-DifyKnowledgeTag [[-Id] <String[]>] [[-Name] <String[]>]
 ## DESCRIPTION
 
 The `Get-DifyKnowledgeTag` cmdlet retrieves tag information associated with knowledge in the workspace. This is equivalent to executing `Get-DifyTag -Type "knowledge"`.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 

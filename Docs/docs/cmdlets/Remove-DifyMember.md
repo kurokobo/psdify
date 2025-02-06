@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Remove-DifyMember
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Remove members from the workspace.
@@ -21,6 +25,8 @@ Remove-DifyMember [[-Member] <PSObject[]>] [-WhatIf] [-Confirm]
 ## DESCRIPTION
 
 The `Remove-DifyMember` cmdlet removes one or more members from the current workspace. You can specify the members to be removed directly or pipe them from the `Get-DifyMember` cmdlet. This cmdlet supports confirmation prompts and the `WhatIf` parameter to preview the changes before applying them.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -45,7 +51,7 @@ Remove members using the result from `Get-DifyMember`.
 
 ### -Member
 
-Specifies the members to be removed. Accepts a list of `PSCustomObject` objects representing the members. This parameter accepts pipeline input.
+Specifies the members to be removed. Accepts a list of objects which can be retrieved by `Get-DifyMember`. This parameter accepts pipeline input.
 
 ```yaml
 Type: PSObject[]
@@ -70,7 +76,7 @@ Aliases: cf
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -86,7 +92,7 @@ Aliases: wi
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -104,8 +110,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-- This cmdlet requires a valid Dify URL and authentication token to operate.
-- The `Remove-DifyMember` cmdlet is irreversible. Ensure you have specified the correct member(s) before executing.
 
 ## RELATED LINKS

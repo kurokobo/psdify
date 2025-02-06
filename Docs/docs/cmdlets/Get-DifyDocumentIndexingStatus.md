@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Get-DifyDocumentIndexingStatus
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Retrieve document indexing status.
@@ -20,7 +24,9 @@ Get-DifyDocumentIndexingStatus [[-Document] <PSObject>] [[-Knowledge] <PSObject>
 
 ## DESCRIPTION
 
-This cmdlet retrieves the indexing status of documents within a specified knowledge base or batch. It can also wait for the indexing process to complete based on the `-Wait` parameter. By default, the cmdlet checks and retrieves the indexing status without waiting.
+This cmdlet retrieves the indexing status of documents within a specified batch. It can also wait for the indexing process to complete based on the `-Wait` parameter. By default, the cmdlet checks and retrieves the indexing status without waiting.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -158,7 +164,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -176,7 +182,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-This cmdlet is useful for monitoring and managing the indexing process of documents within the Dify environment. Ensure proper use of environment variables like `$env:PSDIFY_URL` and `$env:PSDIFY_CONSOLE_TOKEN` for authentication and API interaction.
 
 ## RELATED LINKS

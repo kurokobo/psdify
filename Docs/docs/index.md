@@ -2,7 +2,7 @@
 
 ![image](https://github.com/user-attachments/assets/fd7a22ea-4ed6-46c3-a2dc-4027c2650f5e)
 
-PSDify is a PowerShell module designed to enable workspace management for [Dify](https://github.com/langgenius/dify) from the command line.
+**PSDify** is a PowerShell module designed to enable workspace management for [Dify](https://github.com/langgenius/dify) from the command line.
 
 Here are some examples of what you can do with PSDify:
 

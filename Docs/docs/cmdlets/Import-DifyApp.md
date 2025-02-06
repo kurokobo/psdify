@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Import-DifyApp
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Import apps from local DSL files or inline content.
@@ -20,7 +24,11 @@ Import-DifyApp [[-Item] <Object>] [[-Path] <String[]>] [-Content]
 
 ## DESCRIPTION
 
-The `Import-DifyApp` cmdlet allows you to import applications into Dify by specifying DSL file paths, objects, or inline content. It supports multiple files and wildcards, making it flexible for batch imports. You can also pipe the content directly to the cmdlet for processing.
+The `Import-DifyApp` cmdlet allows you to import applications into Dify by specifying DSL file objects, file paths, or inline content. It supports multiple files and wildcards, making it flexible for batch imports. You can also pipe the content directly to the cmdlet for processing.
+
+This cmdlet is particularly useful for batch importing applications or when working with customized DSL content that may be dynamically generated or modified.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -31,7 +39,7 @@ Import-DifyApp -Path "DSLs/*.yml"
 Import-DifyApp -Path "DSLs/demo1.yml", "DSLs/demo2.yml"
 ```
 
-Import apps by specifying file paths (supports wildcards and multiple paths).
+Import apps by specifying file paths, with support for wildcards and multiple paths.
 
 ### Example 2
 
@@ -58,6 +66,15 @@ Get-DifyDSLContent -Path "DSLs/demo.yml" | Import-DifyApp -Content
 
 Import an app by specifying the content of the DSL file directly via pipe.
 
+### Example 5
+
+```powershell
+$RawContent = Get-DifyDSLContent -Path "DSLs/old.yml"
+$RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35-b296-09231b859667" | Import-DifyApp -Content
+```
+
+Import an app by modifying the content of the DSL file programmatically and piping it directly to the cmdlet.
+
 ## PARAMETERS
 
 ### -Content
@@ -71,7 +88,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -121,7 +138,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-This cmdlet is particularly useful for batch importing applications or when working with customized DSL content that may be dynamically generated or modified.
 
 ## RELATED LINKS

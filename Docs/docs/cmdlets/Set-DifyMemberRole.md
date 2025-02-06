@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Set-DifyMemberRole
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Change a member's role in the workspace.
@@ -26,7 +30,7 @@ The `Set-DifyMemberRole` cmdlet changes the role of one or more members in the w
 - `editor`
 - `admin`
 
-If the specified role is invalid, an error will be thrown. This cmdlet requires the Dify API token to be set in the `$env:PSDIFY_CONSOLE_TOKEN` environment variable.
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -64,8 +68,6 @@ Specifies the new role to assign to the members. Valid values are:
 - `editor`
 - `admin`
 
-If an invalid role is provided, an error will be thrown.
-
 ```yaml
 Type: String
 Parameter Sets: (All)
@@ -91,8 +93,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-- Ensure the `$env:PSDIFY_CONSOLE_TOKEN` environment variable is properly set before using this cmdlet.
-- The cmdlet throws an error if the role change fails.
 
 ## RELATED LINKS

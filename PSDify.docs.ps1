@@ -1,6 +1,21 @@
 Import-Module -Name .\PSDify.psd1 -Force
 $OutputFolder = "Docs/docs/cmdlets"
 
+function Remove-Notes {
+    param(
+        [Parameter(Mandatory)]
+        [string]
+        $Path
+    )
+    $Content = Get-Content -Path $Path -Raw
+
+    $Content = $Content -replace '!!! warning\r\n\r\n    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.\r\n\r\n', ''
+    $Content | Out-File -Encoding utf8 -FilePath $Path
+}
+Get-ChildItem -Path $OutputFolder -Filter "*.md" | ForEach-Object {
+    Remove-Notes -Path $_.FullName
+}
+
 # Create new markdown help files
 # $parameters = @{
 #     Module                = "PSDify"
@@ -145,7 +160,7 @@ Get-ChildItem -Path $OutputFolder -Filter "*.md" | ForEach-Object {
 New-ExternalHelp -Path $OutputFolder -OutputPath . -Force
 
 # Repair lint errors
-function Repair-LintErrors {
+function Repair-MinorImprovements {
     param(
         [Parameter(Mandatory)]
         [string]
@@ -153,6 +168,7 @@ function Repair-LintErrors {
     )
     $Content = Get-Content -Path $Path -Raw
 
+    # Correct lint errors
     $Content = $Content -replace '(## SYNTAX\r\n\r\n```)', '$1powershell'
     $LineBreaksBefore = @('## OUTPUTS', '## NOTES')
     foreach ($Before in $LineBreaksBefore) {
@@ -162,12 +178,14 @@ function Repair-LintErrors {
     foreach ($After in $LineBreaksAfter) {
         $Content = $Content -replace "$($After)", "$($After)`r`n"
     }
-    $Content = $Content -replace '## RELATED LINKS\r\n', "## RELATED LINKS"
+    $Content = $Content -replace '## RELATED LINKS([\r\n])+', "## RELATED LINKS"
 
+    # Add notes
+    $Content = $Content -replace '## SYNOPSIS', "!!! warning`r`n`r`n    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.`r`n`r`n## SYNOPSIS"
     $Content | Out-File -Encoding utf8 -FilePath $Path
 }
 Get-ChildItem -Path $OutputFolder -Filter "*.md" | ForEach-Object {
-    Repair-LintErrors -Path $_.FullName
+    Repair-MinorImprovements -Path $_.FullName
 }
 
 # Update index.md for MkDocs

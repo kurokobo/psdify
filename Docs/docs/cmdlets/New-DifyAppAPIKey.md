@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # New-DifyAppAPIKey
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Creates a new API key for a specified app.
@@ -20,6 +24,8 @@ New-DifyAppAPIKey [[-App] <PSObject>] [<CommonParameters>]
 ## DESCRIPTION
 
 The `New-DifyAppAPIKey` cmdlet generates a new API key for the given app. API keys are used to authenticate and authorize app-related operations.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -62,8 +68,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-- The app object must be provided either through the pipeline or directly as a parameter.
-- Ensure that the `$env:PSDIFY_CONSOLE_TOKEN` environment variable is set and contains a valid token for authentication.
 
 ## RELATED LINKS

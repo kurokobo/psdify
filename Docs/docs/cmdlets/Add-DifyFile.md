@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Add-DifyFile
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Upload files to the Dify platform. This is not designed to invoke manually, but rather to be used by other cmdlets.
@@ -21,6 +25,8 @@ Add-DifyFile [[-Item] <PSObject[]>] [[-Path] <String[]>] [[-Source] <String>]
 ## DESCRIPTION
 
 The `Add-DifyFile` cmdlet uploads one or more files to the Dify platform. You can specify files directly using the `-Path` parameter or pass file objects through the pipeline to the `-Item` parameter. An optional `-Source` parameter can be used to provide additional source information for the uploaded files.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 

@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Set-PSDifyConfiguration
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Enable or disable SSL certificate verification for HTTPS connections.
@@ -21,6 +25,10 @@ Set-PSDifyConfiguration [[-IgnoreSSLVerification] <Boolean>]
 ## DESCRIPTION
 
 The `Set-PSDifyConfiguration` cmdlet allows you to enable or disable SSL certificate verification for HTTPS connections. This is particularly useful when working with self-signed certificates or development environments where SSL verification may not be required.
+
+This cmdlet updates the `$env:PSDIFY_DISABLE_SSL_VERIFICATION` environment variable based on the value of the `-IgnoreSSLVerification` parameter.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -71,7 +79,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-This cmdlet updates the `$env:PSDIFY_DISABLE_SSL_VERIFICATION` environment variable based on the value of the `-IgnoreSSLVerification` parameter. The updated setting affects the behavior of HTTPS connections in subsequent PSDify cmdlets.
 
 ## RELATED LINKS

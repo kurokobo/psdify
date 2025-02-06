@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Export-DifyApp
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Export apps to DSL files. By default, files are saved in the `DSLs` directory.
@@ -22,6 +26,8 @@ Export-DifyApp [[-App] <PSObject[]>] [[-Path] <String>] [-IncludeSecret]
 
 The `Export-DifyApp` cmdlet allows you to export applications as DSL files. You can specify the directory where the files should be saved and include sensitive information (like secrets) in the export if needed.
 
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## EXAMPLES
 
 ### Example 1
@@ -30,7 +36,7 @@ The `Export-DifyApp` cmdlet allows you to export applications as DSL files. You 
 Get-DifyApp | Export-DifyApp
 ```
 
-Export app (specify directly from Get-DifyApp).
+Export apps by specifying directly from Get-DifyApp.
 
 ### Example 2
 
@@ -39,7 +45,7 @@ $AppsToBeExported = Get-DifyApp
 Export-DifyApp -App $AppsToBeExported
 ```
 
-Export app (use result from Get-DifyApp).
+Export apps by using result from Get-DifyApp.
 
 ### Example 3
 
@@ -47,7 +53,7 @@ Export app (use result from Get-DifyApp).
 Get-DifyApp | Export-DifyApp -Path "./path/to/your/directory"
 ```
 
-Export app (change target directory).
+Export apps to a specific directory.
 
 ### Example 4
 
@@ -55,7 +61,7 @@ Export app (change target directory).
 Get-DifyApp | Export-DifyApp -IncludeSecret
 ```
 
-Export app (include secrets).
+Export apps with sensitive information.
 
 ## PARAMETERS
 
@@ -86,7 +92,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

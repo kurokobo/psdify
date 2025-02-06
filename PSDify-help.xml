@@ -6,12 +6,13 @@
       <command:verb>Add</command:verb>
       <command:noun>DifyDocument</command:noun>
       <maml:description>
-        <maml:para>Uploads documents to a specified knowledge base in Dify, with options for chunking, indexing, and waiting for indexing to complete.</maml:para>
+        <maml:para>Uploads documents to a specified knowledge in Dify, with options for chunking, indexing, and waiting for indexing to complete.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
       <maml:para>The `Add-DifyDocument` cmdlet allows users to upload documents to a specified Knowledge in Dify. It supports various options such as chunking mode, indexing mode, embedding models, and retrieval modes. Users can also wait for the indexing process to complete with a customizable interval and timeout.</maml:para>
       <maml:para>Currently, detailed configuration is not implemented.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -304,7 +305,7 @@
         <dev:code>$Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
 Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md"</dev:code>
         <dev:remarks>
-          <maml:para>Upload documents (specify file paths, supports wildcards and multiple paths).</maml:para>
+          <maml:para>Upload documents by specifying file paths, supports wildcards and multiple paths.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -312,7 +313,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md"</dev:code>
         <dev:code>$Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
 Get-Item -Path "Docs/*.md" | Add-DifyDocument -Knowledge $Knowledge</dev:code>
         <dev:remarks>
-          <maml:para>Upload documents (specify from Get-Item or Get-ChildItem via pipe).</maml:para>
+          <maml:para>Upload documents by specifing files from Get-Item or Get-ChildItem via pipe.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -320,7 +321,7 @@ Get-Item -Path "Docs/*.md" | Add-DifyDocument -Knowledge $Knowledge</dev:code>
         <dev:code>$Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
 Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -ChunkMode "custom"</dev:code>
         <dev:remarks>
-          <maml:para>Upload documents (specify chunk settings).</maml:para>
+          <maml:para>Upload documents with specifying chunk settings.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -329,7 +330,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -ChunkMode "custom"</de
 $EmbeddingModel = Get-DifyModel -Provider "openai" -Name "text-embedding-3-small"
 Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -IndexMode "high_quality" -Model $EmbeddingModel</dev:code>
         <dev:remarks>
-          <maml:para>Upload documents (use any model).</maml:para>
+          <maml:para>Upload documents with specifying embedding model.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -337,7 +338,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -IndexMode "high_qualit
         <dev:code>$Knowledge = Get-DifyKnowledge -Name "My New Knowledge"
 Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -IndexMode "economy"</dev:code>
         <dev:remarks>
-          <maml:para>Upload documents (use economy mode).</maml:para>
+          <maml:para>Upload documents with specifying indexing mode.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -370,6 +371,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
     </command:details>
     <maml:description>
       <maml:para>The `Add-DifyFile` cmdlet uploads one or more files to the Dify platform. You can specify files directly using the `-Path` parameter or pass file objects through the pipeline to the `-Item` parameter. An optional `-Source` parameter can be used to provide additional source information for the uploaded files.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -511,6 +513,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
     </command:details>
     <maml:description>
       <maml:para>The `Connect-Dify` cmdlet allows you to authenticate with a Dify server using various methods such as password-based login or email-based code authentication. After successful authentication, environment variables required for subsequent operations are set.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -536,7 +539,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
             <maml:para>- `Code`: Authenticate using an email and a code sent via email.</maml:para>
             <maml:para>- `Token`: Authenticate directly using a console access token.</maml:para>
             <maml:para></maml:para>
-            <maml:para>This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`.</maml:para>
+            <maml:para>This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`. The default value is `Password`.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -617,7 +620,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
           <maml:para>- `Code`: Authenticate using an email and a code sent via email.</maml:para>
           <maml:para>- `Token`: Authenticate directly using a console access token.</maml:para>
           <maml:para></maml:para>
-          <maml:para>This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`.</maml:para>
+          <maml:para>This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`. The default value is `Password`.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -724,7 +727,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>After successful authentication, the following environment variables are set:</maml:para>
+        <maml:para>After a successful authentication, the following environment variables, along with others, are set:</maml:para>
         <maml:para>- `$env:PSDIFY_CONSOLE_TOKEN`</maml:para>
         <maml:para>- `$env:PSDIFY_CONSOLE_REFRESH_TOKEN`</maml:para>
         <maml:para></maml:para>
@@ -755,7 +758,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
         <dev:code>$DifyPassword = ConvertTo-SecureString -String "AwesomeDify123!" -AsPlainText -Force
 Connect-Dify -Server "https://dify.example.com" -Email "dify@example.com" -Password $DifyPassword</dev:code>
         <dev:remarks>
-          <maml:para>Password authentication (use predefined password).</maml:para>
+          <maml:para>Password authentication with predefined password.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -772,6 +775,7 @@ Connect-Dify -Server "https://dify.example.com" -Email "dify@example.com" -Passw
     </command:details>
     <maml:description>
       <maml:para>The `Disconnect-Dify` cmdlet logs out the current user from Dify by invalidating the issued tokens and clears all related environment variables. If the `-Force` parameter is specified, local environment variables are cleared regardless of whether the logout process succeeds.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -857,6 +861,7 @@ Connect-Dify -Server "https://dify.example.com" -Email "dify@example.com" -Passw
     </command:details>
     <maml:description>
       <maml:para>The `Export-DifyApp` cmdlet allows you to export applications as DSL files. You can specify the directory where the files should be saved and include sensitive information (like secrets) in the export if needed.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -966,7 +971,7 @@ Connect-Dify -Server "https://dify.example.com" -Email "dify@example.com" -Passw
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>Get-DifyApp | Export-DifyApp</dev:code>
         <dev:remarks>
-          <maml:para>Export app (specify directly from Get-DifyApp).</maml:para>
+          <maml:para>Export apps by specifying directly from Get-DifyApp.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -974,21 +979,21 @@ Connect-Dify -Server "https://dify.example.com" -Email "dify@example.com" -Passw
         <dev:code>$AppsToBeExported = Get-DifyApp
 Export-DifyApp -App $AppsToBeExported</dev:code>
         <dev:remarks>
-          <maml:para>Export app (use result from Get-DifyApp).</maml:para>
+          <maml:para>Export apps by using result from Get-DifyApp.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>Get-DifyApp | Export-DifyApp -Path "./path/to/your/directory"</dev:code>
         <dev:remarks>
-          <maml:para>Export app (change target directory).</maml:para>
+          <maml:para>Export apps to a specific directory.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>Get-DifyApp | Export-DifyApp -IncludeSecret</dev:code>
         <dev:remarks>
-          <maml:para>Export app (include secrets).</maml:para>
+          <maml:para>Export apps with sensitive information.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1005,6 +1010,7 @@ Export-DifyApp -App $AppsToBeExported</dev:code>
     </command:details>
     <maml:description>
       <maml:para>The `Find-DifyPlugin` cmdlet retrieves information about available plugins from the Dify Marketplace. You can filter plugins by category, ID, name, or search string. This cmdlet requires a Dify server that supports plugins.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1131,8 +1137,7 @@ Export-DifyApp -App $AppsToBeExported</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- The Dify server must support plugins for this cmdlet to function. If the server does not support plugins, an error is thrown.</maml:para>
-        <maml:para>- The `agent` category is internally mapped to `agent-strategy`.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -1178,6 +1183,7 @@ Export-DifyApp -App $AppsToBeExported</dev:code>
     </command:details>
     <maml:description>
       <maml:para>The `Get-DifyApp` cmdlet allows you to retrieve app information from Dify. You can filter the results by specifying an app ID, name, search term, mode, or tags.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1350,14 +1356,14 @@ Export-DifyApp -App $AppsToBeExported</dev:code>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>Get-DifyApp -Name "..."</dev:code>
         <dev:remarks>
-          <maml:para>Get apps by name (complete match).</maml:para>
+          <maml:para>Get apps by name with complete match.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>Get-DifyApp -Search "..."</dev:code>
         <dev:remarks>
-          <maml:para>Get apps by name (partial match).</maml:para>
+          <maml:para>Get apps by name with partial match.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -1371,7 +1377,7 @@ Export-DifyApp -App $AppsToBeExported</dev:code>
         <maml:title>-------------------------- Example 6 --------------------------</maml:title>
         <dev:code>Get-DifyApp -Tags "...", "..."</dev:code>
         <dev:remarks>
-          <maml:para>Get apps by tags (multiple tags can be specified).</maml:para>
+          <maml:para>Get apps by tags, multiple tags can be specified.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -1395,6 +1401,7 @@ Export-DifyApp -App $AppsToBeExported</dev:code>
     </command:details>
     <maml:description>
       <maml:para>The `Get-DifyAppAPIKey` cmdlet retrieves API key(s) for a specified app in your Dify workspace. You can provide the app object as input, either directly or via a pipeline from `Get-DifyApp`.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1449,8 +1456,7 @@ Export-DifyApp -App $AppsToBeExported</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- This cmdlet requires the `$env:PSDIFY_CONSOLE_TOKEN` environment variable to authenticate the request.</maml:para>
-        <maml:para>- Ensure the app object provided contains a valid `Id` property for successful API key retrieval.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -1483,6 +1489,7 @@ Get-DifyAppAPIKey -App $AppsToGetAPIKey</dev:code>
     </command:details>
     <maml:description>
       <maml:para>The `Get-DifyAppTag` cmdlet retrieves tag information for apps. This is equivalent to `Get-DifyTag -Type "app"`.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1599,7 +1606,8 @@ Get-DifyAppAPIKey -App $AppsToGetAPIKey</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The `Get-DifyDocument` cmdlet retrieves document information associated with a specified knowledge object. You can filter documents by ID, name, or search keyword. This cmdlet can return all documents for a given knowledge object or specific documents based on the provided parameters.</maml:para>
+      <maml:para>The `Get-DifyDocument` cmdlet retrieves document information associated with a specified knowledge. You can filter documents by ID, name, or search keyword. This cmdlet can return all documents for a given knowledge or specific documents based on the provided parameters.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1607,7 +1615,7 @@ Get-DifyAppAPIKey -App $AppsToGetAPIKey</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>Knowledge</maml:name>
           <maml:description>
-            <maml:para>Specifies the knowledge object from which to retrieve documents. This parameter supports pipeline input.</maml:para>
+            <maml:para>Specifies the knowledge from which to retrieve documents. This parameter supports pipeline input.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
           <dev:type>
@@ -1670,7 +1678,7 @@ Get-DifyAppAPIKey -App $AppsToGetAPIKey</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>Knowledge</maml:name>
         <maml:description>
-          <maml:para>Specifies the knowledge object from which to retrieve documents. This parameter supports pipeline input.</maml:para>
+          <maml:para>Specifies the knowledge from which to retrieve documents. This parameter supports pipeline input.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
         <dev:type>
@@ -1726,7 +1734,7 @@ Get-DifyAppAPIKey -App $AppsToGetAPIKey</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>Ensure that the `$env:PSDIFY_URL` and `$env:PSDIFY_CONSOLE_TOKEN` environment variables are set correctly before using this cmdlet. These variables are required for successful API communication with the Dify instance.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -1779,7 +1787,8 @@ Get-DifyDocument -Knowledge $Knowledge</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This cmdlet retrieves the indexing status of documents within a specified knowledge base or batch. It can also wait for the indexing process to complete based on the `-Wait` parameter. By default, the cmdlet checks and retrieves the indexing status without waiting.</maml:para>
+      <maml:para>This cmdlet retrieves the indexing status of documents within a specified batch. It can also wait for the indexing process to complete based on the `-Wait` parameter. By default, the cmdlet checks and retrieves the indexing status without waiting.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1953,7 +1962,7 @@ Get-DifyDocument -Knowledge $Knowledge</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>This cmdlet is useful for monitoring and managing the indexing process of documents within the Dify environment. Ensure proper use of environment variables like `$env:PSDIFY_URL` and `$env:PSDIFY_CONSOLE_TOKEN` for authentication and API interaction.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -2007,6 +2016,7 @@ Get-DifyDocumentIndexingStatus -Document $DocumentToCheckIndexingStatus</dev:cod
     </command:details>
     <maml:description>
       <maml:para>`Get-DifyDSLContent` retrieves the content of a specified DSL file and ensures it is read in UTF-8 format without BOM. This cmdlet is useful for reading files and processing their content as a string.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2061,8 +2071,7 @@ Get-DifyDocumentIndexingStatus -Document $DocumentToCheckIndexingStatus</dev:cod
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- The cmdlet throws an error if the `-Path` parameter is not provided or if the specified file does not exist.</maml:para>
-        <maml:para>- Ensure the file specified is accessible and in a readable format.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -2071,6 +2080,14 @@ Get-DifyDocumentIndexingStatus -Document $DocumentToCheckIndexingStatus</dev:cod
         <dev:code>$RawContent = Get-DifyDSLContent -Path "DSLs/old.yml"</dev:code>
         <dev:remarks>
           <maml:para>Retrieve content from DSL file.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>$RawContent = Get-DifyDSLContent -Path "DSLs/old.yml"
+$RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35-b296-09231b859667" | Import-DifyApp -Content</dev:code>
+        <dev:remarks>
+          <maml:para>Import an app by modifying the content of the DSL file programmatically and piping it directly to the cmdlet.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -2087,6 +2104,7 @@ Get-DifyDocumentIndexingStatus -Document $DocumentToCheckIndexingStatus</dev:cod
     </command:details>
     <maml:description>
       <maml:para>The `Get-DifyKnowledge` cmdlet retrieves knowledge information from the Dify workspace. You can filter the results by specifying knowledge ID, name, search keyword, or associated tags. If no parameters are provided, all available knowledge information is returned.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2213,8 +2231,7 @@ Get-DifyDocumentIndexingStatus -Document $DocumentToCheckIndexingStatus</dev:cod
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- If no filters are specified, the cmdlet retrieves all knowledge information available in the workspace.</maml:para>
-        <maml:para>- When filtering by tags, ensure the tags exist in the workspace.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -2236,21 +2253,21 @@ Get-DifyDocumentIndexingStatus -Document $DocumentToCheckIndexingStatus</dev:cod
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>Get-DifyKnowledge -Name "..."</dev:code>
         <dev:remarks>
-          <maml:para>Get knowledge by name (complete match).</maml:para>
+          <maml:para>Get knowledge by name with complete match.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>Get-DifyKnowledge -Search "..."</dev:code>
         <dev:remarks>
-          <maml:para>Get knowledge by name (partial match).</maml:para>
+          <maml:para>Get knowledge by name with partial match.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 5 --------------------------</maml:title>
         <dev:code>Get-DifyKnowledge -Tags "...", "..."</dev:code>
         <dev:remarks>
-          <maml:para>Get knowledge by tags (multiple tags can be specified).</maml:para>
+          <maml:para>Get knowledge by tags, multiple tags can be specified.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -2267,6 +2284,7 @@ Get-DifyDocumentIndexingStatus -Document $DocumentToCheckIndexingStatus</dev:cod
     </command:details>
     <maml:description>
       <maml:para>The `Get-DifyKnowledgeTag` cmdlet retrieves tag information associated with knowledge in the workspace. This is equivalent to executing `Get-DifyTag -Type "knowledge"`.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2384,6 +2402,7 @@ Get-DifyDocumentIndexingStatus -Document $DocumentToCheckIndexingStatus</dev:cod
     </command:details>
     <maml:description>
       <maml:para>The `Get-DifyMember` cmdlet retrieves information about members in the workspace. You can filter members by their ID, name, or email address.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2532,6 +2551,7 @@ Get-DifyDocumentIndexingStatus -Document $DocumentToCheckIndexingStatus</dev:cod
     </command:details>
     <maml:description>
       <maml:para>The `Get-DifyModel` cmdlet retrieves information about models available in the workspace. You can filter the models by provider, type, name, and other criteria. It supports retrieving both predefined and customizable models. The cmdlet provides details about model providers, types, and their current status.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2704,7 +2724,7 @@ Get-DifyDocumentIndexingStatus -Document $DocumentToCheckIndexingStatus</dev:cod
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>This cmdlet retrieves and processes data about models configured in the Dify workspace. The retrieved information can be used for further operations such as adding, modifying, or removing models.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -2764,6 +2784,7 @@ Get-DifyDocumentIndexingStatus -Document $DocumentToCheckIndexingStatus</dev:cod
     </command:details>
     <maml:description>
       <maml:para>The `Get-DifyPlugin` cmdlet retrieves a list of plugins available in the current Dify workspace. You can filter the plugins by category, ID, name, unique identifier, or search term. The cmdlet returns information such as the plugin's category, name, display name, ID, description, version, and unique identifier.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2926,7 +2947,7 @@ Get-DifyDocumentIndexingStatus -Document $DocumentToCheckIndexingStatus</dev:cod
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>If the currently logged-in Dify server does not support plugins, an error will be thrown.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -2972,6 +2993,7 @@ Get-DifyDocumentIndexingStatus -Document $DocumentToCheckIndexingStatus</dev:cod
     </command:details>
     <maml:description>
       <maml:para>The `Get-DifyPluginInstallationStatus` cmdlet retrieves the current status of a plugin installation task in a Dify workspace. The status includes information about the task, such as its ID, status, and associated plugins. You can optionally wait for the task to complete by using the `-Wait` parameter.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3121,7 +3143,7 @@ Get-DifyDocumentIndexingStatus -Document $DocumentToCheckIndexingStatus</dev:cod
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>The cmdlet requires the `$env:PSDIFY_URL` and `$env:PSDIFY_CONSOLE_TOKEN` environment variables to be set for proper operation.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -3154,6 +3176,7 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
     </command:details>
     <maml:description>
       <maml:para>The `Get-DifyProfile` cmdlet retrieves the profile information of the currently authenticated account. It fetches details such as the account ID, name, email, interface language, timezone, last login information, and the account creation date.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3183,8 +3206,7 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- Ensure that the `$env:PSDIFY_CONSOLE_TOKEN` environment variable is correctly set and contains a valid token prior to running this cmdlet.</maml:para>
-        <maml:para>- Errors will be thrown if the profile data cannot be retrieved.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -3209,6 +3231,7 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
     </command:details>
     <maml:description>
       <maml:para>The `Get-DifySystemModel` cmdlet retrieves information about the system models configured in the workspace. These models are categorized by type, such as "llm" (Large Language Model), "text-embedding", "rerank", "speech2text", and "tts". You can specify one or more types to filter the results or retrieve all available types by default.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3263,7 +3286,7 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>This cmdlet uses the `$env:PSDIFY_CONSOLE_TOKEN` environment variable to authenticate with the Dify server. Ensure that the token is set and valid before using the cmdlet.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -3295,6 +3318,7 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
     </command:details>
     <maml:description>
       <maml:para>The `Get-DifyTag` cmdlet retrieves tag information from the Dify platform. Tags can be filtered by their type (`app` or `knowledge`), ID, or name.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3397,8 +3421,7 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- The `-Type` parameter is mandatory because the cmdlet requires a tag type to filter results (`app` or `knowledge`).</maml:para>
-        <maml:para>- Ensure the `$env:PSDIFY_CONSOLE_TOKEN` environment variable is set and valid before executing this cmdlet.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -3437,6 +3460,7 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
     </command:details>
     <maml:description>
       <maml:para>The `Get-DifyVersion` cmdlet retrieves the version information of the Dify server, along with details about plugin support.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3491,7 +3515,7 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>The cmdlet uses the `$env:PSDIFY_URL` environment variable if the `-Server` parameter is not specified. Ensure the environment variable is set correctly for seamless operation.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -3515,7 +3539,9 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The `Import-DifyApp` cmdlet allows you to import applications into Dify by specifying DSL file paths, objects, or inline content. It supports multiple files and wildcards, making it flexible for batch imports. You can also pipe the content directly to the cmdlet for processing.</maml:para>
+      <maml:para>The `Import-DifyApp` cmdlet allows you to import applications into Dify by specifying DSL file objects, file paths, or inline content. It supports multiple files and wildcards, making it flexible for batch imports. You can also pipe the content directly to the cmdlet for processing.</maml:para>
+      <maml:para>This cmdlet is particularly useful for batch importing applications or when working with customized DSL content that may be dynamically generated or modified.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3617,7 +3643,7 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>This cmdlet is particularly useful for batch importing applications or when working with customized DSL content that may be dynamically generated or modified.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -3626,7 +3652,7 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
         <dev:code>Import-DifyApp -Path "DSLs/*.yml"
 Import-DifyApp -Path "DSLs/demo1.yml", "DSLs/demo2.yml"</dev:code>
         <dev:remarks>
-          <maml:para>Import apps by specifying file paths (supports wildcards and multiple paths).</maml:para>
+          <maml:para>Import apps by specifying file paths, with support for wildcards and multiple paths.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -3651,6 +3677,14 @@ Import-DifyApp -Item $DSLFiles</dev:code>
           <maml:para>Import an app by specifying the content of the DSL file directly via pipe.</maml:para>
         </dev:remarks>
       </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>$RawContent = Get-DifyDSLContent -Path "DSLs/old.yml"
+$RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35-b296-09231b859667" | Import-DifyApp -Content</dev:code>
+        <dev:remarks>
+          <maml:para>Import an app by modifying the content of the DSL file programmatically and piping it directly to the cmdlet.</maml:para>
+        </dev:remarks>
+      </command:example>
     </command:examples>
     <command:relatedLinks />
   </command:command>
@@ -3665,6 +3699,7 @@ Import-DifyApp -Item $DSLFiles</dev:code>
     </command:details>
     <maml:description>
       <maml:para>The `Initialize-Dify` cmdlet is used to initialize the Dify instance by creating an admin account. This is applicable for the Community Edition of Dify. The cmdlet validates the initial setup password (if required), creates an admin account using the specified email and password, and logs in as the admin after successful initialization.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3672,7 +3707,7 @@ Import-DifyApp -Item $DSLFiles</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Server</maml:name>
           <maml:description>
-            <maml:para>Specifies the server URL of the Dify instance to be initialized. Defaults to "&lt;https://cloud.dify.ai&gt;" if not specified.</maml:para>
+            <maml:para>Specifies the server URL of the Dify instance to be initialized. Defaults to &lt;https://cloud.dify.ai&gt; if not specified.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -3783,7 +3818,7 @@ Import-DifyApp -Item $DSLFiles</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Server</maml:name>
         <maml:description>
-          <maml:para>Specifies the server URL of the Dify instance to be initialized. Defaults to "&lt;https://cloud.dify.ai&gt;" if not specified.</maml:para>
+          <maml:para>Specifies the server URL of the Dify instance to be initialized. Defaults to &lt;https://cloud.dify.ai&gt; if not specified.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -3860,6 +3895,7 @@ Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -In
     <maml:description>
       <maml:para>The `Install-DifyPlugin` cmdlet installs plugins from the Dify Marketplace into the current workspace. You can specify plugins to install by their ID, unique identifier, or via pipeline input.</maml:para>
       <maml:para>If the `-Wait` parameter is specified, the cmdlet waits for the installation task to complete and returns the installed plugins. Otherwise, it returns a task object with installation status information.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4033,8 +4069,7 @@ Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -In
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- This cmdlet requires the `$env:PSDIFY_PLUGIN_SUPPORT` environment variable to be set to indicate that the server supports plugins.</maml:para>
-        <maml:para>- If `-Wait` is not specified and not all plugins are installed immediately, a task object with installation status information is returned.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -4074,6 +4109,7 @@ Install-DifyPlugin -Item $Plugins -Wait</dev:code>
     </command:details>
     <maml:description>
       <maml:para>`Invoke-DifyRestMethod` enables users to interact with the Dify REST API by constructing and sending HTTP requests. It supports GET, POST, PUT, PATCH, and DELETE methods. Users can specify URIs, headers, query parameters, and request bodies, as well as manage authentication via tokens or sessions.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4296,7 +4332,7 @@ Install-DifyPlugin -Item $Plugins -Wait</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>This cmdlet is useful for advanced users who need to interact directly with the Dify REST API. It requires knowledge of the API endpoints and parameters.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -4349,6 +4385,7 @@ Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/s
     </command:details>
     <maml:description>
       <maml:para>The `New-DifyAppAPIKey` cmdlet generates a new API key for the given app. API keys are used to authenticate and authorize app-related operations.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4403,8 +4440,7 @@ Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/s
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- The app object must be provided either through the pipeline or directly as a parameter.</maml:para>
-        <maml:para>- Ensure that the `$env:PSDIFY_CONSOLE_TOKEN` environment variable is set and contains a valid token for authentication.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -4424,11 +4460,12 @@ Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/s
       <command:verb>New</command:verb>
       <command:noun>DifyKnowledge</command:noun>
       <maml:description>
-        <maml:para>Add new empty knowledge to the workspace.</maml:para>
+        <maml:para>Create new empty knowledge to the workspace.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The `New-DifyKnowledge` cmdlet creates a new knowledge entity in the workspace. Knowledge entities are used to organize and manage related information or documents.</maml:para>
+      <maml:para>The `New-DifyKnowledge` cmdlet creates a new knowledge in the workspace.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4507,8 +4544,7 @@ Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/s
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- The `-Name` parameter is used to define a unique name for the knowledge entity. Ensure the name does not conflict with existing knowledge entities in the workspace.</maml:para>
-        <maml:para>- The `-Description` parameter is optional but can be helpful to provide additional context for the knowledge entity.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -4539,7 +4575,8 @@ Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/s
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The `New-DifyMember` cmdlet allows you to invite a new member to the workspace by specifying their email address, role, and preferred language for the invitation. The user will receive an invitation link to join the workspace.</maml:para>
+      <maml:para>The `New-DifyMember` cmdlet allows you to invite a new member to the workspace by specifying their email address, role, and preferred language for the invitation.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4642,8 +4679,7 @@ Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/s
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- If the role specified is invalid, the cmdlet will throw an error.</maml:para>
-        <maml:para>- The invitation link for the user will be appended to the returned member object.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -4668,6 +4704,7 @@ Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/s
     </command:details>
     <maml:description>
       <maml:para>The `New-DifyModel` cmdlet allows you to add new models to the workspace. The credentials required depend on the provider and the model. You can choose between predefined models and customizable models. For customizable models, additional details such as model name, type, and credentials must be specified.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4856,7 +4893,8 @@ Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/s
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The `Remove-DifyApp` cmdlet deletes one or more apps from Dify. It uses the app ID to identify the apps to be removed. This cmdlet supports pipeline input, allowing you to pass app objects directly from other cmdlets like `Get-DifyApp`.</maml:para>
+      <maml:para>The `Remove-DifyApp` cmdlet deletes one or more apps from Dify. This cmdlet supports pipeline input, allowing you to pass app objects directly from other cmdlets like `Get-DifyApp`.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4957,8 +4995,7 @@ Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/s
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- Ensure you have sufficient permissions to delete the apps.</maml:para>
-        <maml:para>- Be cautious when running this cmdlet, especially with bulk operations, as it permanently removes apps.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -4990,7 +5027,8 @@ Remove-DifyApp -App $AppsToBeRemoved</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The `Remove-DifyAppAPIKey` cmdlet deletes API keys associated with a specific app in Dify. You can provide the API keys directly or pipe them as input. The cmdlet sends a DELETE request to the Dify server to remove the specified API keys.</maml:para>
+      <maml:para>The `Remove-DifyAppAPIKey` cmdlet deletes API keys associated with a specific app in Dify. You can provide the API keys directly or pipe them as input.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -5091,8 +5129,7 @@ Remove-DifyApp -App $AppsToBeRemoved</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- Ensure you have the appropriate permissions to delete API keys in your Dify workspace.</maml:para>
-        <maml:para>- The cmdlet interacts with the Dify REST API. Make sure your environment variables `$env:PSDIFY_URL` and `$env:PSDIFY_CONSOLE_TOKEN` are set and valid.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -5124,7 +5161,8 @@ Remove-DifyAppAPIKey -APIKey $APIKeysToBeRemoved</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The `Remove-DifyDocument` cmdlet removes specified documents from a Dify knowledge base. You can specify the documents to be removed directly, or pipe them from other cmdlets like `Get-DifyDocument`.</maml:para>
+      <maml:para>The `Remove-DifyDocument` cmdlet removes specified documents from a Dify knowledge. You can specify the documents to be removed directly, or pipe them from other cmdlets like `Get-DifyDocument`.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -5225,7 +5263,7 @@ Remove-DifyAppAPIKey -APIKey $APIKeysToBeRemoved</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>The cmdlet uses REST API calls for document deletion. Ensure that `$env:PSDIFY_URL` and `$env:PSDIFY_CONSOLE_TOKEN` are configured properly to authenticate and specify the target Dify instance.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -5257,7 +5295,8 @@ Remove-DifyDocument -Document $DocumentsToBeRemoved</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The `Remove-DifyKnowledge` cmdlet deletes specified knowledge entries from the Dify workspace. It supports pipeline input, allowing you to pipe the result of `Get-DifyKnowledge` directly into this cmdlet for deletion. This cmdlet also supports confirmation prompts and WhatIf scenarios to preview the deletion without executing it.</maml:para>
+      <maml:para>The `Remove-DifyKnowledge` cmdlet deletes specified knowledges from the Dify workspace. It supports pipeline input, allowing you to pipe the result of `Get-DifyKnowledge` directly into this cmdlet for deletion.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -5358,17 +5397,10 @@ Remove-DifyDocument -Document $DocumentsToBeRemoved</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>If the specified knowledge is not found or deletion fails, an error is thrown.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
-      <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code></dev:code>
-        <dev:remarks>
-          <maml:para></maml:para>
-        </dev:remarks>
-      </command:example>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>Get-DifyKnowledge -Name "..." | Remove-DifyKnowledge</dev:code>
@@ -5398,6 +5430,7 @@ Remove-DifyKnowledge -Knowledge $KnowledgeToBeRemoved</dev:code>
     </command:details>
     <maml:description>
       <maml:para>The `Remove-DifyMember` cmdlet removes one or more members from the current workspace. You can specify the members to be removed directly or pipe them from the `Get-DifyMember` cmdlet. This cmdlet supports confirmation prompts and the `WhatIf` parameter to preview the changes before applying them.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -5405,7 +5438,7 @@ Remove-DifyKnowledge -Knowledge $KnowledgeToBeRemoved</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>Member</maml:name>
           <maml:description>
-            <maml:para>Specifies the members to be removed. Accepts a list of `PSCustomObject` objects representing the members. This parameter accepts pipeline input.</maml:para>
+            <maml:para>Specifies the members to be removed. Accepts a list of objects which can be retrieved by `Get-DifyMember`. This parameter accepts pipeline input.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">PSObject[]</command:parameterValue>
           <dev:type>
@@ -5442,7 +5475,7 @@ Remove-DifyKnowledge -Knowledge $KnowledgeToBeRemoved</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>Member</maml:name>
         <maml:description>
-          <maml:para>Specifies the members to be removed. Accepts a list of `PSCustomObject` objects representing the members. This parameter accepts pipeline input.</maml:para>
+          <maml:para>Specifies the members to be removed. Accepts a list of objects which can be retrieved by `Get-DifyMember`. This parameter accepts pipeline input.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">PSObject[]</command:parameterValue>
         <dev:type>
@@ -5498,8 +5531,7 @@ Remove-DifyKnowledge -Knowledge $KnowledgeToBeRemoved</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- This cmdlet requires a valid Dify URL and authentication token to operate.</maml:para>
-        <maml:para>- The `Remove-DifyMember` cmdlet is irreversible. Ensure you have specified the correct member(s) before executing.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -5531,7 +5563,8 @@ Remove-DifyMember -Member $MembersToBeRemoved</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The `Remove-DifyModel` cmdlet allows you to delete models from the workspace. It supports both predefined models (removed by provider) and customizable models (removed by model name and type). The cmdlet uses the `ShouldProcess` feature to confirm the deletion of models, providing safety prompts for potentially impactful actions.</maml:para>
+      <maml:para>The `Remove-DifyModel` cmdlet allows you to delete models from the workspace. It supports both predefined models (removed by provider) and customizable models (removed by model name and type).</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -5632,9 +5665,7 @@ Remove-DifyMember -Member $MembersToBeRemoved</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- The `Remove-DifyModel` cmdlet ensures safe deletion by implementing `ShouldProcess` and `ConfirmImpact`.</maml:para>
-        <maml:para>- Predefined models are removed by their provider, while customizable models require both the model name and type to be specified.</maml:para>
-        <maml:para>- The environment variable `$env:PSDIFY_CONSOLE_TOKEN` is required for authentication.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -5667,6 +5698,7 @@ Remove-DifyModel -Model $ModelsToBeRemoved</dev:code>
     </command:details>
     <maml:description>
       <maml:para>The `Send-DifyChatMessage` cmdlet allows users to send chat messages to a Dify app. It requires environment variables `$env:PSDIFY_APP_URL` (URL of the Dify API server) and `$env:PSDIFY_APP_TOKEN` (application token) to function. The cmdlet starts a new conversation if `-NewSession` is specified. It also logs the conversation and response in the `Logs` folder.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -5768,8 +5800,7 @@ Remove-DifyModel -Model $ModelsToBeRemoved</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- Ensure that the environment variables `$env:PSDIFY_APP_URL` and `$env:PSDIFY_APP_TOKEN` are set before using this cmdlet.</maml:para>
-        <maml:para>- Logs are saved in the `Logs` folder for every session and response.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -5809,6 +5840,7 @@ $env:PSDIFY_APP_TOKEN = "app-****************"</dev:code>
     </command:details>
     <maml:description>
       <maml:para>The `Set-DifyDSLContent` cmdlet writes content to a specified DSL file. If the file does not exist, it creates a new file. The content is written in UTF-8 encoding without a byte order mark (BOM). This cmdlet is particularly useful for modifying DSL files programmatically or preparing them for other cmdlets that use DSL files.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -5887,7 +5919,7 @@ $env:PSDIFY_APP_TOKEN = "app-****************"</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>Ensure both `Content` and `Path` parameters are provided; otherwise, the cmdlet will throw an error. The cmdlet writes files in UTF-8 encoding without BOM to maintain compatibility.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -5917,7 +5949,7 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
       <maml:para>- `editor`</maml:para>
       <maml:para>- `admin`</maml:para>
       <maml:para></maml:para>
-      <maml:para>If the specified role is invalid, an error will be thrown. This cmdlet requires the Dify API token to be set in the `$env:PSDIFY_CONSOLE_TOKEN` environment variable.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -5941,8 +5973,6 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
             <maml:para>- `normal`</maml:para>
             <maml:para>- `editor`</maml:para>
             <maml:para>- `admin`</maml:para>
-            <maml:para></maml:para>
-            <maml:para>If an invalid role is provided, an error will be thrown.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -5973,8 +6003,6 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
           <maml:para>- `normal`</maml:para>
           <maml:para>- `editor`</maml:para>
           <maml:para>- `admin`</maml:para>
-          <maml:para></maml:para>
-          <maml:para>If an invalid role is provided, an error will be thrown.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -6006,8 +6034,7 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- Ensure the `$env:PSDIFY_CONSOLE_TOKEN` environment variable is properly set before using this cmdlet.</maml:para>
-        <maml:para>- The cmdlet throws an error if the role change fails.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -6033,6 +6060,7 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
     <maml:description>
       <maml:para>The `Set-DifySystemModel` cmdlet configures the default system model for the workspace. It can take a model object from the pipeline or specify the type, provider, and name directly. This allows granular control over the system model used for different functionalities like LLM, text embedding, speech-to-text, and more.</maml:para>
       <maml:para>The cmdlet validates the input parameters to ensure they conform to the supported model types and providers.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -6159,8 +6187,7 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- The cmdlet validates the input model types, provider, and name to ensure compatibility with the workspace.</maml:para>
-        <maml:para>- If no model object is provided, the `Type`, `Provider`, and `Name` parameters must be specified.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -6200,6 +6227,8 @@ Set-DifySystemModel -Model $SystemModelToBeChanged</dev:code>
     </command:details>
     <maml:description>
       <maml:para>The `Set-PSDifyConfiguration` cmdlet allows you to enable or disable SSL certificate verification for HTTPS connections. This is particularly useful when working with self-signed certificates or development environments where SSL verification may not be required.</maml:para>
+      <maml:para>This cmdlet updates the `$env:PSDIFY_DISABLE_SSL_VERIFICATION` environment variable based on the value of the `-IgnoreSSLVerification` parameter.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -6254,7 +6283,7 @@ Set-DifySystemModel -Model $SystemModelToBeChanged</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>This cmdlet updates the `$env:PSDIFY_DISABLE_SSL_VERIFICATION` environment variable based on the value of the `-IgnoreSSLVerification` parameter. The updated setting affects the behavior of HTTPS connections in subsequent PSDify cmdlets.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -6285,7 +6314,8 @@ Set-DifySystemModel -Model $SystemModelToBeChanged</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The `Uninstall-DifyPlugin` cmdlet is used to uninstall plugins from the current Dify workspace. You can specify plugins to uninstall either by passing them as pipeline objects or directly using the `-Plugin` parameter. The cmdlet requires the Dify server to support plugins, and it will throw an error if plugin support is not available.</maml:para>
+      <maml:para>The `Uninstall-DifyPlugin` cmdlet is used to uninstall plugins from the current Dify workspace. You can specify plugins to uninstall either by passing them as pipeline objects or directly using the `-Plugin` parameter.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -6386,8 +6416,7 @@ Set-DifySystemModel -Model $SystemModelToBeChanged</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- This cmdlet will throw an error if the current Dify server does not support plugins.</maml:para>
-        <maml:para>- The `-WhatIf` and `-Confirm` parameters can be used to preview or confirm the operation before execution.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -6412,6 +6441,7 @@ Set-DifySystemModel -Model $SystemModelToBeChanged</dev:code>
     </command:details>
     <maml:description>
       <maml:para>The `Wait-Dify` cmdlet waits for the Dify instance to become ready. It polls the specified server at regular intervals until it is ready or the timeout is exceeded. This is useful for scenarios where you need to ensure the Dify instance is operational before proceeding with other operations.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -6514,8 +6544,7 @@ Set-DifySystemModel -Model $SystemModelToBeChanged</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>- If the `Server` parameter is not provided, the cmdlet uses the `$env:PSDIFY_URL` environment variable.</maml:para>
-        <maml:para>- Writes verbose output during the waiting process if the `-Verbose` flag is used.</maml:para>
+        <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>

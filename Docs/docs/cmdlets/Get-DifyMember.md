@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Get-DifyMember
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Retrieve workspace member information.
@@ -21,6 +25,8 @@ Get-DifyMember [[-Id] <String[]>] [[-Name] <String[]>] [[-Email] <String[]>]
 ## DESCRIPTION
 
 The `Get-DifyMember` cmdlet retrieves information about members in the workspace. You can filter members by their ID, name, or email address.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 

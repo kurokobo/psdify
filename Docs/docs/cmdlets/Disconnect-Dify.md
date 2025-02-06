@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Disconnect-Dify
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Log out from Dify and clear all related environment variables.
@@ -20,6 +24,8 @@ Disconnect-Dify [-Force] [<CommonParameters>]
 ## DESCRIPTION
 
 The `Disconnect-Dify` cmdlet logs out the current user from Dify by invalidating the issued tokens and clears all related environment variables. If the `-Force` parameter is specified, local environment variables are cleared regardless of whether the logout process succeeds.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -52,7 +58,7 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

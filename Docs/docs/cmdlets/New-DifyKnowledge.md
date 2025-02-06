@@ -7,9 +7,13 @@ schema: 2.0.0
 
 # New-DifyKnowledge
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
-Add new empty knowledge to the workspace.
+Create new empty knowledge to the workspace.
 
 ## SYNTAX
 
@@ -20,7 +24,9 @@ New-DifyKnowledge [[-Name] <String>] [[-Description] <String>]
 
 ## DESCRIPTION
 
-The `New-DifyKnowledge` cmdlet creates a new knowledge entity in the workspace. Knowledge entities are used to organize and manage related information or documents.
+The `New-DifyKnowledge` cmdlet creates a new knowledge in the workspace.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
@@ -87,8 +93,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-- The `-Name` parameter is used to define a unique name for the knowledge entity. Ensure the name does not conflict with existing knowledge entities in the workspace.
-- The `-Description` parameter is optional but can be helpful to provide additional context for the knowledge entity.
 
 ## RELATED LINKS

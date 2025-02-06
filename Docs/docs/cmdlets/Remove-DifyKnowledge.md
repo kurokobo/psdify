@@ -7,6 +7,10 @@ schema: 2.0.0
 
 # Remove-DifyKnowledge
 
+!!! warning
+
+    This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
+
 ## SYNOPSIS
 
 Removes knowledge entries from the Dify workspace.
@@ -20,11 +24,11 @@ Remove-DifyKnowledge [[-Knowledge] <PSObject[]>] [-WhatIf] [-Confirm]
 
 ## DESCRIPTION
 
-The `Remove-DifyKnowledge` cmdlet deletes specified knowledge entries from the Dify workspace. It supports pipeline input, allowing you to pipe the result of `Get-DifyKnowledge` directly into this cmdlet for deletion. This cmdlet also supports confirmation prompts and WhatIf scenarios to preview the deletion without executing it.
+The `Remove-DifyKnowledge` cmdlet deletes specified knowledges from the Dify workspace. It supports pipeline input, allowing you to pipe the result of `Get-DifyKnowledge` directly into this cmdlet for deletion.
+
+NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
-
-### Example 1
 
 ### Example 1
 
@@ -72,7 +76,7 @@ Aliases: cf
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -88,7 +92,7 @@ Aliases: wi
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -106,7 +110,5 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
-
-If the specified knowledge is not found or deletion fails, an error is thrown.
 
 ## RELATED LINKS
