@@ -15,17 +15,17 @@ Here are some examples of what you can do with PSDify:
 
 For a full list of available cmdlets, refer to the [📚Documentation](https://kurokobo.github.io/psdify/).
 
-> [!WARNING]
->
-> - 🚨 This is an **unofficial** project. LangGenius does not provide any support for this module.
-> - 🚨 It uses **undocumented APIs** of Dify, which means it **may break with future updates** to Dify.
-> - 🚨 The **Enterprise Edition** of Dify (multi-workspace environments) is **not supported**.
-> - 🚨 Currently, the focus is on "**making it work**." This means **error handling and documentation are incomplete**, and it does not strictly follow PowerShell best practices.
+!!! warning
 
-> [!NOTE]
->
-> - This module has been tested mainly against the latest version of Dify of the Community Edition and the Cloud Edition, with Windows PowerShell (PowerShell 5.1) and PowerShell 7.4.
-> - The Enterprise Edition of Dify (multi-workspace environments) is not supported.
+    - 🚨 This is an **unofficial** project. LangGenius does not provide any support for this module.
+    - 🚨 It uses **undocumented APIs** of Dify, which means it **may break with future updates** to Dify.
+    - 🚨 The **Enterprise Edition** of Dify (multi-workspace environments) is **not supported**.
+    - 🚨 Currently, the focus is on "**making it work**." This means **error handling and documentation are incomplete**, and it does not strictly follow PowerShell best practices.
+
+!!! note
+
+    - This module has been tested mainly against the latest version of Dify of the Community Edition and the Cloud Edition, with Windows PowerShell (PowerShell 5.1) and PowerShell 7.4.
+    - The Enterprise Edition of Dify (multi-workspace environments) is not supported.
 
 ## Quick Start
 

@@ -22,8 +22,8 @@ function New-DifyInstance {
     Write-Host "Cloning Dify repository to $($Path)." -ForegroundColor Magenta
     git clone --quiet --depth=1 -b $Version https://github.com/langgenius/dify.git $Path
 
-    if ($Version -eq "main") {
-        Copy-Item (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "compose_main.yaml") -Destination (Join-Path -Path $DockerPath -ChildPath "docker-compose.override.yaml") -Force
+    if ($env:PSDIFY_TEST_OVERRIDE_FILE -and $env:PSDIFY_TEST_OVERRIDE_FILE -ne "none") {
+        Copy-Item (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath $env:PSDIFY_TEST_OVERRIDE_FILE) -Destination (Join-Path -Path $DockerPath -ChildPath "docker-compose.override.yaml") -Force
     }
 
     Set-Location -Path $DockerPath

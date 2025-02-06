@@ -1,0 +1,90 @@
+site_name: PSDify Documentation
+site_author: "kurokobo"
+repo_url: https://github.com/kurokobo/psdify
+docs_dir: docs
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+  features:
+    - navigation.sections
+    - navigation.path
+
+markdown_extensions:
+    - admonition
+    - pymdownx.superfences
+
+extra:
+    search:
+        language: "en, ja"
+    social:
+        - icon: fontawesome/brands/github-alt
+          link: "https://github.com/kurokobo"
+        - icon: fontawesome/brands/x-twitter
+          link: "https://x.com/kurokobo"
+
+nav:
+  - Home: index.md
+  - Cmdlet References:
+    - Authentication:
+      - cmdlets/Connect-Dify.md
+      - cmdlets/Disconnect-Dify.md
+    - Application:
+      - cmdlets/Get-DifyApp.md
+      - cmdlets/Remove-DifyApp.md
+      - cmdlets/Import-DifyApp.md
+      - cmdlets/Export-DifyApp.md
+      - cmdlets/Get-DifyDSLContent.md
+      - cmdlets/Set-DifyDSLContent.md
+      - cmdlets/Get-DifyAppAPIKey.md
+      - cmdlets/New-DifyAppAPIKey.md
+      - cmdlets/Remove-DifyAppAPIKey.md
+    - Knowledge:
+      - cmdlets/Get-DifyKnowledge.md
+      - cmdlets/New-DifyKnowledge.md
+      - cmdlets/Remove-DifyKnowledge.md
+      - cmdlets/Get-DifyDocument.md
+      - cmdlets/Add-DifyDocument.md
+      - cmdlets/Remove-DifyDocument.md
+      - cmdlets/Get-DifyDocumentIndexingStatus.md
+    - Member:
+      - cmdlets/Get-DifyMember.md
+      - cmdlets/New-DifyMember.md
+      - cmdlets/Remove-DifyMember.md
+      - cmdlets/Set-DifyMemberRole.md
+    - Model:
+      - cmdlets/Get-DifyModel.md
+      - cmdlets/New-DifyModel.md
+      - cmdlets/Remove-DifyModel.md
+      - cmdlets/Get-DifySystemModel.md
+      - cmdlets/Set-DifySystemModel.md
+    - Plugin:
+      - cmdlets/Find-DifyPlugin.md
+      - cmdlets/Get-DifyPlugin.md
+      - cmdlets/Install-DifyPlugin.md
+      - cmdlets/Uninstall-DifyPlugin.md
+      - cmdlets/Get-DifyPluginInstallationStatus.md
+    - Tag:
+      - cmdlets/Get-DifyTag.md
+      - cmdlets/Get-DifyAppTag.md
+      - cmdlets/Get-DifyKnowledgeTag.md
+    - Chat Operations:
+      - cmdlets/Send-DifyChatMessage.md
+    - Information Retrieval:
+      - cmdlets/Get-DifyVersion.md
+      - cmdlets/Get-DifyProfile.md
+    - Instance Initialization:
+      - cmdlets/Wait-Dify.md
+      - cmdlets/Initialize-Dify.md
+    - Miscellaneous:
+      - cmdlets/Set-PSDifyConfiguration.md
+      - cmdlets/Add-DifyFile.md
+      - cmdlets/Invoke-DifyRestMethod.md
