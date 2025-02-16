@@ -26,7 +26,7 @@ $Environments = @(
     @{
         Id      = "community-release"
         Mode    = "community"
-        Version = "0.15.2"
+        Version = "0.15.3"
     },
     @{
         Id       = "community-main"
