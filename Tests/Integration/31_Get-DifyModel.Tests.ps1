@@ -23,6 +23,8 @@ Describe "Get-DifyModel" -Tag "model" {
         Get-DifyModel | Remove-DifyModel -Confirm:$false
         if ($env:PSDIFY_PLUGIN_SUPPORT) {
             if (-not (Get-DifyPlugin -Id "langgenius/openai")) {
+                Write-Host "  Cooling down for 10 seconds before installing the plugin" -ForegroundColor Cyan
+                Start-Sleep -Seconds 10
                 Find-DifyPlugin -Id "langgenius/openai" | Install-DifyPlugin -Wait
             }
         }

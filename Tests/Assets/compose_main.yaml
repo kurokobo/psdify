@@ -7,3 +7,9 @@ services:
 
   web:
     image: langgenius/dify-web:main
+
+  sandbox:
+    image: langgenius/dify-sandbox:main
+
+  plugin_daemon:
+    image: langgenius/dify-plugin-daemon:latest-local

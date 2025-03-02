@@ -17,10 +17,17 @@ $Environments = @(
         Email     = $env:PSDIFY_TEST_CLOUD_PROD_EMAIL
     },
     @{
+        Id        = "cloud-dev"
+        Mode      = "cloud"
+        Server    = $env:PSDIFY_TEST_CLOUD_DEV_SERVER
+        ApiServer = $env:PSDIFY_TEST_CLOUD_DEV_API_SERVER
+        Email     = $env:PSDIFY_TEST_CLOUD_DEV_EMAIL
+    },
+    @{
         Id      = "community-release"
         Mode    = "community"
         Version = "1.0.0"
-        Env     = "env_release.env"
+        Env      = "env_release.env"
     },
     @{
         Id       = "community-main"
@@ -28,6 +35,13 @@ $Environments = @(
         Version  = "main"
         Override = "compose_main.yaml"
         Env      = "env_main.env"
+    },
+    @{
+        Id       = "community-plugin"
+        Mode     = "community"
+        Version  = "plugins/beta"
+        Override = "compose_plugin.yaml"
+        Env      = "env_plugin.env"
     }
 )
 
