@@ -17,9 +17,14 @@ $Environments = @(
         Email     = $env:PSDIFY_TEST_CLOUD_PROD_EMAIL
     },
     @{
+        Id      = "community-legacy"
+        Mode    = "community"
+        Version = "0.15.3"
+    },
+    @{
         Id      = "community-release"
         Mode    = "community"
-        Version = "1.0.0"
+        Version = "1.0.1"
         Env     = "env_release.env"
     },
     @{
