@@ -19,13 +19,14 @@ $Environments = @(
     @{
         Id      = "community-legacy"
         Mode    = "community"
-        Version = "0.15.3"
+        Version = "0.15.5"
     },
     @{
-        Id      = "community-release"
-        Mode    = "community"
-        Version = "1.0.1"
-        Env     = "env_release.env"
+        Id       = "community-release"
+        Mode     = "community"
+        Version  = "1.2.0"
+        Override = "compose_release.yaml"
+        Env      = "env_release.env"
     },
     @{
         Id       = "community-main"
