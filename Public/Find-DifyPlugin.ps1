@@ -7,9 +7,6 @@ function Find-DifyPlugin {
         [String] $Search = ""
     )
 
-    if (-not $env:PSDIFY_PLUGIN_SUPPORT) {
-        throw "The Dify server currently logged in does not support plugins."
-    }
 
     $ValidCategories = @("model", "tool", "agent", "extension", "bundle")
     if ($Category -and $Category -notin $ValidCategories) {
@@ -19,24 +16,13 @@ function Find-DifyPlugin {
         $Category = "agent-strategy"
     }
 
-    # find the marketplace api prefix
-    if (-not $env:PSDIFY_MARKETPLACE_API_PREFIX) {
-        $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/signin")
-        $Response = Invoke-WebRequest -Uri $Endpoint -UseBasicParsing
-        $MarketPlaceApiPrefix = $Response.Content -match 'data-marketplace-api-prefix="([^"]+)"'
-        if ($MarketPlaceApiPrefix) {
-            $MarketPlaceApiPrefix = $Matches[1].Trim()
-        }
-        else {
-            throw "Could not find the marketplace api prefix."
-        }
-        $env:PSDIFY_MARKETPLACE_API_PREFIX = $MarketPlaceApiPrefix
-    }
+    # Use the public marketplace API
+    $MarketPlaceApiPrefix = "https://marketplace.dify.ai/api/v1"
 
     # get available plugins
     $Plugins = @()
     if ($Id) {
-        $Endpoint = Join-Url -Segments @($env:PSDIFY_MARKETPLACE_API_PREFIX, "/plugins/batch")
+        $Endpoint = Join-Url -Segments @($MarketPlaceApiPrefix, "/plugins/batch")
         $Method = "POST"
         $Body = @{
             "plugin_ids" = @($Id)
@@ -64,7 +50,7 @@ function Find-DifyPlugin {
         }
     }
     else {
-        $Endpoint = Join-Url -Segments @($env:PSDIFY_MARKETPLACE_API_PREFIX, "/plugins/search/basic")
+        $Endpoint = Join-Url -Segments @($MarketPlaceApiPrefix, "/plugins/search/basic")
         $Method = "POST"
         $Page = 1
         $PageSize = 100

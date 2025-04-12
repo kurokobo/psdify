@@ -155,7 +155,6 @@ function Connect-Dify {
     else {
         $env:PSDIFY_PLUGIN_SUPPORT = $null
     }
-    $env:PSDIFY_MARKETPLACE_API_PREFIX = $null
 
     return [PSCustomObject]@{
         "Server"  = $env:PSDIFY_URL

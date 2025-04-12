@@ -9,7 +9,7 @@ function Get-DifyPlugin {
     )
 
     if (-not $env:PSDIFY_PLUGIN_SUPPORT) {
-        throw "The Dify server currently logged in does not support plugins."
+        throw "You are not logged in to a Dify server yet, or the Dify server currently logged in does not support plugins."
     }
 
     $ValidCategories = @("model", "tool", "agent", "extension", "bundle")

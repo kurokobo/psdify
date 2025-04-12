@@ -24,7 +24,7 @@ Find-DifyPlugin [[-Category] <String>] [[-Id] <String>] [[-Name] <String>] [[-Se
 
 ## DESCRIPTION
 
-The `Find-DifyPlugin` cmdlet retrieves information about available plugins from the Dify Marketplace. You can filter plugins by category, ID, name, or search string. This cmdlet requires a Dify server that supports plugins.
+The `Find-DifyPlugin` cmdlet retrieves information about available plugins from the Dify Marketplace. You can filter plugins by category, ID, name, or search string. This cmdlet uses the public Dify Marketplace API and does not require a Dify server connection.
 
 NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
