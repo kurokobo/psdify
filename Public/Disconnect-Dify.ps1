@@ -28,5 +28,4 @@ function Disconnect-Dify {
     $env:PSDIFY_DISABLE_SSL_VERIFICATION = $null
 
     $env:PSDIFY_PLUGIN_SUPPORT = $null
-    $env:PSDIFY_MARKETPLACE_API_PREFIX = $null
 }

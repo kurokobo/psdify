@@ -28,7 +28,6 @@ Describe "Get-DifyPlugin" -Tag "plugin" {
     Context "Not available" {
         It "should throw error when plugin is not supported" {
             if (-not $env:PSDIFY_PLUGIN_SUPPORT) {
-                { Find-DifyPlugin } | Should -Throw
                 { Install-DifyPlugin -Id "langgenius/openai" } | Should -Throw
                 { Get-DifyPlugin -Id "langgenius/openai" } | Should -Throw
                 { Uninstall-DifyPlugin -Id "langgenius/openai" } | Should -Throw
@@ -38,54 +37,44 @@ Describe "Get-DifyPlugin" -Tag "plugin" {
 
     Context "Find plugins" {
         It "should list available plugins with collections" {
-            if ($env:PSDIFY_PLUGIN_SUPPORT) {
-                $Plugins = Find-DifyPlugin
+            $Plugins = Find-DifyPlugin
 
-                @($Plugins).Count | Should -BeGreaterThan 0
-            }
+            @($Plugins).Count | Should -BeGreaterThan 0
         }
 
         It "should list available plugins which has a specific category" {
-            if ($env:PSDIFY_PLUGIN_SUPPORT) {
-                $Categories = @("model", "tool")
-                foreach ($Category in $Categories) {
-                    $Plugins = Find-DifyPlugin -Category $Category
+            $Categories = @("model", "tool")
+            foreach ($Category in $Categories) {
+                $Plugins = Find-DifyPlugin -Category $Category
 
-                    @($Plugins).Count | Should -BeGreaterThan 0
-                    foreach ($Plugin in $Plugins) {
-                        $Plugin.Category | Should -Be $Category
-                    }
+                @($Plugins).Count | Should -BeGreaterThan 0
+                foreach ($Plugin in $Plugins) {
+                    $Plugin.Category | Should -Be $Category
                 }
             }
         }
 
         It "should list available plugins which has a specific id" {
-            if ($env:PSDIFY_PLUGIN_SUPPORT) {
-                $Plugins = Find-DifyPlugin -Id "langgenius/openai"
+            $Plugins = Find-DifyPlugin -Id "langgenius/openai"
 
-                @($Plugins).Count | Should -Be 1
-                $Plugins.Id | Should -Be "langgenius/openai"
-                $Plugins.LatestPackageIdentifier | Should -Not -BeNullOrEmpty
-            }
+            @($Plugins).Count | Should -Be 1
+            $Plugins.Id | Should -Be "langgenius/openai"
+            $Plugins.LatestPackageIdentifier | Should -Not -BeNullOrEmpty
         }
 
         It "should list available plugins which has a specific name" {
-            if ($env:PSDIFY_PLUGIN_SUPPORT) {
-                $Plugins = Find-DifyPlugin -Name "openai"
+            $Plugins = Find-DifyPlugin -Name "openai"
 
-                @($Plugins).Count | Should -BeGreaterThan 0
-                foreach ($Plugin in $Plugins) {
-                    $Plugin.Name | Should -Be "openai"
-                }
+            @($Plugins).Count | Should -BeGreaterThan 0
+            foreach ($Plugin in $Plugins) {
+                $Plugin.Name | Should -Be "openai"
             }
         }
 
         It "should list available plugins which has a specific search term" {
-            if ($env:PSDIFY_PLUGIN_SUPPORT) {
-                $Plugins = Find-DifyPlugin -Search "openai"
+            $Plugins = Find-DifyPlugin -Search "openai"
 
-                @($Plugins).Count | Should -BeGreaterThan 1
-            }
+            @($Plugins).Count | Should -BeGreaterThan 1
         }
     }
 
