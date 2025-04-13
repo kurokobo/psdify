@@ -48,6 +48,11 @@ function Add-DifyFile {
             catch {
                 throw "Failed to upload file: $_"
             }
+            finally {
+                if (Test-Path -Path $TemporaryFile) {
+                    Remove-Item -Path $TemporaryFile -Force
+                }
+            }
 
             if (-not $Response.id) {
                 throw "Failed to upload file"

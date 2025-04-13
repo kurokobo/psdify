@@ -1,10 +1,14 @@
 function Install-DifyPlugin {
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName = "Marketplace")]
     param(
-        [Parameter(ValueFromPipeline = $true)]
+        [Parameter(ValueFromPipeline = $true, ParameterSetName = "Marketplace")]
         [PSCustomObject[]] $Item = @(),
+        [Parameter(ParameterSetName = "Marketplace")]
         [String[]] $Id = @(),
+        [Parameter(ParameterSetName = "Marketplace")]
         [String[]] $UniqueIdentifier = @(),
+        [Parameter(Mandatory = $true, ParameterSetName = "LocalFile")]
+        [Object] $LocalFile,
         [Switch] $Wait = $false,
         [Int] $Interval = 5,
         [Int] $Timeout = 300
@@ -18,40 +22,102 @@ function Install-DifyPlugin {
     }
 
     process {
-        foreach ($ItemObject in $Item) {
-            $Plugins += $ItemObject
+        switch ($PSCmdlet.ParameterSetName) {
+            "Marketplace" {
+                foreach ($ItemObject in $Item) {
+                    $Plugins += $ItemObject
+                }
+            }
         }
     }
 
     end {
-        if (-not $Id -and -not $UniqueIdentifier -and -not $Plugins) {
-            throw "Id or UniqueIdentifier is required"
-        }
-
         $Identifiers = @()
-        if ($Id) {
-            foreach ($IdItem in $Id) {
-                $Plugins += Find-DifyPlugin -Id $IdItem
+        $InstallEndpoint = ""
+        $InstallMethod = "POST"
+
+        switch ($PSCmdlet.ParameterSetName) {
+
+            # Install from local file
+            "LocalFile" {
+                # Process FileInfo object or path string
+                $FileObj = $null
+                if ($LocalFile -is [System.IO.FileInfo]) {
+                    $FileObj = $LocalFile
+                } elseif ($LocalFile -is [String]) {
+                    if (Test-Path -Path $LocalFile -PathType Leaf) {
+                        $FileObj = Get-Item -Path $LocalFile
+                    } else {
+                        throw "File not found: $LocalFile"
+                    }
+                } else {
+                    throw "LocalFile must be a FileInfo object or a file path string"
+                }
+
+                # Upload the file
+                $Result = New-TemporaryFileForBinaryUpload -File $FileObj -Name "pkg"
+                $TemporaryFile = $Result.TemporaryFile
+                $ContentType = $Result.ContentType
+
+                $UploadEndpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/plugin/upload/pkg")
+                $UploadMethod = "POST"
+
+                $UploadResponse = $null
+                try {
+                    $UploadResponse = Invoke-DifyRestMethod -Uri $UploadEndpoint -Method $UploadMethod -ContentType $ContentType -InFile $TemporaryFile -Token $env:PSDIFY_CONSOLE_TOKEN
+                }
+                catch {
+                    throw "Failed to upload plugin package: $_"
+                }
+                finally {
+                    if (Test-Path -Path $TemporaryFile) {
+                        Remove-Item -Path $TemporaryFile -Force
+                    }
+                }
+
+                if (-not $UploadResponse.unique_identifier) {
+                    throw "Failed to upload plugin package: No unique identifier returned"
+                }
+
+                # Install the uploaded plugin
+                $InstallEndpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/plugin/install/pkg")
+                $Identifiers = @($UploadResponse.unique_identifier)
+            }
+
+            # Install from marketplace
+            "Marketplace" {
+                if (-not $Id -and -not $UniqueIdentifier -and -not $Plugins) {
+                    throw "Id or UniqueIdentifier is required"
+                }
+
+                if ($Id) {
+                    foreach ($IdItem in $Id) {
+                        $Plugins += Find-DifyPlugin -Id $IdItem
+                    }
+                }
+                if ($UniqueIdentifier) {
+                    $Identifiers += $UniqueIdentifier
+                }
+                if ($Plugins) {
+                    $Identifiers += $Plugins | ForEach-Object { $_.LatestPackageIdentifier }
+                }
+
+                $InstallEndpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/plugin/install/marketplace")
             }
         }
-        if ($UniqueIdentifier) {
-            $Identifiers += $UniqueIdentifier
-        }
-        if ($Plugins) {
-            $Identifiers += $Plugins | ForEach-Object { $_.LatestPackageIdentifier }
-        }
 
-        $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/plugin/install/marketplace")
-        $Method = "POST"
-        $Body = @{
+        # Common installation process
+        $InstallBody = @{
             "plugin_unique_identifiers" = @($Identifiers)
         } | ConvertTo-Json
+
         try {
-            $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
+            $Response = Invoke-DifyRestMethod -Uri $InstallEndpoint -Method $InstallMethod -Body $InstallBody -Token $env:PSDIFY_CONSOLE_TOKEN
         }
         catch {
-            throw "Failed to install plugins: $_"
+            throw "Failed to install plugin: $_"
         }
+
         $TaskInfo = [PSCustomObject]@{
             AllInstalled = $Response.all_installed
             TaskId       = $Response.task_id
@@ -66,7 +132,7 @@ function Install-DifyPlugin {
             $Status = $TaskInfo | Get-DifyPluginInstallationStatus -Wait -Interval $Interval -Timeout $Timeout
 
             if ($Status.Status -eq "failed") {
-                throw "Failed to install plugins: $($Status.Plugins | Where-Object { $_.Status -eq "failed" } | ForEach-Object { $_.DisplayName })"
+                throw "Failed to install plugin: $($Status.Plugins | Where-Object { $_.Status -eq "failed" } | ForEach-Object { $_.DisplayName })"
             }
             $InstalledPlugins = Get-DifyPlugin -UniqueIdentifier $Identifiers
             return $InstalledPlugins

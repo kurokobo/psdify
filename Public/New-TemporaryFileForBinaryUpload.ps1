@@ -2,7 +2,8 @@ function New-TemporaryFileForBinaryUpload {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
-        [System.IO.FileInfo] $File
+        [System.IO.FileInfo] $File,
+        [String] $Name = "file"
     )
 
     $Boundary = "----WebKitFormBoundary" + [System.Guid]::NewGuid().ToString("N")
@@ -13,7 +14,7 @@ function New-TemporaryFileForBinaryUpload {
     $BinaryWriter = New-Object System.IO.BinaryWriter($FileStream)
 
     $BinaryWriter.Write($UTF8NoBOM.GetBytes("--$($Boundary)`r`n"))
-    $BinaryWriter.Write($UTF8NoBOM.GetBytes("Content-Disposition: form-data; name=`"file`"; filename=`"$($File.Name)`"`r`n"))
+    $BinaryWriter.Write($UTF8NoBOM.GetBytes("Content-Disposition: form-data; name=`"$($Name)`"; filename=`"$($File.Name)`"`r`n"))
     $BinaryWriter.Write($UTF8NoBOM.GetBytes("Content-Type: application/octet-stream`r`n`r`n"))
     $BinaryWriter.Write([System.IO.File]::ReadAllBytes($File.FullName))
     $BinaryWriter.Write($UTF8NoBOM.GetBytes("`r`n--$($Boundary)--`r`n"))
