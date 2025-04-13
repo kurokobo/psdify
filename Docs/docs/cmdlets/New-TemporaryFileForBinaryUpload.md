@@ -18,7 +18,8 @@ Internal helper function: Creates a temporary file formatted for binary file upl
 ## SYNTAX
 
 ```powershell
-New-TemporaryFileForBinaryUpload [-File] <FileInfo> [<CommonParameters>]
+New-TemporaryFileForBinaryUpload [-File] <FileInfo> [-Name <String>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -51,6 +52,22 @@ Aliases:
 
 Required: True
 Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Name
+
+Specifies the form field name to use in the multipart/form-data content. The default value is "file". This parameter allows you to customize the field name according to the API requirements of the endpoint you're uploading to.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
