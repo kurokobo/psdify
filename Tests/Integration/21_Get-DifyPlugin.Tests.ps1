@@ -279,4 +279,38 @@ Describe "Get-DifyPlugin" -Tag "plugin" {
             }
         }
     }
+
+    Context "Manage plugins - Remote file" {
+        BeforeAll {
+            if ($env:PSDIFY_PLUGIN_SUPPORT) {
+            }
+        }
+
+        It "should install plugin from remote URL" {
+            if ($env:PSDIFY_PLUGIN_SUPPORT) {
+                $Plugins = Find-DifyPlugin -Id "langgenius/openai"
+                $InstalledPlugins = Install-DifyPlugin -RemoteFile $Plugins.DownloadUrl -Wait
+                $Plugins = Get-DifyPlugin
+
+                @($InstalledPlugins).Count | Should -BeGreaterThan 0
+                @($Plugins).Count | Should -BeGreaterThan 0
+                $InstalledPlugins.Id | Should -Be "langgenius/openai"
+            }
+        }
+        
+        It "should throw error when remote file URL is invalid" {
+            if ($env:PSDIFY_PLUGIN_SUPPORT) {
+                $InvalidUrl = "https://example.com/non-existent-plugin.difypkg"
+                { Install-DifyPlugin -RemoteFile $InvalidUrl } | Should -Throw
+            }
+        }
+
+        It "should uninstall all plugins" {
+            if ($env:PSDIFY_PLUGIN_SUPPORT) {
+                Get-DifyPlugin | Uninstall-DifyPlugin -Confirm:$false
+                $Plugins = Get-DifyPlugin
+                @($Plugins).Count | Should -Be 0
+            }
+        }
+    }
 }

@@ -9,6 +9,8 @@ function Install-DifyPlugin {
         [String[]] $UniqueIdentifier = @(),
         [Parameter(Mandatory = $true, ParameterSetName = "LocalFile")]
         [Object] $LocalFile,
+        [Parameter(Mandatory = $true, ParameterSetName = "RemoteFile")]
+        [String] $RemoteFile,
         [Switch] $Wait = $false,
         [Int] $Interval = 5,
         [Int] $Timeout = 300
@@ -32,6 +34,41 @@ function Install-DifyPlugin {
     }
 
     end {
+        # Helper function to process and upload a plugin file
+        function Send-DifyPkgFile {
+            param (
+                [Parameter(Mandatory = $true)]
+                [System.IO.FileInfo] $FileObj
+            )
+
+            # Upload the file
+            $Result = New-TemporaryFileForBinaryUpload -File $FileObj -Name "pkg"
+            $TemporaryFile = $Result.TemporaryFile
+            $ContentType = $Result.ContentType
+
+            $UploadEndpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/plugin/upload/pkg")
+            $UploadMethod = "POST"
+
+            $UploadResponse = $null
+            try {
+                $UploadResponse = Invoke-DifyRestMethod -Uri $UploadEndpoint -Method $UploadMethod -ContentType $ContentType -InFile $TemporaryFile -Token $env:PSDIFY_CONSOLE_TOKEN
+            }
+            catch {
+                throw "Failed to upload plugin package: $_"
+            }
+            finally {
+                if (Test-Path -Path $TemporaryFile) {
+                    Remove-Item -Path $TemporaryFile -Force
+                }
+            }
+
+            if (-not $UploadResponse.unique_identifier) {
+                throw "Failed to upload plugin package: No unique identifier returned"
+            }
+
+            return $UploadResponse.unique_identifier
+        }
+
         $Identifiers = @()
         $InstallEndpoint = ""
         $InstallMethod = "POST"
@@ -54,34 +91,35 @@ function Install-DifyPlugin {
                     throw "LocalFile must be a FileInfo object or a file path string"
                 }
 
-                # Upload the file
-                $Result = New-TemporaryFileForBinaryUpload -File $FileObj -Name "pkg"
-                $TemporaryFile = $Result.TemporaryFile
-                $ContentType = $Result.ContentType
+                # Process the file and get identifier
+                $Identifier = Send-DifyPkgFile -FileObj $FileObj
+                $Identifiers = @($Identifier)
+                $InstallEndpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/plugin/install/pkg")
+            }
 
-                $UploadEndpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/plugin/upload/pkg")
-                $UploadMethod = "POST"
-
-                $UploadResponse = $null
+            # Install from remote file
+            "RemoteFile" {
+                # Download the file to a temporary location
+                $TempFilePath = Join-Path -Path $env:TEMP -ChildPath ([System.IO.Path]::GetFileName($RemoteFile))
+                
                 try {
-                    $UploadResponse = Invoke-DifyRestMethod -Uri $UploadEndpoint -Method $UploadMethod -ContentType $ContentType -InFile $TemporaryFile -Token $env:PSDIFY_CONSOLE_TOKEN
+                    Invoke-WebRequest -Uri $RemoteFile -OutFile $TempFilePath
+                    $FileObj = Get-Item -Path $TempFilePath
+                    
+                    # Process the downloaded file
+                    $Identifier = Send-DifyPkgFile -FileObj $FileObj
+                    $Identifiers = @($Identifier)
+                    $InstallEndpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/plugin/install/pkg")
                 }
                 catch {
-                    throw "Failed to upload plugin package: $_"
+                    throw "Failed to download or process remote plugin package: $_"
                 }
                 finally {
-                    if (Test-Path -Path $TemporaryFile) {
-                        Remove-Item -Path $TemporaryFile -Force
+                    # Clean up the downloaded file
+                    if (Test-Path -Path $TempFilePath) {
+                        Remove-Item -Path $TempFilePath -Force
                     }
                 }
-
-                if (-not $UploadResponse.unique_identifier) {
-                    throw "Failed to upload plugin package: No unique identifier returned"
-                }
-
-                # Install the uploaded plugin
-                $InstallEndpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/plugin/install/pkg")
-                $Identifiers = @($UploadResponse.unique_identifier)
             }
 
             # Install from marketplace

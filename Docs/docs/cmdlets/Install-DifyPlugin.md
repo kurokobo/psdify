@@ -31,6 +31,13 @@ Install-DifyPlugin -LocalFile <Object> [-Wait] [-Interval <Int32>] [-Timeout <In
  [<CommonParameters>]
 ```
 
+### RemoteFile
+
+```powershell
+Install-DifyPlugin -RemoteFile <String> [-Wait] [-Interval <Int32>] [-Timeout <Int32>]
+ [<CommonParameters>]
+```
+
 ## DESCRIPTION
 
 The `Install-DifyPlugin` cmdlet installs plugins from the Dify Marketplace into the current workspace. You can specify plugins to install by their ID, unique identifier, or via pipeline input.
@@ -73,6 +80,14 @@ Install-DifyPlugin -LocalFile ".\path\to\plugin.difypkg" -Wait
 ```
 
 Install a plugin from a local file. `Find-DifyPlugin` can be used to download plugins with `-Download` switch.
+
+### Example 5
+
+```powershell
+Install-DifyPlugin -RemoteFile "https://example.com/path/to/plugin.difypkg" -Wait
+```
+
+Install a plugin from a remote URL. The file will be downloaded to a temporary location and then installed.
 
 ## PARAMETERS
 
@@ -131,6 +146,22 @@ Specifies a local plugin package file (.difypkg) to install. This parameter acce
 ```yaml
 Type: Object
 Parameter Sets: LocalFile
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -RemoteFile
+
+Specifies a URL to a remote plugin package file (.difypkg) to install. The file will be downloaded to a temporary location and then installed. This allows you to install plugins directly from a web server or file hosting service without having to download them manually first.
+
+```yaml
+Type: String
+Parameter Sets: RemoteFile
 Aliases:
 
 Required: True

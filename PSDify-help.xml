@@ -4052,6 +4052,56 @@ Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -In
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Install-DifyPlugin</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Interval</maml:name>
+          <maml:description>
+            <maml:para>Specifies the interval, in seconds, between status checks when `-Wait` is used.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>5</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>RemoteFile</maml:name>
+          <maml:description>
+            <maml:para>Specifies a URL to a remote plugin package file (.difypkg) to install. The file will be downloaded to a temporary location and then installed. This allows you to install plugins directly from a web server or file hosting service without having to download them manually first.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Timeout</maml:name>
+          <maml:description>
+            <maml:para>Specifies the timeout, in seconds, for the installation task when `-Wait` is used.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>300</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Wait</maml:name>
+          <maml:description>
+            <maml:para>Indicates that the cmdlet waits for the installation task to complete before returning.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
     </command:syntax>
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
@@ -4098,6 +4148,18 @@ Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -In
         <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
         <dev:type>
           <maml:name>Object</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>RemoteFile</maml:name>
+        <maml:description>
+          <maml:para>Specifies a URL to a remote plugin package file (.difypkg) to install. The file will be downloaded to a temporary location and then installed. This allows you to install plugins directly from a web server or file hosting service without having to download them manually first.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -4192,6 +4254,13 @@ Install-DifyPlugin -Item $Plugins -Wait</dev:code>
         <dev:code>Install-DifyPlugin -LocalFile ".\path\to\plugin.difypkg" -Wait</dev:code>
         <dev:remarks>
           <maml:para>Install a plugin from a local file. `Find-DifyPlugin` can be used to download plugins with `-Download` switch.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>Install-DifyPlugin -RemoteFile "https://example.com/path/to/plugin.difypkg" -Wait</dev:code>
+        <dev:remarks>
+          <maml:para>Install a plugin from a remote URL. The file will be downloaded to a temporary location and then installed.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
