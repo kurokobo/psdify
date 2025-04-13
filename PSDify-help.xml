@@ -1009,7 +1009,7 @@ Export-DifyApp -App $AppsToBeExported</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The `Find-DifyPlugin` cmdlet retrieves information about available plugins from the Dify Marketplace. You can filter plugins by category, ID, name, or search string. This cmdlet requires a Dify server that supports plugins.</maml:para>
+      <maml:para>The `Find-DifyPlugin` cmdlet retrieves information about available plugins from the Dify Marketplace. You can filter plugins by category, ID, name, or search string. This cmdlet uses the public Dify Marketplace API and does not require a Dify server connection.</maml:para>
       <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
@@ -4376,6 +4376,93 @@ Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/s
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Join-Url</command:name>
+      <command:verb>Join</command:verb>
+      <command:noun>Url</command:noun>
+      <maml:description>
+        <maml:para>Joins URL segments with proper handling of slashes.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `Join-Url` cmdlet combines multiple URL segments into a single URL path, properly handling the slashes between segments. This cmdlet is primarily used internally by other PSDify cmdlets to construct API endpoint URLs.</maml:para>
+      <maml:para>The cmdlet removes any leading or trailing slashes from each segment and then joins them with a single slash between each segment.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Join-Url</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Segments</maml:name>
+          <maml:description>
+            <maml:para>Specifies an array of URL segments to join. The cmdlet will handle the proper formatting of slashes between segments.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Segments</maml:name>
+        <maml:description>
+          <maml:para>Specifies an array of URL segments to join. The cmdlet will handle the proper formatting of slashes between segments.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Join-Url -Segments @("https://example.com", "api", "v1", "resources")</dev:code>
+        <dev:remarks>
+          <maml:para>Returns `https://example.com/api/v1/resources`</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Join-Url -Segments @("https://example.com/", "/api/", "/v1/", "/resources")</dev:code>
+        <dev:remarks>
+          <maml:para>Returns `https://example.com/api/v1/resources` (removes redundant slashes)</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>New-DifyAppAPIKey</command:name>
       <command:verb>New</command:verb>
       <command:noun>DifyAppAPIKey</command:noun>
@@ -4878,6 +4965,87 @@ Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/s
   }</dev:code>
         <dev:remarks>
           <maml:para>Add customizable models (example for OpenAI).</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>New-TemporaryFileForBinaryUpload</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>TemporaryFileForBinaryUpload</command:noun>
+      <maml:description>
+        <maml:para>Internal helper function: Creates a temporary file formatted for binary file uploads using multipart/form-data.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `New-TemporaryFileForBinaryUpload` cmdlet creates a temporary file that contains the specified binary file encoded in multipart/form-data format. This cmdlet is primarily used internally by other PSDify cmdlets such as `Add-DifyFile` and is not typically intended for direct use by users.</maml:para>
+      <maml:para>The cmdlet returns a hashtable containing the path to the temporary file and the appropriate Content-Type header value.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-TemporaryFileForBinaryUpload</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>File</maml:name>
+          <maml:description>
+            <maml:para>Specifies the file to be prepared for upload. This parameter accepts a FileInfo object, which can be obtained using the Get-Item cmdlet.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>FileInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>File</maml:name>
+        <maml:description>
+          <maml:para>Specifies the file to be prepared for upload. This parameter accepts a FileInfo object, which can be obtained using the Get-Item cmdlet.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>FileInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $File = Get-Item -Path "C:\path\to\document.pdf"
+PS C:\&gt; $UploadData = New-TemporaryFileForBinaryUpload -File $File</dev:code>
+        <dev:remarks>
+          <maml:para>Creates a temporary file containing the specified PDF file encoded in multipart/form-data format. This cmdlet is typically used internally by other PSDify cmdlets.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
