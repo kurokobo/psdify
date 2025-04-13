@@ -1,4 +1,4 @@
-﻿#Requires -Modules @{ ModuleName="Pester"; ModuleVersion="5.6" }
+#Requires -Modules @{ ModuleName="Pester"; ModuleVersion="5.6" }
 
 BeforeDiscovery {
     $PesterPhase = "BeforeDiscovery"
@@ -76,9 +76,42 @@ Describe "Get-DifyPlugin" -Tag "plugin" {
 
             @($Plugins).Count | Should -BeGreaterThan 1
         }
+
+        It "should download plugins when -Download parameter is specified" {
+            $Id = "langgenius/openai"
+            $DownloadedFiles = Find-DifyPlugin -Id $Id -Download
+
+            @($DownloadedFiles).Count | Should -Be 1
+            $DownloadedFiles | Should -BeOfType [System.IO.FileInfo]
+            Test-Path -Path $DownloadedFiles.FullName | Should -BeTrue
+
+            $Plugin = Find-DifyPlugin -Id $Id
+            $ExpectedFileName = "$($Id.Replace('/', '-'))_$($Plugin.LatestVersion).difypkg"
+            $DownloadedFiles.Name | Should -Be $ExpectedFileName
+
+            Remove-Item -Path $DownloadedFiles.FullName -Force
+        }
+
+        It "should download multiple plugins when -Download parameter is specified" {
+            $DownloadedFiles = Find-DifyPlugin -Category "model" -Search "openai" -Download
+
+            @($DownloadedFiles).Count | Should -BeGreaterThan 1
+            foreach ($File in $DownloadedFiles) {
+                $File | Should -BeOfType [System.IO.FileInfo]
+                Test-Path -Path $File.FullName | Should -BeTrue
+            }
+
+            foreach ($File in $DownloadedFiles) {
+                Remove-Item -Path $File.FullName -Force
+            }
+        }
+
+        It "should throw error when no plugins found with -Download parameter" {
+            { Find-DifyPlugin -Id "non-existent-plugin-id" -Download } | Should -Throw "No plugins found to download"
+        }
     }
 
-    Context "Manage plugins" {
+    Context "Manage plugins - Marketplace" {
         It "should get empty plugins" {
             if ($env:PSDIFY_PLUGIN_SUPPORT) {
                 $Plugins = Get-DifyPlugin
@@ -187,6 +220,61 @@ Describe "Get-DifyPlugin" -Tag "plugin" {
                 Get-DifyPlugin | Uninstall-DifyPlugin -Confirm:$false
                 $Plugins = Get-DifyPlugin
 
+                @($Plugins).Count | Should -Be 0
+            }
+        }
+    }
+
+    Context "Manage plugins - Local file" {
+        BeforeAll {
+            if ($env:PSDIFY_PLUGIN_SUPPORT) {
+                $PluginFileInfo = Find-DifyPlugin -Id "langgenius/openai" -Download
+            }
+        }
+
+        AfterAll {
+            if ($env:PSDIFY_PLUGIN_SUPPORT) {
+                if ($PluginFileInfo -and (Test-Path -Path $PluginFileInfo.FullName)) {
+                    Remove-Item -Path $PluginFileInfo.FullName -Force
+                }
+            }
+        }
+
+        It "should install plugin from local file path" {
+            if ($env:PSDIFY_PLUGIN_SUPPORT) {
+                $InstalledPlugins = Install-DifyPlugin -LocalFile $PluginFileInfo.FullName -Wait
+                $Plugins = Get-DifyPlugin
+
+                @($InstalledPlugins).Count | Should -BeGreaterThan 0
+                @($Plugins).Count | Should -BeGreaterThan 0
+
+                Get-DifyPlugin | Uninstall-DifyPlugin -Confirm:$false
+            }
+        }
+        
+        It "should install plugin from FileInfo object" {
+            if ($env:PSDIFY_PLUGIN_SUPPORT) {
+                $InstalledPlugins = Install-DifyPlugin -LocalFile $PluginFileInfo -Wait
+                $Plugins = Get-DifyPlugin
+
+                @($InstalledPlugins).Count | Should -BeGreaterThan 0
+                @($Plugins).Count | Should -BeGreaterThan 0
+
+                Get-DifyPlugin | Uninstall-DifyPlugin -Confirm:$false
+            }
+        }
+        
+        It "should throw error when file not found" {
+            if ($env:PSDIFY_PLUGIN_SUPPORT) {
+                $NonExistentPath = Join-Path -Path $TestDrive -ChildPath "non-existent-plugin.difypkg"
+                { Install-DifyPlugin -LocalFile $NonExistentPath } | Should -Throw
+            }
+        }
+
+        It "should uninstall all plugins" {
+            if ($env:PSDIFY_PLUGIN_SUPPORT) {
+                Get-DifyPlugin | Uninstall-DifyPlugin -Confirm:$false
+                $Plugins = Get-DifyPlugin
                 @($Plugins).Count | Should -Be 0
             }
         }
