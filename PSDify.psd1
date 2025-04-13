@@ -63,9 +63,12 @@
         'Get-DifyVersion',
         'Get-DifyProfile',
 
-        'Set-PSDifyConfiguration',
+        'New-TemporaryFileForBinaryUpload',
+        'Join-Url',
         'Add-DifyFile',
-        'Invoke-DifyRestMethod'
+        'Invoke-DifyRestMethod',
+
+        'Set-PSDifyConfiguration'
     )
     CmdletsToExport      = @()
     AliasesToExport      = @()

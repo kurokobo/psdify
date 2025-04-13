@@ -17,9 +17,25 @@ Install plugins from the Dify Marketplace into the current workspace.
 
 ## SYNTAX
 
+### Marketplace (Default)
+
 ```powershell
-Install-DifyPlugin [[-Item] <PSObject[]>] [[-Id] <String[]>] [[-UniqueIdentifier] <String[]>] [-Wait]
- [[-Interval] <Int32>] [[-Timeout] <Int32>] [<CommonParameters>]
+Install-DifyPlugin [-Item <PSObject[]>] [-Id <String[]>] [-UniqueIdentifier <String[]>] [-Wait]
+ [-Interval <Int32>] [-Timeout <Int32>] [<CommonParameters>]
+```
+
+### LocalFile
+
+```powershell
+Install-DifyPlugin -LocalFile <Object> [-Wait] [-Interval <Int32>] [-Timeout <Int32>]
+ [<CommonParameters>]
+```
+
+### RemoteFile
+
+```powershell
+Install-DifyPlugin -RemoteFile <String> [-Wait] [-Interval <Int32>] [-Timeout <Int32>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -57,6 +73,22 @@ Install-DifyPlugin -Item $Plugins -Wait
 
 Search for plugins using `Find-DifyPlugin` and install the resulting plugins.
 
+### Example 4
+
+```powershell
+Install-DifyPlugin -LocalFile ".\path\to\plugin.difypkg" -Wait
+```
+
+Install a plugin from a local file. `Find-DifyPlugin` can be used to download plugins with `-Download` switch.
+
+### Example 5
+
+```powershell
+Install-DifyPlugin -RemoteFile "https://example.com/path/to/plugin.difypkg" -Wait
+```
+
+Install a plugin from a remote URL. The file will be downloaded to a temporary location and then installed.
+
 ## PARAMETERS
 
 ### -Id
@@ -65,11 +97,11 @@ Specifies the IDs of the plugins to install.
 
 ```yaml
 Type: String[]
-Parameter Sets: (All)
+Parameter Sets: Marketplace
 Aliases:
 
 Required: False
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -85,7 +117,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
+Position: Named
 Default value: 5
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -97,13 +129,45 @@ Specifies the plugin objects to install. This parameter can accept pipeline inpu
 
 ```yaml
 Type: PSObject[]
-Parameter Sets: (All)
+Parameter Sets: Marketplace
 Aliases:
 
 Required: False
-Position: 0
+Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -LocalFile
+
+Specifies a local plugin package file (.difypkg) to install. This parameter accepts either a FileInfo object (from Get-Item) or a string path to the plugin package file. This allows you to install plugins that you've previously downloaded using Find-DifyPlugin with the -Download switch.
+
+```yaml
+Type: Object
+Parameter Sets: LocalFile
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -RemoteFile
+
+Specifies a URL to a remote plugin package file (.difypkg) to install. The file will be downloaded to a temporary location and then installed. This allows you to install plugins directly from a web server or file hosting service without having to download them manually first.
+
+```yaml
+Type: String
+Parameter Sets: RemoteFile
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -117,7 +181,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 4
+Position: Named
 Default value: 300
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -129,11 +193,11 @@ Specifies the unique identifiers of the plugins to install.
 
 ```yaml
 Type: String[]
-Parameter Sets: (All)
+Parameter Sets: Marketplace
 Aliases:
 
 Required: False
-Position: 2
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

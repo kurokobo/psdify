@@ -152,6 +152,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
+
 - This cmdlet is only applicable for the Community Edition of Dify.
 - Ensure that the `Server` parameter points to the correct Dify instance URL.
 - You can use environment variables (`$env:PSDIFY_URL`, `$env:PSDIFY_EMAIL`, etc.) to simplify cmdlet arguments.

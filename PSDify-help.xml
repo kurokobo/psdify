@@ -1009,7 +1009,7 @@ Export-DifyApp -App $AppsToBeExported</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The `Find-DifyPlugin` cmdlet retrieves information about available plugins from the Dify Marketplace. You can filter plugins by category, ID, name, or search string. This cmdlet requires a Dify server that supports plugins.</maml:para>
+      <maml:para>The `Find-DifyPlugin` cmdlet retrieves information about available plugins from the Dify Marketplace. You can filter plugins by category, ID, name, or search string. This cmdlet uses the public Dify Marketplace API and does not require a Dify server connection.</maml:para>
       <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
@@ -1063,6 +1063,17 @@ Export-DifyApp -App $AppsToBeExported</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Download</maml:name>
+          <maml:description>
+            <maml:para>Indicates that the cmdlet should download the found plugins to the current directory. When specified, the cmdlet returns FileInfo objects for the downloaded plugin packages (.difypkg files) instead of plugin information objects.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -1077,6 +1088,18 @@ Export-DifyApp -App $AppsToBeExported</dev:code>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Download</maml:name>
+        <maml:description>
+          <maml:para>Indicates that the cmdlet should download the found plugins to the current directory. When specified, the cmdlet returns FileInfo objects for the downloaded plugin packages (.difypkg files) instead of plugin information objects.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Id</maml:name>
@@ -1167,6 +1190,13 @@ Export-DifyApp -App $AppsToBeExported</dev:code>
         <dev:code>Find-DifyPlugin -Search "openai"</dev:code>
         <dev:remarks>
           <maml:para>Search for plugins by keyword in the ID, name, or display name.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>Find-DifyPlugin -Id "langgenius/openai" -Download</dev:code>
+        <dev:remarks>
+          <maml:para>Download a specific plugin package (.difypkg file) to the current directory.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -3900,19 +3930,7 @@ Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -In
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Install-DifyPlugin</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
-          <maml:name>Item</maml:name>
-          <maml:description>
-            <maml:para>Specifies the plugin objects to install. This parameter can accept pipeline input.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">PSObject[]</command:parameterValue>
-          <dev:type>
-            <maml:name>PSObject[]</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Id</maml:name>
           <maml:description>
             <maml:para>Specifies the IDs of the plugins to install.</maml:para>
@@ -3924,19 +3942,7 @@ Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -In
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
-          <maml:name>UniqueIdentifier</maml:name>
-          <maml:description>
-            <maml:para>Specifies the unique identifiers of the plugins to install.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
-          <dev:type>
-            <maml:name>String[]</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Interval</maml:name>
           <maml:description>
             <maml:para>Specifies the interval, in seconds, between status checks when `-Wait` is used.</maml:para>
@@ -3948,7 +3954,131 @@ Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -In
           </dev:type>
           <dev:defaultValue>5</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+          <maml:name>Item</maml:name>
+          <maml:description>
+            <maml:para>Specifies the plugin objects to install. This parameter can accept pipeline input.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSObject[]</command:parameterValue>
+          <dev:type>
+            <maml:name>PSObject[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Timeout</maml:name>
+          <maml:description>
+            <maml:para>Specifies the timeout, in seconds, for the installation task when `-Wait` is used.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>300</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UniqueIdentifier</maml:name>
+          <maml:description>
+            <maml:para>Specifies the unique identifiers of the plugins to install.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Wait</maml:name>
+          <maml:description>
+            <maml:para>Indicates that the cmdlet waits for the installation task to complete before returning.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Install-DifyPlugin</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Interval</maml:name>
+          <maml:description>
+            <maml:para>Specifies the interval, in seconds, between status checks when `-Wait` is used.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>5</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>LocalFile</maml:name>
+          <maml:description>
+            <maml:para>Specifies a local plugin package file (.difypkg) to install. This parameter accepts either a FileInfo object (from Get-Item) or a string path to the plugin package file. This allows you to install plugins that you've previously downloaded using Find-DifyPlugin with the -Download switch.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+          <dev:type>
+            <maml:name>Object</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Timeout</maml:name>
+          <maml:description>
+            <maml:para>Specifies the timeout, in seconds, for the installation task when `-Wait` is used.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>300</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Wait</maml:name>
+          <maml:description>
+            <maml:para>Indicates that the cmdlet waits for the installation task to complete before returning.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Install-DifyPlugin</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Interval</maml:name>
+          <maml:description>
+            <maml:para>Specifies the interval, in seconds, between status checks when `-Wait` is used.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>5</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>RemoteFile</maml:name>
+          <maml:description>
+            <maml:para>Specifies a URL to a remote plugin package file (.difypkg) to install. The file will be downloaded to a temporary location and then installed. This allows you to install plugins directly from a web server or file hosting service without having to download them manually first.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Timeout</maml:name>
           <maml:description>
             <maml:para>Specifies the timeout, in seconds, for the installation task when `-Wait` is used.</maml:para>
@@ -3974,7 +4104,7 @@ Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -In
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Id</maml:name>
         <maml:description>
           <maml:para>Specifies the IDs of the plugins to install.</maml:para>
@@ -3986,7 +4116,7 @@ Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -In
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Interval</maml:name>
         <maml:description>
           <maml:para>Specifies the interval, in seconds, between status checks when `-Wait` is used.</maml:para>
@@ -3998,7 +4128,7 @@ Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -In
         </dev:type>
         <dev:defaultValue>5</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
         <maml:name>Item</maml:name>
         <maml:description>
           <maml:para>Specifies the plugin objects to install. This parameter can accept pipeline input.</maml:para>
@@ -4010,7 +4140,31 @@ Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -In
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>LocalFile</maml:name>
+        <maml:description>
+          <maml:para>Specifies a local plugin package file (.difypkg) to install. This parameter accepts either a FileInfo object (from Get-Item) or a string path to the plugin package file. This allows you to install plugins that you've previously downloaded using Find-DifyPlugin with the -Download switch.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+        <dev:type>
+          <maml:name>Object</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>RemoteFile</maml:name>
+        <maml:description>
+          <maml:para>Specifies a URL to a remote plugin package file (.difypkg) to install. The file will be downloaded to a temporary location and then installed. This allows you to install plugins directly from a web server or file hosting service without having to download them manually first.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Timeout</maml:name>
         <maml:description>
           <maml:para>Specifies the timeout, in seconds, for the installation task when `-Wait` is used.</maml:para>
@@ -4022,7 +4176,7 @@ Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -In
         </dev:type>
         <dev:defaultValue>300</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>UniqueIdentifier</maml:name>
         <maml:description>
           <maml:para>Specifies the unique identifiers of the plugins to install.</maml:para>
@@ -4093,6 +4247,20 @@ Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -In
 Install-DifyPlugin -Item $Plugins -Wait</dev:code>
         <dev:remarks>
           <maml:para>Search for plugins using `Find-DifyPlugin` and install the resulting plugins.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>Install-DifyPlugin -LocalFile ".\path\to\plugin.difypkg" -Wait</dev:code>
+        <dev:remarks>
+          <maml:para>Install a plugin from a local file. `Find-DifyPlugin` can be used to download plugins with `-Download` switch.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>Install-DifyPlugin -RemoteFile "https://example.com/path/to/plugin.difypkg" -Wait</dev:code>
+        <dev:remarks>
+          <maml:para>Install a plugin from a remote URL. The file will be downloaded to a temporary location and then installed.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -4369,6 +4537,93 @@ Invoke-DifyRestMethod -Method "POST" -Uri "https://dify.example.com/console/api/
 Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/setup" -Session $DifySession</dev:code>
         <dev:remarks>
           <maml:para>Invoke REST API using a session.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Join-Url</command:name>
+      <command:verb>Join</command:verb>
+      <command:noun>Url</command:noun>
+      <maml:description>
+        <maml:para>Joins URL segments with proper handling of slashes.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `Join-Url` cmdlet combines multiple URL segments into a single URL path, properly handling the slashes between segments. This cmdlet is primarily used internally by other PSDify cmdlets to construct API endpoint URLs.</maml:para>
+      <maml:para>The cmdlet removes any leading or trailing slashes from each segment and then joins them with a single slash between each segment.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Join-Url</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Segments</maml:name>
+          <maml:description>
+            <maml:para>Specifies an array of URL segments to join. The cmdlet will handle the proper formatting of slashes between segments.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Segments</maml:name>
+        <maml:description>
+          <maml:para>Specifies an array of URL segments to join. The cmdlet will handle the proper formatting of slashes between segments.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Join-Url -Segments @("https://example.com", "api", "v1", "resources")</dev:code>
+        <dev:remarks>
+          <maml:para>Returns `https://example.com/api/v1/resources`</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Join-Url -Segments @("https://example.com/", "/api/", "/v1/", "/resources")</dev:code>
+        <dev:remarks>
+          <maml:para>Returns `https://example.com/api/v1/resources` (removes redundant slashes)</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -4878,6 +5133,111 @@ Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/s
   }</dev:code>
         <dev:remarks>
           <maml:para>Add customizable models (example for OpenAI).</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>New-TemporaryFileForBinaryUpload</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>TemporaryFileForBinaryUpload</command:noun>
+      <maml:description>
+        <maml:para>Internal helper function: Creates a temporary file formatted for binary file uploads using multipart/form-data.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `New-TemporaryFileForBinaryUpload` cmdlet creates a temporary file that contains the specified binary file encoded in multipart/form-data format. This cmdlet is primarily used internally by other PSDify cmdlets such as `Add-DifyFile` and is not typically intended for direct use by users.</maml:para>
+      <maml:para>The cmdlet returns a hashtable containing the path to the temporary file and the appropriate Content-Type header value.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-TemporaryFileForBinaryUpload</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>File</maml:name>
+          <maml:description>
+            <maml:para>Specifies the file to be prepared for upload. This parameter accepts a FileInfo object, which can be obtained using the Get-Item cmdlet.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+          <dev:type>
+            <maml:name>FileInfo</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Specifies the form field name to use in the multipart/form-data content. The default value is "file". This parameter allows you to customize the field name according to the API requirements of the endpoint you're uploading to.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>File</maml:name>
+        <maml:description>
+          <maml:para>Specifies the file to be prepared for upload. This parameter accepts a FileInfo object, which can be obtained using the Get-Item cmdlet.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">FileInfo</command:parameterValue>
+        <dev:type>
+          <maml:name>FileInfo</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Specifies the form field name to use in the multipart/form-data content. The default value is "file". This parameter allows you to customize the field name according to the API requirements of the endpoint you're uploading to.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $File = Get-Item -Path "C:\path\to\document.pdf"
+PS C:\&gt; $UploadData = New-TemporaryFileForBinaryUpload -File $File</dev:code>
+        <dev:remarks>
+          <maml:para>Creates a temporary file containing the specified PDF file encoded in multipart/form-data format. This cmdlet is typically used internally by other PSDify cmdlets.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

@@ -170,6 +170,7 @@ function Repair-MinorImprovements {
 
     # Correct lint errors
     $Content = $Content -replace '(## SYNTAX\r\n\r\n```)', '$1powershell'
+    $Content = $Content -replace '### (.+)\r\n```', ('### $1' + "`r`n`r`n" + '```powershell')
     $LineBreaksBefore = @('## OUTPUTS', '## NOTES')
     foreach ($Before in $LineBreaksBefore) {
         $Content = $Content -replace "$($Before)", "`r`n$($Before)"

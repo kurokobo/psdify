@@ -4,7 +4,8 @@ function Find-DifyPlugin {
         [String] $Category = "",
         [String] $Id = "",
         [String] $Name = "",
-        [String] $Search = ""
+        [String] $Search = "",
+        [Switch] $Download
     )
 
 
@@ -35,7 +36,8 @@ function Find-DifyPlugin {
         }
         $PluginsInPage = $Response.data.plugins
         foreach ($Plugin in $PluginsInPage) {
-            $Plugins += [PSCustomObject]@{
+            $DownloadUrl = Join-Url -Segments @($MarketPlaceApiPrefix, "/plugins/$($Plugin.plugin_id)/$($Plugin.latest_version)/download")
+            $PluginObj = [PSCustomObject]@{
                 Category                = $Plugin.category
                 Name                    = $Plugin.name
                 Type                    = $Plugin.type
@@ -46,7 +48,9 @@ function Find-DifyPlugin {
                 UpdatedAt               = $Plugin.version_updated_at
                 LatestVersion           = $Plugin.latest_version
                 LatestPackageIdentifier = $Plugin.latest_package_identifier
+                DownloadUrl             = $DownloadUrl
             }
+            $Plugins += $PluginObj
         }
     }
     else {
@@ -84,7 +88,8 @@ function Find-DifyPlugin {
                 $HasMore = $false
             }
             foreach ($Plugin in $PluginsInPage) {
-                $Plugins += [PSCustomObject]@{
+                $DownloadUrl = Join-Url -Segments @($MarketPlaceApiPrefix, "plugins", $Plugin.plugin_id, $Plugin.latest_version, "download")
+                $PluginObj = [PSCustomObject]@{
                     Category                = $Plugin.category
                     Name                    = $Plugin.name
                     Type                    = $Plugin.type
@@ -95,7 +100,9 @@ function Find-DifyPlugin {
                     UpdatedAt               = $Plugin.version_updated_at
                     LatestVersion           = $Plugin.latest_version
                     LatestPackageIdentifier = $Plugin.latest_package_identifier
+                    DownloadUrl             = $DownloadUrl
                 }
+                $Plugins += $PluginObj
             }
 
             if ($Response.data.total -lt $PageSize) {
@@ -113,5 +120,35 @@ function Find-DifyPlugin {
         }
     }
 
-    return $Plugins
+    if ($Download) {
+        if (@($Plugins).Count -eq 0) {
+            throw "No plugins found to download"
+        }
+
+        $DownloadedFiles = @()
+        foreach ($Plugin in $Plugins) {
+            $PluginId = $Plugin.Id
+            $PluginVersion = $Plugin.LatestVersion
+            $DownloadUrl = $Plugin.DownloadUrl
+
+            $FileName = "$($PluginId.Replace('/', '-'))_$($PluginVersion).difypkg"
+            $OutputPath = Join-Path -Path (Get-Location) -ChildPath $FileName
+
+            try {
+                Invoke-WebRequest -Uri $DownloadUrl -OutFile $OutputPath
+                $DownloadedFiles += Get-Item -Path $OutputPath
+            }
+            catch {
+                Write-Warning "Failed to download plugin $($PluginId): $_"
+            }
+        }
+
+        if (@($DownloadedFiles).Count -eq 0) {
+            throw "Failed to download any plugins"
+        }
+        return $DownloadedFiles
+    }
+    else {
+        return $Plugins
+    }
 }

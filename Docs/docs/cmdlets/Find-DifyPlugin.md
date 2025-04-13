@@ -18,7 +18,7 @@ Retrieve available plugins from the Dify Marketplace.
 ## SYNTAX
 
 ```powershell
-Find-DifyPlugin [[-Category] <String>] [[-Id] <String>] [[-Name] <String>] [[-Search] <String>]
+Find-DifyPlugin [[-Category] <String>] [[-Id] <String>] [[-Name] <String>] [[-Search] <String>] [-Download]
  [<CommonParameters>]
 ```
 
@@ -62,6 +62,14 @@ Find-DifyPlugin -Search "openai"
 
 Search for plugins by keyword in the ID, name, or display name.
 
+### Example 5
+
+```powershell
+Find-DifyPlugin -Id "langgenius/openai" -Download
+```
+
+Download a specific plugin package (.difypkg file) to the current directory.
+
 ## PARAMETERS
 
 ### -Category
@@ -75,6 +83,22 @@ Aliases:
 
 Required: False
 Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Download
+
+Indicates that the cmdlet should download the found plugins to the current directory. When specified, the cmdlet returns FileInfo objects for the downloaded plugin packages (.difypkg files) instead of plugin information objects.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
