@@ -14,13 +14,3 @@ services:
 
   plugin_daemon:
     image: langgenius/dify-plugin-daemon:main-local
-    depends_on:
-      db:
-        condition: service_healthy
-
-  db:
-    healthcheck:
-      test: [ 'CMD', 'pg_isready', '-h', 'db', '-U', '${PGUSER:-postgres}', '-d', '${POSTGRES_DB:-dify}' ]
-      interval: 1s
-      timeout: 3s
-      retries: 60
