@@ -29,9 +29,11 @@ function New-DifyInstance {
     Set-Location -Path $DockerPath
     Copy-Item -Path ".env.example" -Destination ".env" -Force
     if ($EnvFile) {
+        Add-Content -Path ".env" -Value ""
         Get-Content $EnvFile | Add-Content -Path ".env"
     }
     if ($env:PSDIFY_TEST_ENV_FILE -and $env:PSDIFY_TEST_ENV_FILE -ne "none") {
+        Add-Content -Path ".env" -Value ""
         Get-Content (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath $env:PSDIFY_TEST_ENV_FILE) | Add-Content -Path ".env"
     }
     Write-Host "Pulling container images." -ForegroundColor Magenta
