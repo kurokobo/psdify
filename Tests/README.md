@@ -5,9 +5,11 @@
 .\Tests\Invoke-PSDifyPester.ps1
 
 # Specify environment
-.\Tests\Invoke-PSDifyPester.ps1 -Env "cloud-prod", "community-release"
+.\Tests\Invoke-PSDifyPester.ps1 -Env "cloud-prod"
+.\Tests\Invoke-PSDifyPester.ps1 -Env "community-release"
 
 # Specify powershell version
+.\Tests\Invoke-PSDifyPester.ps1 -Ps 5
 .\Tests\Invoke-PSDifyPester.ps1 -Ps 7
 
 # Specify tests
