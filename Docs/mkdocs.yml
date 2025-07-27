@@ -38,15 +38,25 @@ nav:
       - cmdlets/Connect-Dify.md
       - cmdlets/Disconnect-Dify.md
     - Application:
-      - cmdlets/Get-DifyApp.md
-      - cmdlets/Remove-DifyApp.md
-      - cmdlets/Import-DifyApp.md
-      - cmdlets/Export-DifyApp.md
-      - cmdlets/Get-DifyDSLContent.md
-      - cmdlets/Set-DifyDSLContent.md
-      - cmdlets/Get-DifyAppAPIKey.md
-      - cmdlets/New-DifyAppAPIKey.md
-      - cmdlets/Remove-DifyAppAPIKey.md
+      - Basic:
+        - cmdlets/Get-DifyApp.md
+        - cmdlets/Remove-DifyApp.md
+      - DSL File:
+        - cmdlets/Import-DifyApp.md
+        - cmdlets/Export-DifyApp.md
+        - cmdlets/Get-DifyDSLContent.md
+        - cmdlets/Set-DifyDSLContent.md
+      - API Key:
+        - cmdlets/Get-DifyAppAPIKey.md
+        - cmdlets/New-DifyAppAPIKey.md
+        - cmdlets/Remove-DifyAppAPIKey.md
+      - Tracing:
+        - cmdlets/Get-DifyAppTrace.md
+        - cmdlets/Set-DifyAppTrace.md
+        - cmdlets/Get-DifyAppTraceConfig.md
+        - cmdlets/New-DifyAppTraceConfig.md
+        - cmdlets/Set-DifyAppTraceConfig.md
+        - cmdlets/Remove-DifyAppTraceConfig.md
     - Knowledge:
       - cmdlets/Get-DifyKnowledge.md
       - cmdlets/New-DifyKnowledge.md
@@ -84,7 +94,9 @@ nav:
     - Instance Initialization:
       - cmdlets/Wait-Dify.md
       - cmdlets/Initialize-Dify.md
-    - Miscellaneous:
+    - Helper Functions:
+      - cmdlets/Join-Url.md
       - cmdlets/Set-PSDifyConfiguration.md
+      - cmdlets/New-TemporaryFileForBinaryUpload.md
       - cmdlets/Add-DifyFile.md
       - cmdlets/Invoke-DifyRestMethod.md
