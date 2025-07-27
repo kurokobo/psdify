@@ -54,6 +54,13 @@
         'New-DifyAppAPIKey',
         'Remove-DifyAppAPIKey',
 
+        'Get-DifyAppTrace',
+        'Get-DifyAppTraceConfig',
+        'Set-DifyAppTrace',
+        'New-DifyAppTraceConfig',
+        'Set-DifyAppTraceConfig',
+        'Remove-DifyAppTraceConfig',
+
         'Send-DifyChatMessage',
 
         'Get-DifyTag',
