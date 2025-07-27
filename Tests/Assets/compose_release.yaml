@@ -1,0 +1,16 @@
+services:
+
+  phoenix:
+    image: arizephoenix/phoenix:version-11
+    ports:
+      - 6006:6006
+    environment:
+      PHOENIX_WORKING_DIR: /mnt/data
+      PHOENIX_SECRET: ${PHOENIX_SECRET:-}
+      PHOENIX_ADMIN_SECRET: ${PHOENIX_ADMIN_SECRET:-}
+    volumes:
+      - phoenix_data:/mnt/data
+
+volumes:
+  phoenix_data:
+    driver: local
