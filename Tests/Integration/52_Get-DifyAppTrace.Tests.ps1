@@ -41,7 +41,7 @@ Describe "Get-DifyAppTrace" -Tag "trace" {
         It "should get app trace (disabled)" {
             $Trace = Get-DifyAppTrace -App $TestApp
             $Trace.Enabled | Should -BeFalse
-            $Trace.TracingProvider | Should -BeNullOrEmpty
+            $Trace.Provider | Should -BeNullOrEmpty
         }
     }
     Context "Get app trace config (disabled)" {
@@ -68,20 +68,20 @@ Describe "Get-DifyAppTrace" -Tag "trace" {
 
             $Trace = Get-DifyAppTrace -App $TestApp
             $Trace.Enabled | Should -BeFalse
-            $Trace.TracingProvider | Should -BeNullOrEmpty
+            $Trace.Provider | Should -BeNullOrEmpty
         }
         It "should enable app trace" {
             $Trace = Get-DifyAppTrace -App $TestApp
             $Trace.Enabled | Should -BeFalse
-            $Trace.TracingProvider | Should -BeNullOrEmpty
+            $Trace.Provider | Should -BeNullOrEmpty
 
             $Trace = Set-DifyAppTrace -App $TestApp -Provider "phoenix" -Enable
             $Trace.Enabled | Should -BeTrue
-            $Trace.TracingProvider | Should -Be "phoenix"
+            $Trace.Provider | Should -Be "phoenix"
 
             $Trace = Set-DifyAppTrace -App $TestApp -Provider "phoenix" -Disable
             $Trace.Enabled | Should -BeFalse
-            $Trace.TracingProvider | Should -BeNullOrEmpty
+            $Trace.Provider | Should -BeNullOrEmpty
         }
         It "should remove app trace config" {
             Remove-DifyAppTraceConfig -App $TestApp -Provider "phoenix" -Confirm:$false
@@ -102,7 +102,7 @@ Describe "Get-DifyAppTrace" -Tag "trace" {
 
             $Trace = Get-DifyAppTrace -App $TestApp
             $Trace.Enabled | Should -BeTrue
-            $Trace.TracingProvider | Should -Be "phoenix"
+            $Trace.Provider | Should -Be "phoenix"
 
             Remove-DifyAppTraceConfig -App $TestApp -Provider "phoenix" -Confirm:$false
             $TraceConfig = Get-DifyAppTraceConfig -App $TestApp -Provider "phoenix"

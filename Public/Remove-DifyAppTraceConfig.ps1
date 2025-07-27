@@ -22,7 +22,7 @@ function Remove-DifyAppTraceConfig {
         }
 
         $Trace = Get-DifyAppTrace -App $App
-        if ($Trace -and $Trace.Enabled -and $Trace.TracingProvider -eq $Provider) {
+        if ($Trace -and $Trace.Enabled -and $Trace.Provider -eq $Provider) {
             try {
                 $null = Set-DifyAppTrace -App $App -Provider $Provider -Disable
             }

@@ -46,7 +46,7 @@ function Get-DifyAppTraceConfig {
                 }
             }
             else {
-                $IsEnabled = $AppTrace.Enabled -and ($ProviderName.ToLower() -eq $AppTrace.TracingProvider.ToLower())
+                $IsEnabled = $AppTrace.Enabled -and ($ProviderName.ToLower() -eq $AppTrace.Provider.ToLower())
                 $TraceConfig += [PSCustomObject]@{
                     AppId     = $App.Id
                     Id        = $Response.id

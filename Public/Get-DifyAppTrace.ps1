@@ -22,7 +22,7 @@ function Get-DifyAppTrace {
         return [PSCustomObject]@{
             AppId           = $App.Id
             Enabled         = $Response.enabled
-            TracingProvider = $Response.tracing_provider
+            Provider = $Response.tracing_provider
         }
     }
 }
