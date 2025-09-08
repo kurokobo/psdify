@@ -5,7 +5,8 @@ function New-DifyModel {
         [String] $From = "predefined",
         [String] $Name,
         [String] $Type,
-        [Hashtable] $Credential
+        [Hashtable] $Credential,
+        [String] $AuthorizationName
     )
 
     $ValidFroms = @("predefined", "customizable")
@@ -25,16 +26,30 @@ function New-DifyModel {
             if (-not $Credential) {
                 throw "Credential is required when From is 'predefined'"
             }
-            $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/model-providers", $Provider)
-            $Method = "POST"
-            $Body = @{
-                "config_from"    = "predefined-model"
-                "credentials"    = $Credential
-                "load_balancing" = @{
-                    "enabled" = $false
-                    "configs" = @()
+            if (Compare-SimpleVersion -Version $env:PSDIFY_VERSION -Ge "1.8.0") {
+                if (-not $AuthorizationName) {
+                    $AvailableCredentials = Get-DifyModelProviderCredential -Provider $Provider
+                    $AuthorizationName = "API KEY $($($AvailableCredentials | Measure-Object).Count + 1)"
                 }
-            } | ConvertTo-Json -Depth 10
+                $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/model-providers", $Provider, "/credentials")
+                $Method = "POST"
+                $Body = @{
+                    "name"        = $AuthorizationName
+                    "credentials" = $Credential
+                } | ConvertTo-Json -Depth 10
+            }
+            else {
+                $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/model-providers", $Provider)
+                $Method = "POST"
+                $Body = @{
+                    "config_from"    = "predefined-model"
+                    "credentials"    = $Credential
+                    "load_balancing" = @{
+                        "enabled" = $false
+                        "configs" = @()
+                    }
+                } | ConvertTo-Json -Depth 10
+            }
             try {
                 $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
             }
@@ -61,17 +76,33 @@ function New-DifyModel {
             if (-not $Credential) {
                 throw "Credential is required when Type is 'Model'"
             }
-            $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/model-providers", $Provider, "/models")
-            $Method = "POST"
-            $Body = @{
-                "model"          = $Name
-                "model_type"     = $Type
-                "credentials"    = $Credential
-                "load_balancing" = @{
-                    "enabled" = $false
-                    "configs" = @()
+            if (Compare-SimpleVersion -Version $env:PSDIFY_VERSION -Ge "1.8.0") {
+                if (-not $AuthorizationName) {
+                    $AvailableCredentials = Get-DifyModelProviderCredential -Provider $Provider -Name $Name -Type $Type
+                    $AuthorizationName = "API KEY $($($AvailableCredentials | Measure-Object).Count + 1)"
                 }
-            } | ConvertTo-Json -Depth 10
+                $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/model-providers", $Provider, "/models/credentials")
+                $Method = "POST"
+                $Body = @{
+                    "name"        = $AuthorizationName
+                    "model"       = $Name
+                    "model_type"  = $Type
+                    "credentials" = $Credential
+                } | ConvertTo-Json -Depth 10
+            }
+            else {
+                $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/model-providers", $Provider, "/models")
+                $Method = "POST"
+                $Body = @{
+                    "model"          = $Name
+                    "model_type"     = $Type
+                    "credentials"    = $Credential
+                    "load_balancing" = @{
+                        "enabled" = $false
+                        "configs" = @()
+                    }
+                } | ConvertTo-Json -Depth 10
+            }
             try {
                 $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
             }

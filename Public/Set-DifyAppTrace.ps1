@@ -31,10 +31,18 @@ function Set-DifyAppTrace {
             } | ConvertTo-Json
         }
         elseif ($Disable) {
-            $Body = @{
-                "enabled"          = $false
-                "tracing_provider" = $null
-            } | ConvertTo-Json
+            if (Compare-SimpleVersion -Version $env:PSDIFY_VERSION -Ge "1.8.1") {
+                $Body = @{
+                    "enabled"          = $false
+                    "tracing_provider" = $Provider
+                } | ConvertTo-Json
+            }
+            else {
+                $Body = @{
+                    "enabled"          = $false
+                    "tracing_provider" = $null
+                } | ConvertTo-Json
+            }
         }
         try {
             $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN -Body $Body

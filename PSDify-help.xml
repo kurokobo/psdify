@@ -3003,6 +3003,185 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-DifyModelProviderCredential</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>DifyModelProviderCredential</command:noun>
+      <maml:description>
+        <maml:para>Retrieve model provider credential information for the current workspace.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `Get-DifyModelProviderCredential` cmdlet retrieves credential information for model providers in the current workspace. You can filter credentials by provider, model type, model name, and credential type (predefined or customizable). The cmdlet returns list of available credentials.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-DifyModelProviderCredential</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Provider</maml:name>
+          <maml:description>
+            <maml:para>Filter credentials by provider name.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>From</maml:name>
+          <maml:description>
+            <maml:para>Specify the source type of the credential. Valid values are "predefined" and "customizable".</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Filter credentials by model name.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>Type</maml:name>
+          <maml:description>
+            <maml:para>Filter credentials by model type. Valid values are "llm", "text-embedding", "speech2text", "moderation", "tts", and "rerank".</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>From</maml:name>
+        <maml:description>
+          <maml:para>Specify the source type of the credential. Valid values are "predefined" and "customizable".</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Filter credentials by model name.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Provider</maml:name>
+        <maml:description>
+          <maml:para>Filter credentials by provider name.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>Type</maml:name>
+        <maml:description>
+          <maml:para>Filter credentials by model type. Valid values are "llm", "text-embedding", "speech2text", "moderation", "tts", and "rerank".</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-DifyModelProviderCredential</dev:code>
+        <dev:remarks>
+          <maml:para>Get all model provider credentials.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>Get-DifyModelProviderCredential -Provider "langgenius/openai/openai"</dev:code>
+        <dev:remarks>
+          <maml:para>Get credentials for the specified provider.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>Get-DifyModelProviderCredential -From "customizable"</dev:code>
+        <dev:remarks>
+          <maml:para>Get credentials for customizable models only.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>Get-DifyModelProviderCredential -Name "gpt-4.1-nano"</dev:code>
+        <dev:remarks>
+          <maml:para>Get credentials for a specific model name.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>Get-DifyModelProviderCredential -Type "llm"</dev:code>
+        <dev:remarks>
+          <maml:para>Get credentials for a specific model type.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-DifyPlugin</command:name>
       <command:verb>Get</command:verb>
       <command:noun>DifyPlugin</command:noun>
@@ -5322,7 +5501,7 @@ New-DifyAppTraceConfig -App $App -Provider "phoenix" -Config@{
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The `New-DifyModel` cmdlet allows you to add new models to the workspace. The credentials required depend on the provider and the model. You can choose between predefined models and customizable models. For customizable models, additional details such as model name, type, and credentials must be specified.</maml:para>
+      <maml:para>The `New-DifyModel` cmdlet allows you to add new models to the workspace. The credentials required depend on the provider and the model. You can choose between predefined models and customizable models. For customizable models, additional details such as model name, type, and credentials must be specified. You can optionally specify an AuthorizationName to label the credential for easier management.</maml:para>
       <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
@@ -5388,9 +5567,33 @@ New-DifyAppTraceConfig -App $App -Provider "phoenix" -Config@{
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>AuthorizationName</maml:name>
+          <maml:description>
+            <maml:para>Specifies a custom name for the credential. This is useful for identifying and managing multiple credentials for the same provider or model. If not provided, it will be automatically generated.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>AuthorizationName</maml:name>
+        <maml:description>
+          <maml:para>Specifies a custom name for the credential. This is useful for identifying and managing multiple credentials for the same provider or model. If not provided, it will be automatically generated.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:description>
@@ -5497,6 +5700,16 @@ New-DifyAppTraceConfig -App $App -Provider "phoenix" -Config@{
   }</dev:code>
         <dev:remarks>
           <maml:para>Add customizable models (example for OpenAI).</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>New-DifyModel -Provider "openai" -From "predefined" `
+  -Credential @{
+    "openai_api_key" = "sk-proj-****************"
+  } -AuthorizationName "MyOpenAICredential"</dev:code>
+        <dev:remarks>
+          <maml:para>Add predefined model with a custom AuthorizationName.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
