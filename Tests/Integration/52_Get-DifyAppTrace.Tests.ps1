@@ -81,7 +81,6 @@ Describe "Get-DifyAppTrace" -Tag "trace" {
 
             $Trace = Set-DifyAppTrace -App $TestApp -Provider "phoenix" -Disable
             $Trace.Enabled | Should -BeFalse
-            $Trace.Provider | Should -BeNullOrEmpty
         }
         It "should remove app trace config" {
             Remove-DifyAppTraceConfig -App $TestApp -Provider "phoenix" -Confirm:$false

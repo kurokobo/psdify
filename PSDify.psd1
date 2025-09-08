@@ -28,6 +28,8 @@
         'Uninstall-DifyPlugin',
         'Get-DifyPluginInstallationStatus',
 
+        'Get-DifyModelProviderCredential',
+
         'Get-DifyModel',
         'New-DifyModel',
         'Remove-DifyModel',
