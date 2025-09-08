@@ -19,12 +19,13 @@ Creates a new model in the workspace, either predefined or customizable, dependi
 
 ```powershell
 New-DifyModel [[-Provider] <String>] [[-From] <String>] [[-Name] <String>] [[-Type] <String>]
- [[-Credential] <Hashtable>] [<CommonParameters>]
+ [[-Credential] <Hashtable>] [-AuthorizationName <String>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-The `New-DifyModel` cmdlet allows you to add new models to the workspace. The credentials required depend on the provider and the model. You can choose between predefined models and customizable models. For customizable models, additional details such as model name, type, and credentials must be specified.
+The `New-DifyModel` cmdlet allows you to add new models to the workspace. The credentials required depend on the provider and the model. You can choose between predefined models and customizable models. For customizable models, additional details such as model name, type, and credentials must be specified. You can optionally specify an AuthorizationName to label the credential for easier management.
 
 NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
@@ -53,7 +54,34 @@ New-DifyModel -Provider "openai" -From "customizable" `
 
 Add customizable models (example for OpenAI).
 
+### Example 3
+
+```powershell
+New-DifyModel -Provider "openai" -From "predefined" `
+  -Credential @{
+    "openai_api_key" = "sk-proj-****************"
+  } -AuthorizationName "MyOpenAICredential"
+```
+
+Add predefined model with a custom AuthorizationName.
+
 ## PARAMETERS
+
+### -AuthorizationName
+
+Specifies a custom name for the credential. This is useful for identifying and managing multiple credentials for the same provider or model. If not provided, it will be automatically generated.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Credential
 
