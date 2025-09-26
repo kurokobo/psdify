@@ -12,32 +12,21 @@ function Get-DifyVersion {
         throw "Server URL is required"
     }
 
-    $Endpoint = Join-Url -Segments @($Server, "/console/api/version")
-    $Method = "GET"
-    $Query = @{
-        "current_version" = ""
-    }
-    try {
-        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Query $Query
-    }
-    catch {
-        throw "Failed to obtain version: $_"
-    }
-    $Version = $Response.version
-
     $Endpoint = Join-Url -Segments @($Server, "/console/api/system-features")
-    $Method = "GET"
     try {
-        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method
+        $Response = Invoke-WebRequest -Uri $Endpoint -Method GET
     }
     catch {
         throw "Failed to obtain system features: $_"
     }
-    $PluginSupport = $Response.enable_marketplace -ne $null
 
-    return [PSCustomObject]@{
-        "Server"  = $Server
-        "Version" = $Version
+    $Version = $Response.Headers["x-version"]
+    $Body = $Response.Content | ConvertFrom-Json
+    $PluginSupport = $null -ne $Body.enable_marketplace
+
+    [PSCustomObject]@{
+        "Server"        = $Server
+        "Version"       = $Version
         "PluginSupport" = $PluginSupport
     }
 }
