@@ -24,7 +24,7 @@ function Get-DifyVersion {
     $Body = $Response.Content | ConvertFrom-Json
     $PluginSupport = $null -ne $Body.enable_marketplace
 
-    [PSCustomObject]@{
+    return [PSCustomObject]@{
         "Server"        = $Server
         "Version"       = $Version
         "PluginSupport" = $PluginSupport
