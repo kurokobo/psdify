@@ -6,6 +6,9 @@ services:
   worker:
     image: langgenius/dify-api:main
 
+  worker_beat:
+    image: langgenius/dify-api:main
+
   web:
     image: langgenius/dify-web:main
 
