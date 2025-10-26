@@ -20,7 +20,7 @@ Invokes REST API methods for Dify.
 ```powershell
 Invoke-DifyRestMethod [[-Uri] <String>] [[-Method] <String>] [[-ContentType] <String>] [[-Body] <String>]
  [[-Query] <Hashtable>] [[-Token] <String>] [[-Session] <WebRequestSession>] [[-InFile] <String>]
- [<CommonParameters>]
+ [-SessionOrToken <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -153,7 +153,7 @@ Accept wildcard characters: False
 
 ### -Session
 
-Specifies a web request session to use for the HTTP request.
+Specifies a web request session to use for the HTTP request. This has the priority over the SessionOrToken parameter.
 
 ```yaml
 Type: WebRequestSession
@@ -167,9 +167,25 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -SessionOrToken
+
+Specifies either a WebRequestSession object or a bearer token string for authentication.
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Token
 
-Specifies the bearer token for authentication.
+Specifies the bearer token for authentication. This has the priority over the SessionOrToken parameter.
 
 ```yaml
 Type: String

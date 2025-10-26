@@ -36,8 +36,8 @@ function Connect-Dify {
     if (-not $AuthMethod -and $env:PSDIFY_AUTH_METHOD) {
         $AuthMethod = $env:PSDIFY_AUTH_METHOD
     }
-    if ($AuthMethod -notin @('Password', 'Code', 'Token')) {
-        throw "Invalid value for AuthMethod. Must be 'Password', 'Code', or 'Token'."
+    if ($AuthMethod -notin @('Password', 'Code')) {
+        throw "Invalid value for AuthMethod. Must be 'Password' or 'Code'."
     }
 
     # Reset session
