@@ -8,33 +8,45 @@ function Invoke-DifyRestMethod {
         [Hashtable] $Query = $null,
         [String] $Token = $null,
         [Microsoft.PowerShell.Commands.WebRequestSession] $Session = $null,
-        [String] $InFile = $null
+        [String] $InFile = $null,
+        [Object] $SessionOrToken = $null
     )
 
     if ($Uri -notmatch "^https?://") {
         throw "No Uri provided. Ensure you have connected to Dify by running Connect-Dify first."
     }
 
-    $Headers = @{}
+    $RestMethodParams = @{
+        Method      = $Method
+        Headers     = @{}
+        ContentType = $ContentType
+        ErrorAction = 'Stop'
+    }
+
     if ($Token) {
-        $Headers = @{
-            "authorization" = "Bearer $Token"
+        $SessionOrToken = $Token
+    }
+    if ($Session) {
+        $SessionOrToken = $Session
+    }
+    if ($SessionOrToken) {
+        if ($SessionOrToken -is [Microsoft.PowerShell.Commands.WebRequestSession]) {
+            $Server = ($Uri -split "/")[0..2] -join "/"
+            $CSRFToken = ($SessionOrToken.Cookies.GetCookies($Server) | Where-Object { $_.Name -in @("csrf_token", "__Host-csrf_token") } | Select-Object -First 1).Value
+            if ($CSRFToken) {
+                $RestMethodParams.Headers["x-csrf-token"] = $CSRFToken
+            }
+            $RestMethodParams.WebSession = $SessionOrToken
+        }
+        elseif ($SessionOrToken -is [String]) {
+            $RestMethodParams.Headers["authorization"] = "Bearer $SessionOrToken"
         }
     }
     if ($Query) {
         $Uri = $Uri + "?" + (($Query.GetEnumerator() | ForEach-Object { "$($_.Key)=$($_.Value)" }) -join "&")
     }
+    $RestMethodParams.Uri = $Uri
 
-    $RestMethodParams = @{
-        Uri         = $Uri
-        Method      = $Method
-        ContentType = $ContentType
-        Headers     = $Headers
-        ErrorAction = 'Stop'
-    }
-    if ($Session) {
-        $RestMethodParams.WebSession = $Session
-    }
     if (@("POST", "PUT", "PATCH", "DELETE") -contains $Method) {
         if ($Body) {
             $UTF8NoBOM = New-Object "System.Text.UTF8Encoding" -ArgumentList @($false)

@@ -51,7 +51,7 @@ function New-DifyModel {
                 } | ConvertTo-Json -Depth 10
             }
             try {
-                $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
+                $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
             }
             catch {
                 throw "Failed to create model provider: $_"
@@ -104,7 +104,7 @@ function New-DifyModel {
                 } | ConvertTo-Json -Depth 10
             }
             try {
-                $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
+                $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
             }
             catch {
                 throw "Failed to create model: $_"

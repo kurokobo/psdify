@@ -43,7 +43,7 @@ function Add-DifyFile {
             }
 
             try {
-                $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -ContentType $ContentType -Query $Query -InFile $TemporaryFile -Token $env:PSDIFY_CONSOLE_TOKEN
+                $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -ContentType $ContentType -Query $Query -InFile $TemporaryFile -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
             }
             catch {
                 throw "Failed to upload file: $_"

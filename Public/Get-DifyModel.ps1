@@ -45,7 +45,7 @@ function Get-DifyModel {
             $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/model-providers", $FormattedProvider, "/models")
             $Method = "GET"
             try {
-                $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
+                $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
             }
             catch {
                 throw "Failed to get models from provider: $_"
@@ -71,7 +71,7 @@ function Get-DifyModel {
             $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/models/model-types", $TypeObj)
             $Method = "GET"
             try {
-                $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
+                $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
             }
             catch {
                 throw "Failed to get models for type $($TypeObj): $_"

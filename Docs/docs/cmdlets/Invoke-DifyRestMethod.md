@@ -38,7 +38,7 @@ $Query = @{
     "page"  = 1
     "limit" = 100
 }
-Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/apps" -Query $Query -Token $env:PSDIFY_CONSOLE_TOKEN
+Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/apps" -Query $Query -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
 ```
 
 Invoke REST API (GET).
@@ -55,7 +55,7 @@ $Body =  @{
         }
     )
 } | ConvertTo-Json
-Invoke-DifyRestMethod -Method "POST" -Uri "https://dify.example.com/console/api/workspaces/current/default-model" -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
+Invoke-DifyRestMethod -Method "POST" -Uri "https://dify.example.com/console/api/workspaces/current/default-model" -Body $Body -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
 ```
 
 Invoke REST API (POST).

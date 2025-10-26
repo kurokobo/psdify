@@ -136,7 +136,7 @@ function Add-DifyDocument {
             "embedding_model_provider" = $EmbeddingModel.Provider
         } | ConvertTo-Json -Depth 10
         try {
-            $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
+            $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
         }
         catch {
             throw "Failed to add documents to knowledge: $_"

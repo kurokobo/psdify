@@ -28,9 +28,9 @@ function Remove-DifyInstance {
     }
 
     Write-Host "Removing environment variables." -ForegroundColor Magenta
+    $script:PSDIFY_CONSOLE_AUTH = $null
+
     $env:PSDIFY_URL = $null
-    $env:PSDIFY_CONSOLE_TOKEN = $null
-    $env:PSDIFY_CONSOLE_REFRESH_TOKEN = $null
     $env:PSDIFY_VERSION = $null
     $env:PSDIFY_PLUGIN_SUPPORT = $null
 

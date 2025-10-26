@@ -23,10 +23,9 @@ function Get-DifyVersion {
     $Version = $Response.Headers["x-version"]
     $Body = $Response.Content | ConvertFrom-Json
     $PluginSupport = $null -ne $Body.enable_marketplace
-
     return [PSCustomObject]@{
         "Server"        = $Server
-        "Version"       = $Version
+        "Version"       = [string]($Version)
         "PluginSupport" = $PluginSupport
     }
 }

@@ -36,6 +36,11 @@ Describe "Initialize-Dify" -Tag "init" -Skip:($env:PSDIFY_TEST_MODE -ne "communi
             }
             $Result.Name | Should -Be $DefaultName
             $Result.Email | Should -Be $DefaultEmail
+
+            $env:PSDIFY_URL | Should -Be $DefaultServer
+            if ($env:PSDIFY_TEST_ALLOW_VERSION_TEST) {
+                $env:PSDIFY_VERSION | Should -Be $env:PSDIFY_TEST_VERSION
+            }
         }
     }
 
@@ -69,8 +74,6 @@ Describe "Initialize-Dify" -Tag "init" -Skip:($env:PSDIFY_TEST_MODE -ne "communi
             if ($env:PSDIFY_TEST_ALLOW_VERSION_TEST) {
                 $env:PSDIFY_VERSION | Should -Be $env:PSDIFY_TEST_VERSION
             }
-            $env:PSDIFY_CONSOLE_TOKEN | Should -Not -BeNullOrEmpty
-            $env:PSDIFY_CONSOLE_REFRESH_TOKEN | Should -Not -BeNullOrEmpty
         }
     }
 }

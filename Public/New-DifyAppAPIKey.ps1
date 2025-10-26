@@ -13,7 +13,7 @@ function New-DifyAppAPIKey {
         $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/apps", $App.Id, "/api-keys")
         $Method = "POST"
         try {
-            $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
+            $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
         }
         catch {
             throw "Failed to create new api key: $_"

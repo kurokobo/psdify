@@ -42,7 +42,7 @@ function Remove-DifyModel {
                         } | ConvertTo-Json -Depth 10
                         if ($PSCmdlet.ShouldProcess("$($Credential.CredentialName) on $($PredefinedModel)", "Remove Credential")) {
                             try {
-                                $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
+                                $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
                             }
                             catch {
                                 throw "Failed to remove predefined model credential: $_"
@@ -55,7 +55,7 @@ function Remove-DifyModel {
                     $Method = "DELETE"
                     if ($PSCmdlet.ShouldProcess("$($PredefinedModel)", "Remove All Predefined Models")) {
                         try {
-                            $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
+                            $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
                         }
                         catch {
                             throw "Failed to remove predefined model: $_"
@@ -78,7 +78,7 @@ function Remove-DifyModel {
                         } | ConvertTo-Json -Depth 10
                         if ($PSCmdlet.ShouldProcess("$($Credential.CredentialName) on $($CustomizableModel.Model) of $($CustomizableModel.Provider)", "Remove Model Credential")) {
                             try {
-                                $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
+                                $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
                             }
                             catch {
                                 throw "Failed to remove customizable model credential: $_"
@@ -95,7 +95,7 @@ function Remove-DifyModel {
                     } | ConvertTo-Json
                     if ($PSCmdlet.ShouldProcess("$($CustomizableModel.Model) on $($CustomizableModel.Provider)", "Remove Model")) {
                         try {
-                            $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
+                            $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
                         }
                         catch {
                             throw "Failed to remove customizable model: $_"

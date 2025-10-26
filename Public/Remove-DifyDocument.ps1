@@ -21,7 +21,7 @@ function Remove-DifyDocument {
             $Method = "DELETE"
             if ($PSCmdlet.ShouldProcess("$($Document.Name) ($($Document.Id))", "Remove Document")) {
                 try {
-                    $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
+                    $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
                 }
                 catch {
                     throw "Failed to remove document: $_"

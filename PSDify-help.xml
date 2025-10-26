@@ -4887,7 +4887,7 @@ Install-DifyPlugin -Item $Plugins -Wait</dev:code>
     "page"  = 1
     "limit" = 100
 }
-Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/apps" -Query $Query -Token $env:PSDIFY_CONSOLE_TOKEN</dev:code>
+Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/apps" -Query $Query -SessionOrToken $script:PSDIFY_CONSOLE_AUTH</dev:code>
         <dev:remarks>
           <maml:para>Invoke REST API (GET).</maml:para>
         </dev:remarks>
@@ -4903,7 +4903,7 @@ Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/a
         }
     )
 } | ConvertTo-Json
-Invoke-DifyRestMethod -Method "POST" -Uri "https://dify.example.com/console/api/workspaces/current/default-model" -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN</dev:code>
+Invoke-DifyRestMethod -Method "POST" -Uri "https://dify.example.com/console/api/workspaces/current/default-model" -Body $Body -SessionOrToken $script:PSDIFY_CONSOLE_AUTH</dev:code>
         <dev:remarks>
           <maml:para>Invoke REST API (POST).</maml:para>
         </dev:remarks>

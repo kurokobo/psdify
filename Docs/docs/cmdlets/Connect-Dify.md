@@ -204,10 +204,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-After a successful authentication, the following environment variables, along with others, are set:
+After a successful authentication, the following variables, along with others, are set:
 
-- `$env:PSDIFY_CONSOLE_TOKEN`
-- `$env:PSDIFY_CONSOLE_REFRESH_TOKEN`
+- `$script:PSDIFY_CONSOLE_AUTH`
+- `$env:PSDIFY_URL`
+- `$env:PSDIFY_VERSION`
 
 If these variables are already set and valid, re-authentication is not performed unless the `-Force` parameter is specified.
 

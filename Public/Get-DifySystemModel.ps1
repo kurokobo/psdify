@@ -24,7 +24,7 @@ function Get-DifySystemModel {
             "model_type" = $TypeObj
         }
         try {
-            $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Query $Query -Token $env:PSDIFY_CONSOLE_TOKEN
+            $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Query $Query -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
         }
         catch {
             throw "Failed to get system model for type $($TypeObj): $_"
