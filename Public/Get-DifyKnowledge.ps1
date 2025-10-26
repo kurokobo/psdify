@@ -32,7 +32,7 @@ function Get-DifyKnowledge {
                 $QueryString += "&$QueryTagString"
             }
             $Uri = "$($Endpoint)?$($QueryString)"
-            $Response = Invoke-DifyRestMethod -Uri $Uri -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
+            $Response = Invoke-DifyRestMethod -Uri $Uri -Method $Method -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
         }
         catch {
             throw "Failed to obtain knowledges: $_"

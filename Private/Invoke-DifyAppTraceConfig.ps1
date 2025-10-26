@@ -16,7 +16,7 @@ function Invoke-DifyAppTraceConfig {
         "tracing_config"   = $Config
     } | ConvertTo-Json
     try {
-        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
+        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
     }
     catch {
         if ($Method -eq "POST") {

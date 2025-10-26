@@ -6,7 +6,7 @@ function Get-DifyProfile {
     $Method = "GET"
     
     try {
-        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
+        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
     }
     catch {
         throw "Failed to obtain profile: $_"

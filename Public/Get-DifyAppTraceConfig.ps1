@@ -27,7 +27,7 @@ function Get-DifyAppTraceConfig {
                 "tracing_provider" = $ProviderName
             }
             try {
-                $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN -Query $Query
+                $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -SessionOrToken $script:PSDIFY_CONSOLE_AUTH -Query $Query
             }
             catch {
                 throw "Failed to obtain app trace config for $($ProviderName): $_"

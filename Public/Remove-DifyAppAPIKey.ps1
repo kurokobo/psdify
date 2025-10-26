@@ -21,7 +21,7 @@ function Remove-DifyAppAPIKey {
             $Method = "DELETE"
             if ($PSCmdlet.ShouldProcess("$($APIKey.Name) ($($APIKey.Id))", "Remove APIKey")) {
                 try {
-                    $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
+                    $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
                 }
                 catch {
                     throw "Failed to remove api key: $_"

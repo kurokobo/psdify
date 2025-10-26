@@ -45,7 +45,7 @@ function Set-DifyAppTrace {
             }
         }
         try {
-            $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN -Body $Body
+            $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -SessionOrToken $script:PSDIFY_CONSOLE_AUTH -Body $Body
         }
         catch {
             throw "Failed to set app trace: $_"

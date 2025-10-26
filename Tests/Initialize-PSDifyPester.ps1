@@ -95,7 +95,7 @@ Get-ChildItem -Path $env:PSDIFY_TEST_ROOT_HELPER -Filter "*.ps1" | ForEach-Objec
 }
 
 # if the environment seems to be already connected to different server, disconnect
-if ($env:PSDIFY_URL -and $env:PSDIFY_CONSOLE_TOKEN -and ($env:PSDIFY_URL -ne $DefaultServer)) {
+if ($env:PSDIFY_URL -and $script:PSDIFY_CONSOLE_AUTH -and ($env:PSDIFY_URL -ne $DefaultServer)) {
     Disconnect-Dify -Force
 }
 

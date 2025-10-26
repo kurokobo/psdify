@@ -24,7 +24,7 @@ function Get-DifyPluginInstallationStatus {
         "page_size" = 100
     }
     try {
-        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Query $Query -Token $env:PSDIFY_CONSOLE_TOKEN
+        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Query $Query -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
     }
     catch {
         throw "Failed to get plugin installation status: $_"
@@ -43,7 +43,7 @@ function Get-DifyPluginInstallationStatus {
         $Method = "GET"
 
         try {
-            $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
+            $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
         }
         catch {
             throw "Failed to get plugin installation status: $_"

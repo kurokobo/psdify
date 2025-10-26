@@ -23,7 +23,7 @@ function Get-DifyPlugin {
     $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/plugin/list")
     $Method = "GET"
     try {
-        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
+        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
     }
     catch {
         throw "Failed to get plugins: $_"

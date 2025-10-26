@@ -31,8 +31,6 @@ Describe "Connect-Dify" -Tag "auth" {
             Disconnect-Dify
 
             $env:PSDIFY_URL | Should -BeNullOrEmpty
-            $env:PSDIFY_CONSOLE_TOKEN | Should -BeNullOrEmpty
-            $env:PSDIFY_CONSOLE_REFRESH_TOKEN | Should -BeNullOrEmpty
             $env:PSDIFY_VERSION | Should -BeNullOrEmpty
         }
 
@@ -55,8 +53,6 @@ Describe "Connect-Dify" -Tag "auth" {
             Disconnect-Dify
 
             $env:PSDIFY_URL | Should -BeNullOrEmpty
-            $env:PSDIFY_CONSOLE_TOKEN | Should -BeNullOrEmpty
-            $env:PSDIFY_CONSOLE_REFRESH_TOKEN | Should -BeNullOrEmpty
             $env:PSDIFY_VERSION | Should -BeNullOrEmpty
         }
     }

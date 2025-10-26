@@ -21,7 +21,7 @@ function Remove-DifyMember {
             $Method = "DELETE"
             if ($PSCmdlet.ShouldProcess("$($Member.Name) ($($Member.Email) / $($Member.Id))", "Remove Member")) {
                 try {
-                    $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
+                    $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
                 }
                 catch {
                     throw "Failed to remove member: $_"

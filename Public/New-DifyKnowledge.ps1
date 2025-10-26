@@ -16,7 +16,7 @@ function New-DifyKnowledge {
         "description" = $Description
     } | ConvertTo-Json
     try {
-        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
+        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
     }
     catch {
         throw "Failed to create knowledge: $_"

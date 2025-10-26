@@ -21,7 +21,7 @@ function Remove-DifyKnowledge {
             $Method = "DELETE"
             if ($PSCmdlet.ShouldProcess("$($Knowledge.Name) ($($Knowledge.Id))", "Remove Knowledge")) {
                 try {
-                    $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
+                    $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
                 }
                 catch {
                     throw "Failed to remove knowledge: $_"

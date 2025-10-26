@@ -20,7 +20,7 @@ Invokes REST API methods for Dify.
 ```powershell
 Invoke-DifyRestMethod [[-Uri] <String>] [[-Method] <String>] [[-ContentType] <String>] [[-Body] <String>]
  [[-Query] <Hashtable>] [[-Token] <String>] [[-Session] <WebRequestSession>] [[-InFile] <String>]
- [<CommonParameters>]
+ [-SessionOrToken <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -38,7 +38,7 @@ $Query = @{
     "page"  = 1
     "limit" = 100
 }
-Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/apps" -Query $Query -Token $env:PSDIFY_CONSOLE_TOKEN
+Invoke-DifyRestMethod -Method "GET" -Uri "https://dify.example.com/console/api/apps" -Query $Query -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
 ```
 
 Invoke REST API (GET).
@@ -55,7 +55,7 @@ $Body =  @{
         }
     )
 } | ConvertTo-Json
-Invoke-DifyRestMethod -Method "POST" -Uri "https://dify.example.com/console/api/workspaces/current/default-model" -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
+Invoke-DifyRestMethod -Method "POST" -Uri "https://dify.example.com/console/api/workspaces/current/default-model" -Body $Body -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
 ```
 
 Invoke REST API (POST).
@@ -153,7 +153,7 @@ Accept wildcard characters: False
 
 ### -Session
 
-Specifies a web request session to use for the HTTP request.
+Specifies a web request session to use for the HTTP request. This has the priority over the SessionOrToken parameter.
 
 ```yaml
 Type: WebRequestSession
@@ -167,9 +167,25 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -SessionOrToken
+
+Specifies either a WebRequestSession object or a bearer token string for authentication.
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Token
 
-Specifies the bearer token for authentication.
+Specifies the bearer token for authentication. This has the priority over the SessionOrToken parameter.
 
 ```yaml
 Type: String

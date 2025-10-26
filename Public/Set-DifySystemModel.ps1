@@ -56,7 +56,7 @@ function Set-DifySystemModel {
         } | ConvertTo-Json -Depth 10
         Write-Verbose $Body
         try {
-            $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
+            $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
         }
         catch {
             throw "Failed to set system model: $_"

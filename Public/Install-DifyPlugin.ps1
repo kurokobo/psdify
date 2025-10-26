@@ -51,7 +51,7 @@ function Install-DifyPlugin {
 
             $UploadResponse = $null
             try {
-                $UploadResponse = Invoke-DifyRestMethod -Uri $UploadEndpoint -Method $UploadMethod -ContentType $ContentType -InFile $TemporaryFile -Token $env:PSDIFY_CONSOLE_TOKEN
+                $UploadResponse = Invoke-DifyRestMethod -Uri $UploadEndpoint -Method $UploadMethod -ContentType $ContentType -InFile $TemporaryFile -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
             }
             catch {
                 throw "Failed to upload plugin package: $_"
@@ -150,7 +150,7 @@ function Install-DifyPlugin {
         } | ConvertTo-Json
 
         try {
-            $Response = Invoke-DifyRestMethod -Uri $InstallEndpoint -Method $InstallMethod -Body $InstallBody -Token $env:PSDIFY_CONSOLE_TOKEN
+            $Response = Invoke-DifyRestMethod -Uri $InstallEndpoint -Method $InstallMethod -Body $InstallBody -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
         }
         catch {
             throw "Failed to install plugin: $_"

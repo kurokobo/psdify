@@ -6,8 +6,13 @@ function Disconnect-Dify {
 
     try {
         $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/logout")
-        $Method = "GET"
-        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Token $env:PSDIFY_CONSOLE_TOKEN
+        if (Compare-SimpleVersion -Version $env:PSDIFY_VERSION -Ge "1.9.2") {
+            $Method = "POST"
+        }
+        else {
+            $Method = "GET"
+        }
+        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
     }
     catch {
         if (-not $Force) {
@@ -18,12 +23,12 @@ function Disconnect-Dify {
         throw "Failed to logout"
     }
 
+    $script:PSDIFY_CONSOLE_AUTH = $null
+
     $env:PSDIFY_URL = $null
     $env:PSDIFY_AUTH_METHOD = $null
     $env:PSDIFY_EMAIL = $null
     $env:PSDIFY_PASSWORD = $null
-    $env:PSDIFY_CONSOLE_TOKEN = $null
-    $env:PSDIFY_CONSOLE_REFRESH_TOKEN = $null
     $env:PSDIFY_VERSION = $null
     $env:PSDIFY_DISABLE_SSL_VERIFICATION = $null
 

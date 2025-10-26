@@ -55,7 +55,7 @@ function Import-DifyApp {
                     "data" = $RawContent
                 } | ConvertTo-Json
                 try {
-                    $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
+                    $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
                 }
                 catch {
                     throw "Failed to import apps: $_"
@@ -90,7 +90,7 @@ function Import-DifyApp {
                     "yaml_content" = $RawContent
                 } | ConvertTo-Json
                 try {
-                    $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Token $env:PSDIFY_CONSOLE_TOKEN
+                    $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
                 }
                 catch {
                     throw "Failed to import apps: $_"

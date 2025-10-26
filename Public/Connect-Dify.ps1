@@ -1,7 +1,7 @@
 function Connect-Dify {
     [CmdletBinding()]
     param (
-        [String] $Server = "https://cloud.dify.ai",
+        [String] $Server = "",
         [String] $AuthMethod = "Password",
         [String] $Email = "",
         [String] $Token = "",
@@ -11,10 +11,9 @@ function Connect-Dify {
     )
 
     # Validate existing tokens
-    if (-not $Force -and $env:PSDIFY_URL -and $env:PSDIFY_CONSOLE_TOKEN -and (-not $Server -or $Server -eq $env:PSDIFY_URL)) {
+    if (-not $Force -and $env:PSDIFY_URL -and $script:PSDIFY_CONSOLE_AUTH -and (-not $Server -or $Server -eq $env:PSDIFY_URL)) {
         try {
             $DifyProfile = Get-DifyProfile
-            $DifyVersion = Get-DifyVersion
             return [PSCustomObject]@{
                 "Server"  = $env:PSDIFY_URL
                 "Version" = $env:PSDIFY_VERSION
@@ -26,19 +25,29 @@ function Connect-Dify {
     }
 
     # Validate parameter: Server
-    if ($env:PSDIFY_URL) {
+    if (-not $Server -and $env:PSDIFY_URL) {
         $Server = $env:PSDIFY_URL
     }
     if (-not $Server) {
-        throw "Server URL is required"
+        $Server = "https://cloud.dify.ai"
     }
 
     # Validate parameter: Auth
-    if ($env:PSDIFY_AUTH_METHOD) {
+    if (-not $AuthMethod -and $env:PSDIFY_AUTH_METHOD) {
         $AuthMethod = $env:PSDIFY_AUTH_METHOD
     }
-    if ($AuthMethod -notin @('Password', 'Code', 'Token')) {
-        throw "Invalid value for AuthMethod. Must be 'Password', 'Code', or 'Token'."
+    if ($AuthMethod -notin @('Password', 'Code')) {
+        throw "Invalid value for AuthMethod. Must be 'Password' or 'Code'."
+    }
+
+    # Reset session
+    $DifyVersion = Get-DifyVersion -Server $Server
+    $UseSessionAuth = Compare-SimpleVersion -Version $DifyVersion.Version -Ge "1.9.2"
+    if ($UseSessionAuth) {
+        $script:PSDIFY_CONSOLE_AUTH = New-Object Microsoft.PowerShell.Commands.WebRequestSession
+    }
+    else {
+        $script:PSDIFY_CONSOLE_AUTH = $null
     }
 
     # Switch based on AuthMethod
@@ -72,14 +81,18 @@ function Connect-Dify {
             } | ConvertTo-Json
     
             try {
-                $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body
-
+                if ($UseSessionAuth) {
+                    $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Session $script:PSDIFY_CONSOLE_AUTH
+                }
+                else {
+                    $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body
+                }
             }
             catch {
                 throw "Failed to login to Dify on $($Server): $_"
             }
 
-            if (-not $Response.result -or $Response.result -ne "success" -or -not $Response.data) {
+            if (-not $Response.result -or $Response.result -ne "success" -or (-not $UseSessionAuth -and -not $Response.data)) {
                 throw "Unexpected response while attempting login by email and password: $($Response | ConvertTo-Json -Depth 100 -Compress)"
             }
 
@@ -103,7 +116,12 @@ function Connect-Dify {
                     "language" = "en-US"
                 } | ConvertTo-Json
                 try {
-                    $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body
+                    if ($UseSessionAuth) {
+                        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Session $script:PSDIFY_CONSOLE_AUTH
+                    }
+                    else {
+                        $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body
+                    }
                 }
                 catch {
                     throw "Failed to request the code to Dify on $($Server): $_"
@@ -130,20 +148,26 @@ function Connect-Dify {
                 "token" = $Token
             } | ConvertTo-Json
             try {
-                $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body
+                if ($UseSessionAuth) {
+                    $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Session $script:PSDIFY_CONSOLE_AUTH
+                }
+                else {
+                    $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body
+                }
             }
             catch {
                 throw "Failed to login to Dify on $($Server): $_"
             }
 
-            if (-not $Response.result -or $Response.result -ne "success" -or -not $Response.data) {
+            if (-not $Response.result -or $Response.result -ne "success" -or (-not $UseSessionAuth -and -not $Response.data)) {
                 throw "Unexpected response while attempting login by email and code: $($Response | ConvertTo-Json -Depth 100 -Compress)"
             }
         }
     }
     $env:PSDIFY_URL = $Server
-    $env:PSDIFY_CONSOLE_TOKEN = $Response.data.access_token
-    $env:PSDIFY_CONSOLE_REFRESH_TOKEN = $Response.data.refresh_token
+    if (-not $UseSessionAuth) {
+        $script:PSDIFY_CONSOLE_AUTH = $Response.data.access_token
+    }
 
     $DifyProfile = Get-DifyProfile
     $DifyVersion = Get-DifyVersion

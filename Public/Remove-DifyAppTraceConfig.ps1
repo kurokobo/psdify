@@ -14,7 +14,7 @@ function Remove-DifyAppTraceConfig {
         }
         if ($PSCmdlet.ShouldProcess("$($Provider)", "Remove Trace Config")) {
             try {
-                $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Query $Query -Token $env:PSDIFY_CONSOLE_TOKEN
+                $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Query $Query -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
             }
             catch {
                 throw "Failed to remove app trace config: $_"
