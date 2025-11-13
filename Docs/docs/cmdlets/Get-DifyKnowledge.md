@@ -18,7 +18,7 @@ Retrieve knowledge information from the Dify workspace.
 ## SYNTAX
 
 ```powershell
-Get-DifyKnowledge [[-Id] <String>] [[-Name] <String>] [[-Search] <String>] [[-Tags] <String[]>]
+Get-DifyKnowledge [[-Id] <String>] [[-Name] <String>] [[-Search] <String>] [[-Tags] <String[]>] [-IncludeAll]
  [<CommonParameters>]
 ```
 
@@ -83,6 +83,22 @@ Aliases:
 
 Required: False
 Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -IncludeAll
+
+Specifies that if the authenticated user is the owner of the workspace, knowledge created by other members will also be included in the retrieval.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

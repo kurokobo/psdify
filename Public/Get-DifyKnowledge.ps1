@@ -4,7 +4,8 @@ function Get-DifyKnowledge {
         [String] $Id = "",
         [String] $Name = "",
         [String] $Search = "",
-        [String[]] $Tags = @()
+        [String[]] $Tags = @(),
+        [Switch] $IncludeAll = $false
     )
 
     $Query = @{
@@ -17,6 +18,9 @@ function Get-DifyKnowledge {
     if ($Tags) {
         $QueryTags = Get-DifyKnowledgeTag -Name $Tags
         $QueryTagString = ($QueryTags | ForEach-Object { "tag_ids=$($_.Id)" }) -join "&"
+    }
+    if ($IncludeAll) {
+        $Query["include_all"] = "true"
     }
 
     $Members = Get-DifyMember
