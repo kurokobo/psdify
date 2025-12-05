@@ -3960,6 +3960,65 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-PSDifyConsoleAuth</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>PSDifyConsoleAuth</command:noun>
+      <maml:description>
+        <maml:para>Retrieve the current console authentication token for Dify.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `Get-PSDifyConsoleAuth` cmdlet retrieves the current console authentication session or token that is set by the `Connect-Dify` cmdlet. This value is stored in the module-scoped variable `$script:PSDIFY_CONSOLE_AUTH` and is used internally by other PSDify cmdlets to authenticate API requests.</maml:para>
+      <maml:para>The type of the returned value depends on the Dify server version:</maml:para>
+      <maml:para>- For Dify version 1.9.2 or later: Returns a `Microsoft.PowerShell.Commands.WebRequestSession` object</maml:para>
+      <maml:para>- For Dify version earlier than 1.9.2: Returns a string containing the access token</maml:para>
+      <maml:para></maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-PSDifyConsoleAuth</maml:name>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>The authentication session or token is set when you successfully authenticate using the `Connect-Dify` cmdlet. If you have not authenticated yet, this cmdlet will return `$null`.</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-PSDifyConsoleAuth</dev:code>
+        <dev:remarks>
+          <maml:para>Retrieve the current console authentication session or token.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Import-DifyApp</command:name>
       <command:verb>Import</command:verb>
       <command:noun>DifyApp</command:noun>

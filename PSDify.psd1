@@ -1,6 +1,6 @@
 @{
     RootModule           = 'PSDify.psm1'
-    ModuleVersion        = '0.8.0'
+    ModuleVersion        = '0.8.1'
     CompatiblePSEditions = @('Core', 'Desktop')
     GUID                 = 'b791c4c0-ed46-4561-8713-5d4242e6bac7'
     Author               = 'kurokobo'
@@ -11,7 +11,7 @@
     PowerShellVersion    = '5.1'
 
     FunctionsToExport    = @(  
-        'Wait-Dify'
+        'Wait-Dify',
         'Initialize-Dify',
 
         'Connect-Dify',
@@ -77,6 +77,7 @@
         'Add-DifyFile',
         'Invoke-DifyRestMethod',
 
+        'Get-PSDifyConsoleAuth',
         'Set-PSDifyConfiguration'
     )
     CmdletsToExport      = @()
