@@ -27,11 +27,23 @@ Describe "Connect-Dify" -Tag "auth" {
             $Result.Email | Should -Be $DefaultEmail
         }
 
+        It "should respond with an authenticated session or token" {
+            $Auth = Get-PSDifyConsoleAuth
+
+            $Auth | Should -Not -BeNullOrEmpty
+        }
+
         It "should disconnect from Dify" {
             Disconnect-Dify
 
             $env:PSDIFY_URL | Should -BeNullOrEmpty
             $env:PSDIFY_VERSION | Should -BeNullOrEmpty
+        }
+
+        It "should clear the authenticated session or token" {
+            $Auth = Get-PSDifyConsoleAuth
+
+            $Auth | Should -BeNullOrEmpty
         }
 
         It "should connect Dify by environment variables" {
@@ -49,11 +61,23 @@ Describe "Connect-Dify" -Tag "auth" {
             $Result.Email | Should -Be $DefaultEmail
         }
 
+        It "should respond with an authenticated session or token" {
+            $Auth = Get-PSDifyConsoleAuth
+
+            $Auth | Should -Not -BeNullOrEmpty
+        }
+
         It "should disconnect from Dify" {
             Disconnect-Dify
 
             $env:PSDIFY_URL | Should -BeNullOrEmpty
             $env:PSDIFY_VERSION | Should -BeNullOrEmpty
+        }
+
+        It "should clear the authenticated session or token" {
+            $Auth = Get-PSDifyConsoleAuth
+
+            $Auth | Should -BeNullOrEmpty
         }
     }
 
