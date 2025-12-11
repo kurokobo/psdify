@@ -37,6 +37,10 @@ nav:
     - Authentication:
       - cmdlets/Connect-Dify.md
       - cmdlets/Disconnect-Dify.md
+    - Workspace:
+      - cmdlets/Get-DifyWorkspace.md
+      - cmdlets/Get-DifyCurrentWorkspace.md
+      - cmdlets/Set-DifyCurrentWorkspace.md
     - Application:
       - Basic:
         - cmdlets/Get-DifyApp.md
@@ -76,6 +80,7 @@ nav:
       - cmdlets/Remove-DifyModel.md
       - cmdlets/Get-DifySystemModel.md
       - cmdlets/Set-DifySystemModel.md
+      - cmdlets/Get-DifyModelProviderCredential.md
     - Plugin:
       - cmdlets/Find-DifyPlugin.md
       - cmdlets/Get-DifyPlugin.md
@@ -97,6 +102,7 @@ nav:
     - Helper Functions:
       - cmdlets/Join-Url.md
       - cmdlets/Set-PSDifyConfiguration.md
+      - cmdlets/Get-PSDifyConsoleAuth.md
       - cmdlets/New-TemporaryFileForBinaryUpload.md
       - cmdlets/Add-DifyFile.md
       - cmdlets/Invoke-DifyRestMethod.md
