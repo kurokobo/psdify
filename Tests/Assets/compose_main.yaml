@@ -2,6 +2,11 @@ services:
 
   api:
     image: langgenius/dify-api:main
+    environment:
+      # WARNING: The following two environment variables may violate license terms if misused.
+      #          They are enabled here for automated testing purposes only.
+      ALLOW_REGISTER: "true"
+      ALLOW_CREATE_WORKSPACE: "true"
 
   worker:
     image: langgenius/dify-api:main

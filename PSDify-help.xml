@@ -1825,6 +1825,61 @@ Get-DifyAppTraceConfig -App $App -Provider "langfuse", "langsmith"</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-DifyCurrentWorkspace</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>DifyCurrentWorkspace</command:noun>
+      <maml:description>
+        <maml:para>Retrieves information about the current workspace.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `Get-DifyCurrentWorkspace` cmdlet retrieves information about the currently active workspace in Dify. This includes the workspace ID, name, plan, status, creation date, and the user's role in the workspace.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-DifyCurrentWorkspace</maml:name>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-DifyCurrentWorkspace</dev:code>
+        <dev:remarks>
+          <maml:para>Retrieves information about the current workspace.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-DifyDocument</command:name>
       <command:verb>Get</command:verb>
       <command:noun>DifyDocument</command:noun>
@@ -3953,6 +4008,155 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
         <dev:code>Get-DifyVersion</dev:code>
         <dev:remarks>
           <maml:para>Retrieve the version information of the Dify server.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-DifyWorkspace</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>DifyWorkspace</command:noun>
+      <maml:description>
+        <maml:para>Retrieves workspace information from Dify.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `Get-DifyWorkspace` cmdlet retrieves information about workspaces in Dify. Workspaces can be filtered by their ID, name, or through a search query that matches either the ID or name.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-DifyWorkspace</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Id</maml:name>
+          <maml:description>
+            <maml:para>Specifies the IDs of the workspaces to retrieve. Use this parameter to filter workspaces by their unique IDs.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Specifies the names of the workspaces to retrieve. Use this parameter to filter workspaces by their names.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>Search</maml:name>
+          <maml:description>
+            <maml:para>Specifies a search string to filter workspaces. This parameter matches workspaces where the ID or name contains the specified string (supports wildcard patterns).</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Id</maml:name>
+        <maml:description>
+          <maml:para>Specifies the IDs of the workspaces to retrieve. Use this parameter to filter workspaces by their unique IDs.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Specifies the names of the workspaces to retrieve. Use this parameter to filter workspaces by their names.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>Search</maml:name>
+        <maml:description>
+          <maml:para>Specifies a search string to filter workspaces. This parameter matches workspaces where the ID or name contains the specified string (supports wildcard patterns).</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-DifyWorkspace</dev:code>
+        <dev:remarks>
+          <maml:para>Retrieves all available workspaces.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>Get-DifyWorkspace -Id "..."</dev:code>
+        <dev:remarks>
+          <maml:para>Retrieves a workspace by its ID.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>Get-DifyWorkspace -Name "..."</dev:code>
+        <dev:remarks>
+          <maml:para>Retrieves a workspace by its name.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>Get-DifyWorkspace -Search "..."</dev:code>
+        <dev:remarks>
+          <maml:para>Searches for workspaces by ID or name using a wildcard pattern.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -7346,6 +7550,148 @@ Set-DifyAppTraceConfig -App $App -Provider "langsmith" -Config @{
 } -Enable</dev:code>
         <dev:remarks>
           <maml:para>Update and enable the trace configuration for the app using the "langsmith" provider.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Set-DifyCurrentWorkspace</command:name>
+      <command:verb>Set</command:verb>
+      <command:noun>DifyCurrentWorkspace</command:noun>
+      <maml:description>
+        <maml:para>Switches the current workspace to a specified workspace.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `Set-DifyCurrentWorkspace` cmdlet switches the current active workspace in Dify to a specified workspace. You can specify the target workspace by providing a workspace object (from `Get-DifyWorkspace`), an ID, or a name. This cmdlet supports pipeline input, allowing you to pass workspace objects directly from other cmdlets.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Set-DifyCurrentWorkspace</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Workspace</maml:name>
+          <maml:description>
+            <maml:para>Specifies the workspace object to switch to. This parameter accepts workspace objects obtained from the `Get-DifyWorkspace` cmdlet and supports pipeline input.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSObject[]</command:parameterValue>
+          <dev:type>
+            <maml:name>PSObject[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Id</maml:name>
+          <maml:description>
+            <maml:para>Specifies the ID of the workspace to switch to. Use this parameter to identify the target workspace by its unique ID.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Specifies the name of the workspace to switch to. Use this parameter to identify the target workspace by its name.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Id</maml:name>
+        <maml:description>
+          <maml:para>Specifies the ID of the workspace to switch to. Use this parameter to identify the target workspace by its unique ID.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Specifies the name of the workspace to switch to. Use this parameter to identify the target workspace by its name.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Workspace</maml:name>
+        <maml:description>
+          <maml:para>Specifies the workspace object to switch to. This parameter accepts workspace objects obtained from the `Get-DifyWorkspace` cmdlet and supports pipeline input.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PSObject[]</command:parameterValue>
+        <dev:type>
+          <maml:name>PSObject[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Management.Automation.PSObject[]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-DifyWorkspace -Name "..." | Set-DifyCurrentWorkspace</dev:code>
+        <dev:remarks>
+          <maml:para>Switches to a workspace by specifying it directly from `Get-DifyWorkspace`.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>Set-DifyCurrentWorkspace -Id "..."</dev:code>
+        <dev:remarks>
+          <maml:para>Switches to a workspace by its ID.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>Set-DifyCurrentWorkspace -Name "..."</dev:code>
+        <dev:remarks>
+          <maml:para>Switches to a workspace by its name.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
