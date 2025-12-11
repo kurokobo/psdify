@@ -24,7 +24,7 @@ $Environments = @(
     @{
         Id       = "community-release"
         Mode     = "community"
-        Version  = "1.10.1"
+        Version  = "1.11.0"
         Override = "compose_release.yaml"
         Env      = "env_release.env"
     },
@@ -50,7 +50,7 @@ $Executables = @(
 )
 
 # define available tags in tests
-$AvailableTags = @("init", "auth", "member", "plugin", "model", "systemmodel", "knowledge", "document", "app", "trace", "chat")
+$AvailableTags = @("init", "auth", "member", "workspace", "plugin", "model", "systemmodel", "knowledge", "document", "app", "trace", "chat")
 
 # apply filters
 if ($Env) {
