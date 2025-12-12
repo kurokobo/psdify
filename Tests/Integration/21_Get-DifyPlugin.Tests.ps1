@@ -111,6 +111,44 @@ Describe "Get-DifyPlugin" -Tag "plugin" {
         }
     }
 
+    Context "Find plugin version history" {
+        It "should get version history of a plugin" {
+            $Id = "langgenius/openai"
+            $VersionHistories = Find-DifyPluginVersionHistory -Id $Id
+
+            @($VersionHistories).Count | Should -BeGreaterThan 0
+            foreach ($Version in $VersionHistories) {
+                $Version.Id | Should -Be $Id
+                $Version.Version | Should -Not -BeNullOrEmpty
+                $Version.DownloadUrl | Should -Not -BeNullOrEmpty
+            }
+        }
+
+        It "should get specific version history of a plugin" {
+            $Id = "langgenius/openai"
+            $Version = "0.1.0"
+            $VersionHistories = Find-DifyPluginVersionHistory -Id $Id -Version $Version
+
+            @($VersionHistories).Count | Should -Be 1
+            $VersionHistories.Version | Should -Be $Version
+        }
+
+        It "should download specific version of a plugin" {
+            $Id = "langgenius/openai"
+            $Version = "0.1.0"
+            $DownloadedFiles = Find-DifyPluginVersionHistory -Id $Id -Version $Version -Download
+
+            @($DownloadedFiles).Count | Should -Be 1
+            $DownloadedFiles | Should -BeOfType [System.IO.FileInfo]
+            Test-Path -Path $DownloadedFiles.FullName | Should -BeTrue
+
+            $ExpectedFileName = "$($Id.Replace('/', '-'))_$($Version).difypkg"
+            $DownloadedFiles.Name | Should -Be $ExpectedFileName
+
+            Remove-Item -Path $DownloadedFiles.FullName -Force
+        }
+    }
+
     Context "Manage plugins - Marketplace" {
         It "should get empty plugins" {
             if ($env:PSDIFY_PLUGIN_SUPPORT) {
