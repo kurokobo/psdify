@@ -1203,6 +1203,178 @@ Export-DifyApp -App $AppsToBeExported</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Find-DifyPluginVersionHistory</command:name>
+      <command:verb>Find</command:verb>
+      <command:noun>DifyPluginVersionHistory</command:noun>
+      <maml:description>
+        <maml:para>Retrieve version history for a specific plugin from the Dify Marketplace.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `Find-DifyPluginVersionHistory` cmdlet retrieves the version history of a specific plugin from the Dify Marketplace. You can retrieve all versions or a specific version of a plugin. This cmdlet uses the public Dify Marketplace and does not require a Dify server connection.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Find-DifyPluginVersionHistory</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Plugin</maml:name>
+          <maml:description>
+            <maml:para>Specifies a plugin object to retrieve version history for. This parameter accepts pipeline input from cmdlets like `Find-DifyPlugin`. Either -Plugin or -Id parameter is required.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+          <dev:type>
+            <maml:name>PSObject</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Id</maml:name>
+          <maml:description>
+            <maml:para>Specifies the ID of the plugin to retrieve version history for. Either -Plugin or -Id parameter is required.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>Version</maml:name>
+          <maml:description>
+            <maml:para>Specifies the version of the plugin to retrieve. If not specified, all versions in the history are returned.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Download</maml:name>
+          <maml:description>
+            <maml:para>Indicates that the cmdlet should download the specified version of the plugin to the current directory. When specified, the cmdlet returns FileInfo objects for the downloaded plugin package (.difypkg file) instead of version history information objects. This parameter requires the -Version parameter to be specified.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Download</maml:name>
+        <maml:description>
+          <maml:para>Indicates that the cmdlet should download the specified version of the plugin to the current directory. When specified, the cmdlet returns FileInfo objects for the downloaded plugin package (.difypkg file) instead of version history information objects. This parameter requires the -Version parameter to be specified.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Id</maml:name>
+        <maml:description>
+          <maml:para>Specifies the ID of the plugin to retrieve version history for. Either -Plugin or -Id parameter is required.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Plugin</maml:name>
+        <maml:description>
+          <maml:para>Specifies a plugin object to retrieve version history for. This parameter accepts pipeline input from cmdlets like `Find-DifyPlugin`. Either -Plugin or -Id parameter is required.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+        <dev:type>
+          <maml:name>PSObject</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>Version</maml:name>
+        <maml:description>
+          <maml:para>Specifies the version of the plugin to retrieve. If not specified, all versions in the history are returned.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Management.Automation.PSObject</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Find-DifyPluginVersionHistory -Id "langgenius/openai"</dev:code>
+        <dev:remarks>
+          <maml:para>Retrieve all version history for a specific plugin by its ID.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>Find-DifyPlugin -Id "langgenius/openai" | Find-DifyPluginVersionHistory</dev:code>
+        <dev:remarks>
+          <maml:para>Retrieve all version history for a specific plugin by passing a plugin object through the pipeline.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>Find-DifyPluginVersionHistory -Id "langgenius/openai" -Version "0.0.1"</dev:code>
+        <dev:remarks>
+          <maml:para>Retrieve a specific version of a plugin.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>Find-DifyPluginVersionHistory -Id "langgenius/openai" -Version "0.0.1" -Download</dev:code>
+        <dev:remarks>
+          <maml:para>Download a specific version of a plugin package (.difypkg file) to the current directory.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-DifyApp</command:name>
       <command:verb>Get</command:verb>
       <command:noun>DifyApp</command:noun>

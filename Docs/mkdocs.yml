@@ -83,6 +83,7 @@ nav:
       - cmdlets/Get-DifyModelProviderCredential.md
     - Plugin:
       - cmdlets/Find-DifyPlugin.md
+      - cmdlets/Find-DifyPluginVersionHistory.md
       - cmdlets/Get-DifyPlugin.md
       - cmdlets/Install-DifyPlugin.md
       - cmdlets/Uninstall-DifyPlugin.md
