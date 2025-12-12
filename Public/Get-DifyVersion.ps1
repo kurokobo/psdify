@@ -14,7 +14,7 @@ function Get-DifyVersion {
 
     $Endpoint = Join-Url -Segments @($Server, "/console/api/system-features")
     try {
-        $Response = Invoke-WebRequest -Uri $Endpoint -Method GET
+        $Response = Invoke-WebRequest -Uri $Endpoint -Method GET -UseBasicParsing
     }
     catch {
         throw "Failed to obtain system features: $_"

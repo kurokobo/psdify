@@ -103,7 +103,7 @@ function Install-DifyPlugin {
                 $TempFilePath = Join-Path -Path $env:TEMP -ChildPath ([System.IO.Path]::GetFileName($RemoteFile))
                 
                 try {
-                    Invoke-WebRequest -Uri $RemoteFile -OutFile $TempFilePath
+                    Invoke-WebRequest -Uri $RemoteFile -OutFile $TempFilePath -UseBasicParsing
                     $FileObj = Get-Item -Path $TempFilePath
                     
                     # Process the downloaded file

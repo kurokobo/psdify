@@ -1,6 +1,6 @@
 @{
     RootModule           = 'PSDify.psm1'
-    ModuleVersion        = '0.9.0'
+    ModuleVersion        = '0.9.1'
     CompatiblePSEditions = @('Core', 'Desktop')
     GUID                 = 'b791c4c0-ed46-4561-8713-5d4242e6bac7'
     Author               = 'kurokobo'
@@ -27,6 +27,7 @@
         'Set-DifyCurrentWorkspace',
 
         'Find-DifyPlugin',
+        'Find-DifyPluginVersionHistory',
         'Get-DifyPlugin',
         'Install-DifyPlugin',
         'Uninstall-DifyPlugin',
