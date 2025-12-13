@@ -135,7 +135,7 @@ function Find-DifyPlugin {
             $OutputPath = Join-Path -Path (Get-Location) -ChildPath $FileName
 
             try {
-                Invoke-WebRequest -Uri $DownloadUrl -OutFile $OutputPath
+                Invoke-WebRequest -Uri $DownloadUrl -OutFile $OutputPath -UseBasicParsing
                 $DownloadedFiles += Get-Item -Path $OutputPath
             }
             catch {
