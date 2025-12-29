@@ -69,6 +69,10 @@ function Connect-Dify {
                 $Password = Read-Host -Prompt "Enter password for $Email" -AsSecureString
             }
             $PlainPassword = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password))
+            if (Compare-SimpleVersion -Version $DifyVersion.Version -Ge "1.11.2") {
+                $Bytes = [System.Text.Encoding]::UTF8.GetBytes($PlainPassword)
+                $PlainPassword = [System.Convert]::ToBase64String($Bytes)
+            }
 
             # Login to Dify
             $Endpoint = Join-Url -Segments @($Server, "/console/api/login")
@@ -168,10 +172,7 @@ function Connect-Dify {
     if (-not $UseSessionAuth) {
         $script:PSDIFY_CONSOLE_AUTH = $Response.data.access_token
     }
-
     $DifyProfile = Get-DifyProfile
-    $DifyVersion = Get-DifyVersion
-
     $env:PSDIFY_VERSION = $DifyVersion.Version
     if ($DifyVersion.PluginSupport) {
         $env:PSDIFY_PLUGIN_SUPPORT = "true"
