@@ -3,7 +3,12 @@ function Get-DifyCurrentWorkspace {
     param()
 
     $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current")
-    $Method = "POST"
+    if (Compare-SimpleVersion -Version $env:PSDIFY_VERSION -Ge "1.10.1") {
+        $Method = "POST"
+    }
+    else {
+        $Method = "GET"
+    }
     $Body = @{} | ConvertTo-Json
     try {
         $Response = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
