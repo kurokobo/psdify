@@ -92,6 +92,8 @@ nav:
       - cmdlets/Install-DifyPlugin.md
       - cmdlets/Uninstall-DifyPlugin.md
       - cmdlets/Get-DifyPluginInstallationStatus.md
+      - cmdlets/Get-DifyPluginPermission.md
+      - cmdlets/Set-DifyPluginPermission.md
     - Tag:
       - cmdlets/Get-DifyTag.md
       - cmdlets/Get-DifyAppTag.md

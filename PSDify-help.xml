@@ -4190,7 +4190,7 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Name</maml:name>
           <maml:description>
-            <maml:para>{{ Fill Name Description }}</maml:para>
+            <maml:para>Filter credentials by exact name match.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4205,7 +4205,7 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Name</maml:name>
         <maml:description>
-          <maml:para>{{ Fill Name Description }}</maml:para>
+          <maml:para>Filter credentials by exact name match.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -6364,7 +6364,7 @@ New-DifyAppTraceConfig -App $App -Provider "phoenix" -Config@{
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The `New-DifyToolProviderCredential` cmdlet creates a new API key credential for a tool provider in the current workspace. The cmdlet returns the updated list of credentials for the specified tool provider.</maml:para>
+      <maml:para>The `New-DifyToolProviderCredential` cmdlet creates a new API key credential for a tool provider in the current workspace. Currently, only API Key type credentials are supported. The cmdlet returns the newly created credential for the specified tool provider.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
