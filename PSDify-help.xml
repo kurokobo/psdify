@@ -3823,6 +3823,61 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-DifyPluginPermission</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>DifyPluginPermission</command:noun>
+      <maml:description>
+        <maml:para>Retrieve plugin install/debug permissions for the current workspace.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `Get-DifyPluginPermission` cmdlet fetches the plugin permission settings of the currently selected workspace. It calls the console API to read the workspace plugin preferences and returns a simple object containing both install and debug permissions.</maml:para>
+      <maml:para>This cmdlet requires a connection to a Dify instance that supports plugins (`Connect-Dify` against a server with plugin support). It throws if plugin support is unavailable or if the server returns an unexpected response.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-DifyPluginPermission</maml:name>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-DifyPluginPermission</dev:code>
+        <dev:remarks>
+          <maml:para>Get the current plugin permissions for the workspace.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-DifyProfile</command:name>
       <command:verb>Get</command:verb>
       <command:noun>DifyProfile</command:noun>
@@ -8083,6 +8138,127 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
         <dev:code>Get-DifyMember -Name "John Doe" | Set-DifyMemberRole -Role "editor"</dev:code>
         <dev:remarks>
           <maml:para>This example retrieves the member `John Doe` using `Get-DifyMember` and changes their role to `editor`.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Set-DifyPluginPermission</command:name>
+      <command:verb>Set</command:verb>
+      <command:noun>DifyPluginPermission</command:noun>
+      <maml:description>
+        <maml:para>Update plugin install/debug permissions for the current workspace.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `Set-DifyPluginPermission` cmdlet updates the plugin permission settings of the currently selected workspace. You can change the install permission, the debug permission, or both in one call. If a parameter is omitted, the current value is kept. When no change is necessary, the cmdlet simply returns the current permissions.</maml:para>
+      <maml:para>This cmdlet requires a connection to a Dify instance that supports plugins (`Connect-Dify` against a server with plugin support). It throws if plugin support is unavailable or if the server returns an unexpected response from the API.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Set-DifyPluginPermission</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>InstallPermission</maml:name>
+          <maml:description>
+            <maml:para>Sets who can install plugins in the workspace.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">everyone</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">admins</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">noone</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>DebugPermission</maml:name>
+          <maml:description>
+            <maml:para>Sets who can debug plugins in the workspace.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">everyone</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">admins</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">noone</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>DebugPermission</maml:name>
+        <maml:description>
+          <maml:para>Sets who can debug plugins in the workspace.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>InstallPermission</maml:name>
+        <maml:description>
+          <maml:para>Sets who can install plugins in the workspace.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Set-DifyPluginPermission -InstallPermission admins -DebugPermission admins</dev:code>
+        <dev:remarks>
+          <maml:para>Restrict both install and debug to workspace admins.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>Set-DifyPluginPermission -InstallPermission everyone</dev:code>
+        <dev:remarks>
+          <maml:para>Allow anyone in the workspace to install plugins while leaving the debug permission unchanged.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
