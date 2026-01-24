@@ -50,7 +50,7 @@ $Executables = @(
 )
 
 # define available tags in tests
-$AvailableTags = @("init", "auth", "member", "workspace", "plugin", "pluginpermission", "model", "systemmodel", "knowledge", "document", "app", "trace", "chat")
+$AvailableTags = @("init", "auth", "member", "workspace", "plugin", "pluginpermission", "model", "systemmodel", "tool", "knowledge", "document", "app", "trace", "chat")
 
 # apply filters
 if ($Env) {
