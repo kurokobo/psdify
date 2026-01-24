@@ -45,6 +45,10 @@
         'Get-DifySystemModel',
         'Set-DifySystemModel',
 
+        'Get-DifyToolProviderCredential',
+        'New-DifyToolProviderCredential',
+        'Remove-DifyToolProviderCredential',
+
         'Get-DifyKnowledge',
         'New-DifyKnowledge',
         'Remove-DifyKnowledge',

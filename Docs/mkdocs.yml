@@ -81,6 +81,10 @@ nav:
       - cmdlets/Get-DifySystemModel.md
       - cmdlets/Set-DifySystemModel.md
       - cmdlets/Get-DifyModelProviderCredential.md
+    - Tool:
+      - cmdlets/Get-DifyToolProviderCredential.md
+      - cmdlets/New-DifyToolProviderCredential.md
+      - cmdlets/Remove-DifyToolProviderCredential.md
     - Plugin:
       - cmdlets/Find-DifyPlugin.md
       - cmdlets/Find-DifyPluginVersionHistory.md
@@ -88,6 +92,8 @@ nav:
       - cmdlets/Install-DifyPlugin.md
       - cmdlets/Uninstall-DifyPlugin.md
       - cmdlets/Get-DifyPluginInstallationStatus.md
+      - cmdlets/Get-DifyPluginPermission.md
+      - cmdlets/Set-DifyPluginPermission.md
     - Tag:
       - cmdlets/Get-DifyTag.md
       - cmdlets/Get-DifyAppTag.md
