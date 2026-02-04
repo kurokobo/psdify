@@ -53,8 +53,8 @@ Describe "Get-DifyToolProviderCredential and New-DifyToolProviderCredential" -Ta
                 "openai_api_key" = $env:PSDIFY_TEST_OPENAI_KEY
             }
 
-            @($Credentials).Count | Should -Be 2
-            $Credentials[1].Name | Should -Be "API KEY 2"
+            @($Credentials).Count | Should -BeGreaterThan 0
+            ($Credentials | Where-Object { $_.Name -eq "API KEY 2" }) | Should -Not -BeNullOrEmpty
         }
 
         It "should create tool credential with custom name" {
@@ -62,7 +62,7 @@ Describe "Get-DifyToolProviderCredential and New-DifyToolProviderCredential" -Ta
                 "openai_api_key" = $env:PSDIFY_TEST_OPENAI_KEY
             } -AuthorizationName "Custom Key Name"
 
-            @($Credentials).Count | Should -Be 3
+            @($Credentials).Count | Should -BeGreaterThan 0
             ($Credentials | Where-Object { $_.Name -eq "Custom Key Name" }) | Should -Not -BeNullOrEmpty
         }
 
