@@ -36,7 +36,7 @@ NOTE: This help was primarily created by a generative AI. It may contain partial
 Find-DifyPlugin -Category "model"
 ```
 
-Retrieve all plugins in the specified category. Valid categories include "model", "tool", "agent", "extension", and "bundle".
+Retrieve all plugins in the specified category. Valid categories include "model", "tool", "datasource", "trigger", "agent", "extension", and "bundle".
 
 ### Example 2
 
@@ -74,7 +74,7 @@ Download a specific plugin package (.difypkg file) to the current directory.
 
 ### -Category
 
-Specifies the category of the plugin to search for. Valid categories include "model", "tool", "agent", "extension", and "bundle". Use "agent" for agent strategy plugins.
+Specifies the category of the plugin to search for. Valid categories include "model", "tool", "datasource", "trigger", "agent", "extension", and "bundle". Use "agent" for agent strategy plugins.
 
 ```yaml
 Type: String
@@ -138,7 +138,7 @@ Accept wildcard characters: False
 
 ### -Search
 
-Specifies a search string to filter plugins by name, ID, or description. This supports partial matches.
+Specifies a search string to filter plugins by ID, name, or display name. This supports partial matches.
 
 ```yaml
 Type: String

@@ -9,7 +9,7 @@ function Find-DifyPlugin {
     )
 
 
-    $ValidCategories = @("model", "tool", "agent", "extension", "bundle")
+    $ValidCategories = @("model", "tool", "datasource", "trigger", "agent", "extension", "bundle")
     if ($Category -and $Category -notin $ValidCategories) {
         throw "Invalid value for Category. Must be one of: $($ValidCategories -join ', ')"
     }
@@ -54,7 +54,7 @@ function Find-DifyPlugin {
         }
     }
     else {
-        $Endpoint = Join-Url -Segments @($MarketPlaceApiPrefix, "/plugins/search/basic")
+        $Endpoint = Join-Url -Segments @($MarketPlaceApiPrefix, "/plugins/search/advanced")
         $Method = "POST"
         $Page = 1
         $PageSize = 100
@@ -62,11 +62,20 @@ function Find-DifyPlugin {
     
         while ($HasMore) {
             $Body = @{
-                "page"      = $Page
-                "page_size" = $PageSize
+                "page"       = $Page
+                "page_size"  = $PageSize
+                "sort_by"    = "install_count"
+                "sort_order" = "DESC"
+                "tags"       = @()
             }
-            if ($Search) {
+            if ($Name) {
+                $Body.query = $Name
+            }
+            elseif ($Search) {
                 $Body.query = $Search
+            }
+            else {
+                $Body.query = ""
             }
             if ($Category) {
                 $Body.category = $Category
