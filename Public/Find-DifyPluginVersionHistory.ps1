@@ -19,7 +19,7 @@ function Find-DifyPluginVersionHistory {
     }
 
     $VersionHistories  = @()
-    $Endpoint = Join-Url -Segments @("https://marketplace.dify.ai/plugins", $Id)
+    $Endpoint = Join-Url -Segments @("https://marketplace.dify.ai/plugin", $Id)
     $Method = "GET"
     try {
         $Response = Invoke-WebRequest -Uri $Endpoint -Method $Method -UseBasicParsing
