@@ -1,7 +1,10 @@
 [project]
 name = "docs"
-version = "0.0.0"
+version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
     "mkdocs-material",
 ]
+
+[tool.uv]
+exclude-newer = "1 week"
