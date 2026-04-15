@@ -508,11 +508,11 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
       <command:verb>Connect</command:verb>
       <command:noun>Dify</command:noun>
       <maml:description>
-        <maml:para>Authenticate with Dify using password or email-based login, enabling operations with other PSDify cmdlets.</maml:para>
+        <maml:para>Authenticate with Dify using password, email-based login, or pre-obtained access token, enabling operations with other PSDify cmdlets.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The `Connect-Dify` cmdlet allows you to authenticate with a Dify server using various methods such as password-based login or email-based code authentication. After successful authentication, some variables required for subsequent operations are set.</maml:para>
+      <maml:para>The `Connect-Dify` cmdlet allows you to authenticate with a Dify server using various methods such as password-based login, email-based code authentication, or access token authentication. After successful authentication, some variables required for subsequent operations are set.</maml:para>
       <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
@@ -537,6 +537,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
             <maml:para>Specifies the authentication method to use. Valid values are:</maml:para>
             <maml:para>- `Password`: Authenticate using an email and password.</maml:para>
             <maml:para>- `Code`: Authenticate using an email and a code sent via email.</maml:para>
+            <maml:para>- `AccessToken`: Authenticate using a pre-obtained access token and CSRF token. Requires Dify 1.9.2 or later.</maml:para>
             <maml:para></maml:para>
             <maml:para>This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`. The default value is `Password`.</maml:para>
           </maml:description>
@@ -598,6 +599,32 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>AccessToken</maml:name>
+          <maml:description>
+            <maml:para>Specifies the access token for access token authentication. This parameter accepts a secure string.</maml:para>
+            <maml:para>This also can be set using the environment variable `$env:PSDIFY_ACCESS_TOKEN`.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
+          <dev:type>
+            <maml:name>SecureString</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CSRFToken</maml:name>
+          <maml:description>
+            <maml:para>Specifies the CSRF token for access token authentication. This parameter accepts a secure string.</maml:para>
+            <maml:para>This also can be set using the environment variable `$env:PSDIFY_CSRF_TOKEN`.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
+          <dev:type>
+            <maml:name>SecureString</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Force</maml:name>
           <maml:description>
             <maml:para>Forces re-authentication even if valid tokens are already set in the environment variables.</maml:para>
@@ -611,12 +638,26 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>AccessToken</maml:name>
+        <maml:description>
+          <maml:para>Specifies the access token for access token authentication. This parameter accepts a secure string.</maml:para>
+          <maml:para>This also can be set using the environment variable `$env:PSDIFY_ACCESS_TOKEN`.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
+        <dev:type>
+          <maml:name>SecureString</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>AuthMethod</maml:name>
         <maml:description>
           <maml:para>Specifies the authentication method to use. Valid values are:</maml:para>
           <maml:para>- `Password`: Authenticate using an email and password.</maml:para>
           <maml:para>- `Code`: Authenticate using an email and a code sent via email.</maml:para>
+          <maml:para>- `AccessToken`: Authenticate using a pre-obtained access token and CSRF token. Requires Dify 1.9.2 or later.</maml:para>
           <maml:para></maml:para>
           <maml:para>This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`. The default value is `Password`.</maml:para>
         </maml:description>
@@ -635,6 +676,19 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
           <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CSRFToken</maml:name>
+        <maml:description>
+          <maml:para>Specifies the CSRF token for access token authentication. This parameter accepts a secure string.</maml:para>
+          <maml:para>This also can be set using the environment variable `$env:PSDIFY_CSRF_TOKEN`.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
+        <dev:type>
+          <maml:name>SecureString</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -758,6 +812,21 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
 Connect-Dify -Server "https://dify.example.com" -Email "dify@example.com" -Password $DifyPassword</dev:code>
         <dev:remarks>
           <maml:para>Password authentication with predefined password.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>$AccessToken = ConvertTo-SecureString -String "eyJhbGci..." -AsPlainText -Force
+$CSRFToken = ConvertTo-SecureString -String "eyJhbGci..." -AsPlainText -Force
+Connect-Dify -Server "https://dify.example.com" -AuthMethod "AccessToken" -AccessToken $AccessToken -CSRFToken $CSRFToken</dev:code>
+        <dev:remarks>
+          <maml:para>Access token authentication using a pre-obtained access token and CSRF token. This method is available for Dify 1.9.2 or later, and is useful when you already have valid tokens (e.g., extracted from a browser session) and want to avoid re-authentication.</maml:para>
+          <maml:para>This method is particularly useful in environments where password-based authentication is not available, such as:</maml:para>
+          <maml:para>- Dify Enterprise Edition with SSO (Single Sign-On) enabled, where direct password login is not supported.</maml:para>
+          <maml:para>- Dify Cloud Edition, where only email-based code authentication is available interactively.</maml:para>
+          <maml:para></maml:para>
+          <maml:para>In these cases, you can obtain the `access_token` and `csrf_token` from your browser's cookies after logging in manually, and pass them to this cmdlet.</maml:para>
+          <maml:para>You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://dify.example.com"`, `$env:PSDIFY_AUTH_METHOD = "AccessToken"`, `$env:PSDIFY_ACCESS_TOKEN = "eyJhbGci..."`, `$env:PSDIFY_CSRF_TOKEN = "eyJhbGci..."`.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

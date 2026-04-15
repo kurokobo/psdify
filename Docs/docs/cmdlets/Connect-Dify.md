@@ -13,19 +13,19 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Authenticate with Dify using password or email-based login, enabling operations with other PSDify cmdlets.
+Authenticate with Dify using password, email-based login, or pre-obtained access token, enabling operations with other PSDify cmdlets.
 
 ## SYNTAX
 
 ```powershell
 Connect-Dify [[-Server] <String>] [[-AuthMethod] <String>] [[-Email] <String>] [[-Token] <String>]
- [[-Code] <String>] [[-Password] <SecureString>] [-Force]
- [<CommonParameters>]
+ [[-Code] <String>] [[-Password] <SecureString>] [-AccessToken <SecureString>] [-CSRFToken <SecureString>]
+ [-Force] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-The `Connect-Dify` cmdlet allows you to authenticate with a Dify server using various methods such as password-based login or email-based code authentication. After successful authentication, some variables required for subsequent operations are set.
+The `Connect-Dify` cmdlet allows you to authenticate with a Dify server using various methods such as password-based login, email-based code authentication, or access token authentication. After successful authentication, some variables required for subsequent operations are set.
 
 NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
@@ -64,7 +64,44 @@ Connect-Dify -Server "https://dify.example.com" -Email "dify@example.com" -Passw
 
 Password authentication with predefined password.
 
+### Example 4
+
+```powershell
+$AccessToken = ConvertTo-SecureString -String "eyJhbGci..." -AsPlainText -Force
+$CSRFToken = ConvertTo-SecureString -String "eyJhbGci..." -AsPlainText -Force
+Connect-Dify -Server "https://dify.example.com" -AuthMethod "AccessToken" -AccessToken $AccessToken -CSRFToken $CSRFToken
+```
+
+Access token authentication using a pre-obtained access token and CSRF token. This method is available for Dify 1.9.2 or later, and is useful when you already have valid tokens (e.g., extracted from a browser session) and want to avoid re-authentication.
+
+This method is particularly useful in environments where password-based authentication is not available, such as:
+
+- Dify Enterprise Edition with SSO (Single Sign-On) enabled, where direct password login is not supported.
+- Dify Cloud Edition, where only email-based code authentication is available interactively.
+
+In these cases, you can obtain the `access_token` and `csrf_token` from your browser's cookies after logging in manually, and pass them to this cmdlet.
+
+You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://dify.example.com"`, `$env:PSDIFY_AUTH_METHOD = "AccessToken"`, `$env:PSDIFY_ACCESS_TOKEN = "eyJhbGci..."`, `$env:PSDIFY_CSRF_TOKEN = "eyJhbGci..."`.
+
 ## PARAMETERS
+
+### -AccessToken
+
+Specifies the access token for access token authentication. This parameter accepts a secure string.
+
+This also can be set using the environment variable `$env:PSDIFY_ACCESS_TOKEN`.
+
+```yaml
+Type: SecureString
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -AuthMethod
 
@@ -72,6 +109,7 @@ Specifies the authentication method to use. Valid values are:
 
 - `Password`: Authenticate using an email and password.
 - `Code`: Authenticate using an email and a code sent via email.
+- `AccessToken`: Authenticate using a pre-obtained access token and CSRF token. Requires Dify 1.9.2 or later.
 
 This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`. The default value is `Password`.
 
@@ -98,6 +136,24 @@ Aliases:
 
 Required: False
 Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CSRFToken
+
+Specifies the CSRF token for access token authentication. This parameter accepts a secure string.
+
+This also can be set using the environment variable `$env:PSDIFY_CSRF_TOKEN`.
+
+```yaml
+Type: SecureString
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

@@ -22,10 +22,14 @@ For a full list of available cmdlets, refer to the [📚Documentation](https://k
     - 🚨 The **Enterprise Edition** of Dify (multi-workspace environments) is **not supported**.
     - 🚨 Currently, the focus is on "**making it work**." This means **error handling and documentation are incomplete**, and it does not strictly follow PowerShell best practices.
 
+## Tested Environments
+
+The latest tested Dify version is **1.13.2**.
+
 !!! note
 
-    - This module has been tested mainly against the latest version of Dify of the Community Edition and the Cloud Edition, with Windows PowerShell (PowerShell 5.1) and PowerShell 7.4.
-    - The Enterprise Edition of Dify (multi-workspace environments) is not supported.
+    - This module has been tested mainly against Dify Community Edition and Dify Cloud Edition, with Windows PowerShell (PowerShell 5.1) and PowerShell 7.4.
+    - The Enterprise Edition of Dify (multi-workspace environments) can also be operated by this module, but it is not fully tested.
 
 ## Quick Start
 
