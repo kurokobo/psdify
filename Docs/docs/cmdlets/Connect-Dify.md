@@ -53,7 +53,7 @@ Password authentication, mainly for the Dify Community Edition. Enter the passwo
 
 If using a self-signed certificate for HTTPS in the Community Edition, disable certificate verification by `Set-PSDifyConfiguration -IgnoreSSLVerification $true` or set `$env:PSDIFY_DISABLE_SSL_VERIFICATION = "true"` before invoking `Connect-Dify`.
 
-You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://dify.example.com"`, `$env:PSDIFY_AUTH_METHOD = "Password"`, `$env:PSDIFY_EMAIL = "dify@example.com`, `$env:PSDIFY_PASSWORD = "AwesomeDify123!"`.
+git You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://dify.example.com"`, `$env:PSDIFY_AUTH_METHOD = "Password"`, `$env:PSDIFY_EMAIL = "dify@example.com"`, `$env:PSDIFY_PASSWORD = "AwesomeDify123!"`.
 
 ### Example 3
 
