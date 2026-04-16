@@ -197,6 +197,8 @@ function Connect-Dify {
 
             # Build session with access_token and csrf_token cookies
             $ServerHostname = ([System.Uri]$Server).Host
+            $script:PSDIFY_CONSOLE_AUTH.Cookies.Add((New-Object System.Net.Cookie("__Host-access_token", $PlainAccessToken, "/", $ServerHostname)))
+            $script:PSDIFY_CONSOLE_AUTH.Cookies.Add((New-Object System.Net.Cookie("__Host-csrf_token", $PlainCSRFToken, "/", $ServerHostname)))
             $script:PSDIFY_CONSOLE_AUTH.Cookies.Add((New-Object System.Net.Cookie("access_token", $PlainAccessToken, "/", $ServerHostname)))
             $script:PSDIFY_CONSOLE_AUTH.Cookies.Add((New-Object System.Net.Cookie("csrf_token", $PlainCSRFToken, "/", $ServerHostname)))
         }

@@ -803,7 +803,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
         <dev:remarks>
           <maml:para>Password authentication, mainly for the Dify Community Edition. Enter the password manually after execution.</maml:para>
           <maml:para>If using a self-signed certificate for HTTPS in the Community Edition, disable certificate verification by `Set-PSDifyConfiguration -IgnoreSSLVerification $true` or set `$env:PSDIFY_DISABLE_SSL_VERIFICATION = "true"` before invoking `Connect-Dify`.</maml:para>
-          <maml:para>You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://dify.example.com"`, `$env:PSDIFY_AUTH_METHOD = "Password"`, `$env:PSDIFY_EMAIL = "dify@example.com`, `$env:PSDIFY_PASSWORD = "AwesomeDify123!"`.</maml:para>
+          <maml:para>You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://dify.example.com"`, `$env:PSDIFY_AUTH_METHOD = "Password"`, `$env:PSDIFY_EMAIL = "dify@example.com"`, `$env:PSDIFY_PASSWORD = "AwesomeDify123!"`.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
