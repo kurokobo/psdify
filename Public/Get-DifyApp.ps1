@@ -76,6 +76,10 @@ function Get-DifyApp {
         $Query.page++
     }
 
+    if ($Id) {
+        $Apps = $Apps | Where-Object { $_.Id -eq $Id }
+    }
+
     if ($Name) {
         $Apps = $Apps | Where-Object { $_.Name -eq $Name }
     }

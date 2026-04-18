@@ -4433,9 +4433,9 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
           <maml:description>
             <maml:para>Specifies the IDs of the workspaces to retrieve. Use this parameter to filter workspaces by their unique IDs.</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
-            <maml:name>String[]</maml:name>
+            <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -4445,9 +4445,9 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
           <maml:description>
             <maml:para>Specifies the names of the workspaces to retrieve. Use this parameter to filter workspaces by their names.</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
-            <maml:name>String[]</maml:name>
+            <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -4457,9 +4457,9 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
           <maml:description>
             <maml:para>Specifies a search string to filter workspaces. This parameter matches workspaces where the ID or name contains the specified string (supports wildcard patterns).</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
-            <maml:name>String[]</maml:name>
+            <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -4472,9 +4472,9 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
         <maml:description>
           <maml:para>Specifies the IDs of the workspaces to retrieve. Use this parameter to filter workspaces by their unique IDs.</maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
-          <maml:name>String[]</maml:name>
+          <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -4484,9 +4484,9 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
         <maml:description>
           <maml:para>Specifies the names of the workspaces to retrieve. Use this parameter to filter workspaces by their names.</maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
-          <maml:name>String[]</maml:name>
+          <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -4496,9 +4496,9 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
         <maml:description>
           <maml:para>Specifies a search string to filter workspaces. This parameter matches workspaces where the ID or name contains the specified string (supports wildcard patterns).</maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
-          <maml:name>String[]</maml:name>
+          <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
