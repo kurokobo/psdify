@@ -82,6 +82,10 @@ function Get-DifyDocument {
             $Query.page++
         }
 
+        if ($Id) {
+            $Documents = $Documents | Where-Object { $_.Id -eq $Id }
+        }
+
         if ($Name) {
             $Documents = $Documents | Where-Object { $_.Name -eq $Name }
         }

@@ -18,7 +18,7 @@ Retrieves workspace information from Dify.
 ## SYNTAX
 
 ```powershell
-Get-DifyWorkspace [[-Id] <String[]>] [[-Name] <String[]>] [[-Search] <String[]>]
+Get-DifyWorkspace [[-Id] <String>] [[-Name] <String>] [[-Search] <String>]
  [<CommonParameters>]
 ```
 
@@ -69,7 +69,7 @@ Searches for workspaces by ID or name using a wildcard pattern.
 Specifies the IDs of the workspaces to retrieve. Use this parameter to filter workspaces by their unique IDs.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -85,7 +85,7 @@ Accept wildcard characters: False
 Specifies the names of the workspaces to retrieve. Use this parameter to filter workspaces by their names.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -101,7 +101,7 @@ Accept wildcard characters: False
 Specifies a search string to filter workspaces. This parameter matches workspaces where the ID or name contains the specified string (supports wildcard patterns).
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 

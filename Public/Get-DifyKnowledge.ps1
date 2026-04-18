@@ -79,6 +79,10 @@ function Get-DifyKnowledge {
         $Query.page++
     }
 
+    if ($Id) {
+        $Knowledges = $Knowledges | Where-Object { $_.Id -eq $Id }
+    }
+
     if ($Name) {
         $Knowledges = $Knowledges | Where-Object { $_.Name -eq $Name }
     }

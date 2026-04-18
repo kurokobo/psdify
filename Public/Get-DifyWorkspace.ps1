@@ -1,9 +1,9 @@
 function Get-DifyWorkspace {
     [CmdletBinding()]
     param(
-        [String[]] $Id = @(),
-        [String[]] $Name = @(),
-        [String[]] $Search = @()
+        [String] $Id = "",
+        [String] $Name = "",
+        [String] $Search = ""
     )
 
     $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces")
@@ -33,10 +33,10 @@ function Get-DifyWorkspace {
     }
 
     if ($Id) {
-        $Workspaces = $Workspaces | Where-Object { $Id -eq $_.Id }
+        $Workspaces = $Workspaces | Where-Object { $_.Id -eq $Id }
     }
     if ($Name) {
-        $Workspaces = $Workspaces | Where-Object { $Name -eq $_.Name }
+        $Workspaces = $Workspaces | Where-Object { $_.Name -eq $Name }
     }
     if ($Search) {
         $Workspaces = $Workspaces | Where-Object { $_.Id -like "*$($Search)*" -or $_.Name -like "*$($Search)*" }
