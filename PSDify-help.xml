@@ -8253,9 +8253,9 @@ Set-DifyAppTraceConfig -App $App -Provider "langsmith" -Config @{
           <maml:description>
             <maml:para>Specifies the workspace object to switch to. This parameter accepts workspace objects obtained from the `Get-DifyWorkspace` cmdlet and supports pipeline input.</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">PSObject[]</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
           <dev:type>
-            <maml:name>PSObject[]</maml:name>
+            <maml:name>PSObject</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -8265,9 +8265,9 @@ Set-DifyAppTraceConfig -App $App -Provider "langsmith" -Config @{
           <maml:description>
             <maml:para>Specifies the ID of the workspace to switch to. Use this parameter to identify the target workspace by its unique ID.</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
-            <maml:name>String[]</maml:name>
+            <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -8277,9 +8277,9 @@ Set-DifyAppTraceConfig -App $App -Provider "langsmith" -Config @{
           <maml:description>
             <maml:para>Specifies the name of the workspace to switch to. Use this parameter to identify the target workspace by its name.</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
-            <maml:name>String[]</maml:name>
+            <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -8292,9 +8292,9 @@ Set-DifyAppTraceConfig -App $App -Provider "langsmith" -Config @{
         <maml:description>
           <maml:para>Specifies the ID of the workspace to switch to. Use this parameter to identify the target workspace by its unique ID.</maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
-          <maml:name>String[]</maml:name>
+          <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -8304,9 +8304,9 @@ Set-DifyAppTraceConfig -App $App -Provider "langsmith" -Config @{
         <maml:description>
           <maml:para>Specifies the name of the workspace to switch to. Use this parameter to identify the target workspace by its name.</maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
-          <maml:name>String[]</maml:name>
+          <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -8316,9 +8316,9 @@ Set-DifyAppTraceConfig -App $App -Provider "langsmith" -Config @{
         <maml:description>
           <maml:para>Specifies the workspace object to switch to. This parameter accepts workspace objects obtained from the `Get-DifyWorkspace` cmdlet and supports pipeline input.</maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">PSObject[]</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
         <dev:type>
-          <maml:name>PSObject[]</maml:name>
+          <maml:name>PSObject</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>

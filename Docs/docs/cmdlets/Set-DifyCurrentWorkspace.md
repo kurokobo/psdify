@@ -18,7 +18,7 @@ Switches the current workspace to a specified workspace.
 ## SYNTAX
 
 ```powershell
-Set-DifyCurrentWorkspace [[-Workspace] <PSObject[]>] [[-Id] <String[]>] [[-Name] <String[]>]
+Set-DifyCurrentWorkspace [[-Workspace] <PSObject>] [[-Id] <String>] [[-Name] <String>]
  [<CommonParameters>]
 ```
 
@@ -61,7 +61,7 @@ Switches to a workspace by its name.
 Specifies the ID of the workspace to switch to. Use this parameter to identify the target workspace by its unique ID.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -77,7 +77,7 @@ Accept wildcard characters: False
 Specifies the name of the workspace to switch to. Use this parameter to identify the target workspace by its name.
 
 ```yaml
-Type: String[]
+Type: String
 Parameter Sets: (All)
 Aliases:
 
@@ -93,7 +93,7 @@ Accept wildcard characters: False
 Specifies the workspace object to switch to. This parameter accepts workspace objects obtained from the `Get-DifyWorkspace` cmdlet and supports pipeline input.
 
 ```yaml
-Type: PSObject[]
+Type: PSObject
 Parameter Sets: (All)
 Aliases:
 
