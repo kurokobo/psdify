@@ -24,7 +24,7 @@ For a full list of available cmdlets, refer to the [📚Documentation](https://k
 
 ## Tested Environments
 
-The latest tested Dify version is **1.13.3** with plugin daemon **0.6.0**.
+The latest tested Dify version is **1.14.0**.
 
 > [!NOTE]
 >
