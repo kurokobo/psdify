@@ -7,9 +7,6 @@ services:
       ALLOW_REGISTER: "true"
       ALLOW_CREATE_WORKSPACE: "true"
 
-  plugin_daemon:
-    image: langgenius/dify-plugin-daemon:0.6.0-local
-
   phoenix:
     image: arizephoenix/phoenix:version-11
     ports:
