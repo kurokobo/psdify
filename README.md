@@ -154,7 +154,10 @@ Right-click any Dify console page to open the **PSDify** submenu:
 - **Copy Login Command** — Places the following on your clipboard:
 
   ```powershell
+<<<<<<< HEAD
   Import-Module PSDify
+=======
+>>>>>>> 765dc5a (docs: add docs for extension)
   $env:PSDIFY_URL="https://cloud.dify.ai"
   $env:PSDIFY_AUTH_METHOD="AccessToken"
   $env:PSDIFY_ACCESS_TOKEN="eyJhbGci..."
