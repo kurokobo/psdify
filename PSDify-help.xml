@@ -827,6 +827,7 @@ Connect-Dify -Server "https://dify.example.com" -AuthMethod "AccessToken" -Acces
           <maml:para></maml:para>
           <maml:para>In these cases, you can obtain the `access_token` and `csrf_token` from your browser's cookies after logging in manually, and pass them to this cmdlet.</maml:para>
           <maml:para>You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://dify.example.com"`, `$env:PSDIFY_AUTH_METHOD = "AccessToken"`, `$env:PSDIFY_ACCESS_TOKEN = "eyJhbGci..."`, `$env:PSDIFY_CSRF_TOKEN = "eyJhbGci..."`.</maml:para>
+          <maml:para>The companion Chrome/Edge extension "PSDify Helper" can extract these tokens from your browser session and copy the complete login command to your clipboard with a single right-click - no developer tools needed. For details, refer to the "Browser Extension" page in the PSDify documentation.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

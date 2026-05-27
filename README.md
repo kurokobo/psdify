@@ -12,6 +12,7 @@ Here are some examples of what you can do with PSDify:
 - ✨ **Add models and update system models**
 - ✨ **Search and install plugins**
 - ✨ **Initialize instances for the Community Edition**
+- ✨ **Copy login commands from your browser** with the companion Chrome/Edge extension
 
 For a full list of available cmdlets, refer to the [📚Documentation](https://kurokobo.github.io/psdify/).
 
@@ -139,3 +140,28 @@ Wait-Dify -Server "https://dify.example.com"
 # Initialize the instance
 Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -Name "Dify"
 ```
+
+## Browser Extension
+
+**PSDify Helper** is a companion Chrome/Edge extension that copies a ready-to-paste `Connect-Dify` command from the Dify console — no manual token extraction needed.
+
+> [!NOTE]
+>
+> PSDify Helper has been submitted to the Chrome Web Store and is currently **pending review**. See the [📚Documentation](https://kurokobo.github.io/psdify/extension/helper/) for installation and usage instructions.
+
+Right-click any Dify console page to open the **PSDify** submenu:
+
+- **Copy Login Command** — Places the following on your clipboard:
+
+  ```powershell
+  $env:PSDIFY_URL="https://cloud.dify.ai"
+  $env:PSDIFY_AUTH_METHOD="AccessToken"
+  $env:PSDIFY_ACCESS_TOKEN="eyJhbGci..."
+  $env:PSDIFY_CSRF_TOKEN="eyJhbGci..."
+  Connect-Dify
+  ```
+
+- **Copy Access Token** — Copies the raw access token.
+- **Copy CSRF Token** — Copies the raw CSRF token.
+
+The extension works with `cloud.dify.ai` out of the box. Self-hosted instances can be added from the extension's options page.
