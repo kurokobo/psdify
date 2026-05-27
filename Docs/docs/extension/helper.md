@@ -103,3 +103,11 @@ A toast notification will appear on the page confirming that the content was cop
 - The extension reads `access_token` and `csrf_token` cookies stored by the browser when you log in to Dify. These cookies are HttpOnly and not accessible via JavaScript; the extension accesses them through the `chrome.cookies` API.
 - The tokens are valid only for the current browser session. If you log out or the session expires, log in to Dify again before using the extension.
 - The `AccessToken` authentication method used by the copied command requires **Dify 1.9.2 or later**. For earlier versions, use `Password` or `Code` authentication instead.
+
+## Privacy Policy
+
+PSDify Helper does not collect, transmit, or share any user data.
+
+The extension reads `access_token` and `csrf_token` cookies from your active Dify session solely to copy their values to your clipboard. This happens only when you explicitly select a menu item. The cookie values are never sent to any external server, never written to local storage, and are not retained after the copy operation completes.
+
+The only data written to persistent storage is the list of self-hosted Dify instance URLs you add via the options page. This list is stored locally in your browser using `chrome.storage.local` and is never shared with or transmitted to any third party.
