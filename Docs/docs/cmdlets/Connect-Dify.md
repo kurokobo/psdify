@@ -83,6 +83,8 @@ In these cases, you can obtain the `access_token` and `csrf_token` from your bro
 
 You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://dify.example.com"`, `$env:PSDIFY_AUTH_METHOD = "AccessToken"`, `$env:PSDIFY_ACCESS_TOKEN = "eyJhbGci..."`, `$env:PSDIFY_CSRF_TOKEN = "eyJhbGci..."`.
 
+The companion Chrome/Edge extension "PSDify Helper" can extract these tokens from your browser session and copy the complete login command to your clipboard with a single right-click - no developer tools needed. For details, refer to the "Browser Extension" page in the PSDify documentation.
+
 ## PARAMETERS
 
 ### -AccessToken

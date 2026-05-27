@@ -119,3 +119,5 @@ nav:
           - cmdlets/New-TemporaryFileForBinaryUpload.md
           - cmdlets/Add-DifyFile.md
           - cmdlets/Invoke-DifyRestMethod.md
+  - Browser Extension:
+      - PSDify Helper: extension/helper.md

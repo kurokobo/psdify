@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PSDify Helper</title>
+    <style>
+      /* Use CSS system color keywords so the page follows the OS light/dark theme
+         without any JavaScript-based theme switching. */
+      :root {
+        color-scheme: light dark;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        font-size: 14px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: Canvas;
+        color: CanvasText;
+        padding: 24px;
+        max-width: 560px;
+      }
+
+      h1 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .subtitle {
+        color: GrayText;
+        margin-bottom: 24px;
+        font-size: 13px;
+      }
+
+      h2 {
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: GrayText;
+        margin-bottom: 12px;
+      }
+
+      /* URL list */
+      #url-list {
+        margin-bottom: 16px;
+      }
+
+      .url-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border: 1px solid ButtonBorder;
+        border-radius: 6px;
+        margin-bottom: 8px;
+        background-color: Field;
+        color: FieldText;
+      }
+
+      .url-item span {
+        flex: 1;
+        font-family: ui-monospace, "Cascadia Code", "Consolas", monospace;
+        font-size: 13px;
+        word-break: break-all;
+      }
+
+      .url-item button {
+        flex-shrink: 0;
+        padding: 3px 10px;
+        border: 1px solid ButtonBorder;
+        border-radius: 4px;
+        background-color: ButtonFace;
+        color: ButtonText;
+        cursor: pointer;
+        font-size: 12px;
+      }
+
+      .url-item button:hover {
+        background-color: Highlight;
+        color: HighlightText;
+        border-color: Highlight;
+      }
+
+      .empty {
+        color: GrayText;
+        font-style: italic;
+        font-size: 13px;
+        padding: 8px 0;
+      }
+
+      /* Add form */
+      #add-form {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      #url-input {
+        flex: 1;
+        padding: 7px 10px;
+        border: 1px solid ButtonBorder;
+        border-radius: 6px;
+        background-color: Field;
+        color: FieldText;
+        font-size: 13px;
+        font-family: ui-monospace, "Cascadia Code", "Consolas", monospace;
+        outline: none;
+      }
+
+      #url-input:focus {
+        border-color: Highlight;
+        box-shadow: 0 0 0 2px color-mix(in srgb, Highlight 30%, transparent);
+      }
+
+      #url-input::placeholder {
+        color: GrayText;
+      }
+
+      #add-form button[type="submit"] {
+        padding: 7px 16px;
+        border: 1px solid ButtonBorder;
+        border-radius: 6px;
+        background-color: ButtonFace;
+        color: ButtonText;
+        cursor: pointer;
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      #add-form button[type="submit"]:hover {
+        background-color: Highlight;
+        color: HighlightText;
+        border-color: Highlight;
+      }
+
+      /* Status message */
+      .status {
+        font-size: 13px;
+        min-height: 20px;
+        padding: 4px 0;
+      }
+
+      .status.success {
+        color: green;
+      }
+
+      .status.error {
+        color: red;
+      }
+
+      .status.info {
+        color: GrayText;
+      }
+
+      /* Note box */
+      .note {
+        margin-top: 24px;
+        padding: 10px 14px;
+        border: 1px solid ButtonBorder;
+        border-radius: 6px;
+        background-color: Field;
+        color: GrayText;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>PSDify Helper</h1>
+    <p class="subtitle">
+      Right-click any Dify console page to copy a
+      <code>Connect-Dify</code> login command.
+    </p>
+
+    <h2>Self-Hosted Instances</h2>
+
+    <div id="url-list"></div>
+
+    <form id="add-form">
+      <input
+        type="url"
+        id="url-input"
+        placeholder="https://dify.example.com"
+        autocomplete="off"
+        spellcheck="false"
+        required
+      />
+      <button type="submit">Add</button>
+    </form>
+
+    <div id="status" class="status" aria-live="polite"></div>
+
+    <div class="note">
+      When you add a URL, the browser will ask whether to allow PSDify Helper
+      to access that site. The right-click menu will then appear on pages
+      matching that URL. Removing a URL revokes the permission.
+    </div>
+
+    <script src="options.js"></script>
+  </body>
+</html>
