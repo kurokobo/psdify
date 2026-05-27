@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "PSDify Helper",
+  "version": "0.1.0",
+  "description": "Right-click any Dify console page to copy a Connect-Dify login command or session tokens to the clipboard. Supports cloud.dify.ai and self-hosted Dify instances.",
+  "permissions": [
+    "cookies",
+    "contextMenus",
+    "clipboardWrite",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://cloud.dify.ai/*"
+  ],
+  "optional_host_permissions": [
+    "*://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_page": "options.html",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
