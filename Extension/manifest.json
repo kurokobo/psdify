@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "PSDify Helper",
   "version": "0.1.0",
-  "description": "Right-click any Dify console page to copy a Connect-Dify login command or session tokens to the clipboard. Supports cloud.dify.ai and self-hosted Dify instances.",
+  "description": "Copy Connect-Dify login commands or session tokens from any Dify console page. Works with cloud.dify.ai and self-hosted instances.",
   "permissions": [
     "cookies",
     "contextMenus",
