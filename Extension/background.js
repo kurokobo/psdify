@@ -248,6 +248,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   let successMessage;
   if (menuItemId === MENU_LOGIN_ID) {
     text = [
+      `Import-Module PSDify`,
       `$env:PSDIFY_URL="${origin}"`,
       `$env:PSDIFY_AUTH_METHOD="AccessToken"`,
       `$env:PSDIFY_ACCESS_TOKEN="${accessTokenCookie.value}"`,

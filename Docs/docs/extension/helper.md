@@ -25,6 +25,7 @@ The extension reads session cookies already stored in your browser and does **no
 Selecting **Copy Login Command** places the following on your clipboard (token values are filled in automatically):
 
 ```powershell
+Import-Module PSDify
 $env:PSDIFY_URL="https://cloud.dify.ai"
 $env:PSDIFY_AUTH_METHOD="AccessToken"
 $env:PSDIFY_ACCESS_TOKEN="eyJhbGci..."
