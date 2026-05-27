@@ -166,3 +166,5 @@ Right-click any Dify console page to open the **PSDify** submenu:
 - **Copy CSRF Token** — Copies the raw CSRF token.
 
 The extension works with `cloud.dify.ai` out of the box. Self-hosted instances can be added from the extension's options page.
+
+The extension reads session cookies solely to copy them to the clipboard upon your request. No data is transmitted to any server or stored locally.
