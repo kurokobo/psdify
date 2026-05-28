@@ -41,7 +41,7 @@ Retrieve the version information of the Dify server.
 
 ### -Server
 
-Specifies the server URL for the Dify instance. If not provided, the `$env:PSDIFY_URL` environment variable will be used.
+Specifies the server URL for the Dify instance. If not provided, the `$env:PSDIFY_URL` environment variable will be used. If both are provided, the argument takes priority.
 
 ```yaml
 Type: String

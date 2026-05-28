@@ -5,7 +5,7 @@ function Get-DifyVersion {
     )
 
     # Validate parameter: Server
-    if ($env:PSDIFY_URL) {
+    if (-not $Server -and $env:PSDIFY_URL) {
         $Server = $env:PSDIFY_URL
     }
     if (-not $Server) {

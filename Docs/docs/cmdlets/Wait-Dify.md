@@ -66,7 +66,7 @@ Accept wildcard characters: False
 
 ### -Server
 
-Specifies the URL of the Dify server to check. If the `$env:PSDIFY_URL` environment variable is set, this parameter is optional.
+Specifies the URL of the Dify server to check. If not provided, the `$env:PSDIFY_URL` environment variable will be used. If both are provided, the argument takes priority.
 
 ```yaml
 Type: String

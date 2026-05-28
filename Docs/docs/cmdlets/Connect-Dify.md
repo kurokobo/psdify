@@ -91,7 +91,7 @@ The companion Chrome/Edge extension "PSDify Helper" can extract these tokens fro
 
 Specifies the access token for access token authentication. This parameter accepts a secure string.
 
-This also can be set using the environment variable `$env:PSDIFY_ACCESS_TOKEN`.
+This also can be set using the environment variable `$env:PSDIFY_ACCESS_TOKEN`. If both are provided, the argument takes priority.
 
 ```yaml
 Type: SecureString
@@ -113,7 +113,7 @@ Specifies the authentication method to use. Valid values are:
 - `Code`: Authenticate using an email and a code sent via email.
 - `AccessToken`: Authenticate using a pre-obtained access token and CSRF token. Requires Dify 1.9.2 or later.
 
-This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`. The default value is `Password`.
+This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`. If both are provided, the argument takes priority. The default value is `Password`.
 
 ```yaml
 Type: String
@@ -147,7 +147,7 @@ Accept wildcard characters: False
 
 Specifies the CSRF token for access token authentication. This parameter accepts a secure string.
 
-This also can be set using the environment variable `$env:PSDIFY_CSRF_TOKEN`.
+This also can be set using the environment variable `$env:PSDIFY_CSRF_TOKEN`. If both are provided, the argument takes priority.
 
 ```yaml
 Type: SecureString
@@ -165,7 +165,7 @@ Accept wildcard characters: False
 
 Specifies the email address to use for authentication. This is required for both password-based and email-based code authentication methods.
 
-This also can be set using the environment variable `$env:PSDIFY_EMAIL`.
+This also can be set using the environment variable `$env:PSDIFY_EMAIL`. If both are provided, the argument takes priority.
 
 ```yaml
 Type: String
@@ -199,7 +199,7 @@ Accept wildcard characters: False
 
 Specifies the password to use for password-based authentication. This parameter accepts a secure string.
 
-This also can be set using the environment variable `$env:PSDIFY_PASSWORD`.
+This also can be set using the environment variable `$env:PSDIFY_PASSWORD`. If both are provided, the argument takes priority.
 
 ```yaml
 Type: SecureString
@@ -217,7 +217,7 @@ Accept wildcard characters: False
 
 Specifies the server URL to connect to. If not specified, the default value is `https://cloud.dify.ai`.
 
-This also can be set using the environment variable `$env:PSDIFY_URL`.
+This also can be set using the environment variable `$env:PSDIFY_URL`. If both are provided, the argument takes priority.
 
 ```yaml
 Type: String
