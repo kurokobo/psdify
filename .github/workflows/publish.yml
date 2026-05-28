@@ -1,0 +1,38 @@
+name: publish
+on:
+  push:
+    tags:
+      - "[0-9]*"
+permissions:
+  contents: read
+jobs:
+  publish:
+    runs-on: windows-latest
+    environment: psgallery
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6.0.2
+
+      - name: Verify tag matches ModuleVersion
+        shell: pwsh
+        run: |
+          $tag = "${{ github.ref_name }}"
+          $manifest = Import-PowerShellDataFile -Path ./PSDify.psd1
+          $moduleVersion = $manifest.ModuleVersion
+          if ($tag -ne $moduleVersion) {
+            Write-Error "Tag '$tag' does not match ModuleVersion '$moduleVersion' in PSDify.psd1"
+            exit 1
+          }
+          Write-Host "Tag and ModuleVersion match: $tag"
+
+      - name: Install required modules
+        shell: pwsh
+        run: |
+          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+          Install-PSResource -Name Microsoft.PowerShell.PSResourceGet -Scope CurrentUser
+
+      - name: Publish to PowerShell Gallery
+        shell: pwsh
+        env:
+          PSDIFY_PSGALLERY_APIKEY: ${{ secrets.PSDIFY_PSGALLERY_APIKEY }}
+        run: |
+          ./PSDify.publish.ps1

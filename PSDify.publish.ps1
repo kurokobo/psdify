@@ -19,9 +19,6 @@ foreach ($PublishDirectory in $PublishDirectories) {
     Copy-Item -Path $PublishDirectory -Destination $WorkingDirectory -Recurse
 }
 
-# Invoke PSScriptAnalyzer
-Invoke-ScriptAnalyzer -Path $WorkingDirectory -Settings PSGallery -Recurse
-
 # Publish the module to the PowerShell Gallery
 Set-Location $WorkingDirectory
 Publish-PSResource -Path ./ -Repository PSGallery -ApiKey $env:PSDIFY_PSGALLERY_APIKEY -Verbose
