@@ -147,7 +147,7 @@ Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -Na
 
 > [!NOTE]
 >
-> PSDify Helper has been submitted to the Chrome Web Store and is currently **pending review**. See the [📚Documentation](https://kurokobo.github.io/psdify/extension/helper/) for installation and usage instructions.
+> PSDify Helper is available on the [Chrome Web Store](https://chromewebstore.google.com/detail/psdify-helper/ilhdadmkkcheoojjemdbklgelnaikhfp). It is also compatible with Microsoft Edge. See the [📚Documentation](https://kurokobo.github.io/psdify/extension/helper/) for installation and usage instructions.
 
 Right-click any Dify console page to open the **PSDify** submenu:
 

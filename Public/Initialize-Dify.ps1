@@ -1,7 +1,7 @@
 function Initialize-Dify {
     [CmdletBinding()]
     param (
-        [String] $Server = "https://cloud.dify.ai",
+        [String] $Server = "",
         [String] $Email = "",
         [String] $Name = "",
         [SecureString] $InitPassword = $null,
@@ -9,7 +9,7 @@ function Initialize-Dify {
     )
 
     # Validate parameter: Server
-    if ($env:PSDIFY_URL) {
+    if (-not $Server -and $env:PSDIFY_URL) {
         $Server = $env:PSDIFY_URL
     }
     if (-not $Server) {
@@ -17,7 +17,7 @@ function Initialize-Dify {
     }
 
     # Validate parameter: Email
-    if ($env:PSDIFY_EMAIL) {
+    if (-not $Email -and $env:PSDIFY_EMAIL) {
         $Email = $env:PSDIFY_EMAIL
     }
     if (-not $Email) {
@@ -46,7 +46,7 @@ function Initialize-Dify {
     }  
     if ($SetUpStatus -eq "not_started" -and $InitStatus -eq "not_started") {
         Write-Verbose "stage to validate init password"
-        if ($env:PSDIFY_INIT_PASSWORD) {
+        if (-not $InitPassword -and $env:PSDIFY_INIT_PASSWORD) {
             $InitPassword = ConvertTo-SecureString -String $env:PSDIFY_INIT_PASSWORD -AsPlainText -Force
         }
         if (-not $InitPassword) {
@@ -83,7 +83,7 @@ function Initialize-Dify {
     }
     if ($SetUpStatus -eq "not_started" -and $InitStatus -eq "finished") {
         Write-Verbose "stage to create admin account"
-        if ($env:PSDIFY_PASSWORD) {
+        if (-not $Password -and $env:PSDIFY_PASSWORD) {
             $Password = ConvertTo-SecureString -String $env:PSDIFY_PASSWORD -AsPlainText -Force
         }
         if (-not $Password) {

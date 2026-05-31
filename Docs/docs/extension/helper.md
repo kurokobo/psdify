@@ -2,11 +2,10 @@
 
 PSDify Helper is a companion browser extension for Chrome and Edge that lets you copy a `Connect-Dify` login command or individual session tokens directly from the Dify console, without manually digging through developer tools.
 
-!!! note "Chrome Web Store — Pending Review"
+!!! note "Chrome Web Store"
 
-    PSDify Helper has been submitted to the Chrome Web Store and is currently pending review.
-    Once published, you will be able to install it directly from the store.
-    In the meantime, follow the [manual installation](#manual-installation-load-unpacked) steps below.
+    PSDify Helper is available on the [Chrome Web Store](https://chromewebstore.google.com/detail/psdify-helper/ilhdadmkkcheoojjemdbklgelnaikhfp).
+    It is also compatible with Microsoft Edge via the Chrome Web Store.
 
 ## What You Can Do
 
@@ -50,11 +49,8 @@ This is especially useful when:
 
 ### Chrome Web Store
 
-!!! warning "Pending Review"
-
-    The extension has been submitted to the Chrome Web Store and is currently pending review.
-    This section will be updated with a direct link once it is published.
-    The same extension package is also compatible with Microsoft Edge via the Chrome Web Store.
+Install PSDify Helper directly from the [Chrome Web Store](https://chromewebstore.google.com/detail/psdify-helper/ilhdadmkkcheoojjemdbklgelnaikhfp).
+The same extension is also compatible with Microsoft Edge via the Chrome Web Store.
 
 ### Manual Installation (Load Unpacked)
 

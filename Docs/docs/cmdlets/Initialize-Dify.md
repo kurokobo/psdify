@@ -63,6 +63,8 @@ Create an admin account using a predefined init password (if `INIT_PASSWORD` is 
 
 Specifies the email address to be used for creating the admin account.
 
+This also can be set using the environment variable `$env:PSDIFY_EMAIL`. If both are provided, the argument takes priority.
+
 ```yaml
 Type: String
 Parameter Sets: (All)
@@ -78,6 +80,8 @@ Accept wildcard characters: False
 ### -InitPassword
 
 Specifies the initial setup password required to initialize the Dify instance. Typically used only for the Community Edition.
+
+This also can be set using the environment variable `$env:PSDIFY_INIT_PASSWORD`. If both are provided, the argument takes priority.
 
 ```yaml
 Type: SecureString
@@ -111,6 +115,8 @@ Accept wildcard characters: False
 
 Specifies the password to be used for the admin account. If not provided, you will be prompted to enter it manually.
 
+This also can be set using the environment variable `$env:PSDIFY_PASSWORD`. If both are provided, the argument takes priority.
+
 ```yaml
 Type: SecureString
 Parameter Sets: (All)
@@ -125,7 +131,9 @@ Accept wildcard characters: False
 
 ### -Server
 
-Specifies the server URL of the Dify instance to be initialized. Defaults to <https://cloud.dify.ai> if not specified.
+Specifies the server URL of the Dify instance to be initialized. Required; throws an error if neither this parameter nor `$env:PSDIFY_URL` is provided.
+
+This also can be set using the environment variable `$env:PSDIFY_URL`. If both are provided, the argument takes priority.
 
 ```yaml
 Type: String
@@ -155,6 +163,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 - This cmdlet is only applicable for the Community Edition of Dify.
 - Ensure that the `Server` parameter points to the correct Dify instance URL.
-- You can use environment variables (`$env:PSDIFY_URL`, `$env:PSDIFY_EMAIL`, etc.) to simplify cmdlet arguments.
+- You can use environment variables (`$env:PSDIFY_URL`, `$env:PSDIFY_EMAIL`, `$env:PSDIFY_INIT_PASSWORD`, `$env:PSDIFY_PASSWORD`) to simplify cmdlet arguments. If both an argument and an environment variable are provided, the argument takes priority.
 
 ## RELATED LINKS

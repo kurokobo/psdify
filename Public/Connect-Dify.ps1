@@ -62,7 +62,7 @@ function Connect-Dify {
     switch ($AuthMethod) {
         'Password' {
             # Validate parameter: Email
-            if ($env:PSDIFY_EMAIL) {
+            if (-not $Email -and $env:PSDIFY_EMAIL) {
                 $Email = $env:PSDIFY_EMAIL
             }
             if (-not $Email) {
@@ -70,7 +70,7 @@ function Connect-Dify {
             }
 
             # Validate parameter: Password
-            if ($env:PSDIFY_PASSWORD) {
+            if (-not $Password -and $env:PSDIFY_PASSWORD) {
                 $Password = ConvertTo-SecureString -String $env:PSDIFY_PASSWORD -AsPlainText -Force
             }
             if ($AuthMethod -eq 'Password' -and -not $Password) {
@@ -112,7 +112,7 @@ function Connect-Dify {
 
         'Code' {
             # Validate parameter: Email
-            if ($env:PSDIFY_EMAIL) {
+            if (-not $Email -and $env:PSDIFY_EMAIL) {
                 $Email = $env:PSDIFY_EMAIL
             }
             if (-not $Email) {
@@ -178,7 +178,7 @@ function Connect-Dify {
 
         'AccessToken' {
             # Validate parameter: AccessToken
-            if ($env:PSDIFY_ACCESS_TOKEN) {
+            if (-not $AccessToken -and $env:PSDIFY_ACCESS_TOKEN) {
                 $AccessToken = ConvertTo-SecureString -String $env:PSDIFY_ACCESS_TOKEN -AsPlainText -Force
             }
             if (-not $AccessToken) {
@@ -187,7 +187,7 @@ function Connect-Dify {
             $PlainAccessToken = [Runtime.InteropServices.Marshal]::PtrToStringAuto([Runtime.InteropServices.Marshal]::SecureStringToBSTR($AccessToken))
 
             # Validate parameter: CSRFToken
-            if ($env:PSDIFY_CSRF_TOKEN) {
+            if (-not $CSRFToken -and $env:PSDIFY_CSRF_TOKEN) {
                 $CSRFToken = ConvertTo-SecureString -String $env:PSDIFY_CSRF_TOKEN -AsPlainText -Force
             }
             if (-not $CSRFToken) {
