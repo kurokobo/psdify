@@ -28,7 +28,7 @@ jobs:
         shell: pwsh
         run: |
           Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-          Install-PSResource -Name Microsoft.PowerShell.PSResourceGet -Scope CurrentUser
+          Install-Module -Name Microsoft.PowerShell.PSResourceGet -Force -Scope CurrentUser
 
       - name: Publish to PowerShell Gallery
         shell: pwsh
