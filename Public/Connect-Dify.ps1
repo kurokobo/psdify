@@ -150,6 +150,10 @@ function Connect-Dify {
             if (-not $Code) {
                 $Code = Read-Host "Enter the code sent to $($Email)"
             }
+            if (Compare-SimpleVersion -Version $DifyVersion.Version -Ge "1.11.2") {
+                $Bytes = [System.Text.Encoding]::UTF8.GetBytes($Code)
+                $Code = [System.Convert]::ToBase64String($Bytes)
+            }
 
             # Login to Dify
             $Endpoint = Join-Url -Segments @($Server, "/console/api/email-code-login/validity")
