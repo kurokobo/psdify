@@ -28,7 +28,16 @@ Describe "Get-DifyWorkspace" -Tag "workspace" -Skip:($env:PSDIFY_TEST_MODE -ne "
         $CreatedPassword = $CreatedPlainPassword | ConvertTo-SecureString -AsPlainText -Force
 
         # Invite new account to default workspace
-        $null = New-DifyMember -Email $RandomEmail -Role "normal"
+        $InvitedMember = New-DifyMember -Email $RandomEmail -Role "normal"
+        if (Compare-SimpleVersion -Version $env:PSDIFY_TEST_VERSION -Ge "1.15.0") {
+            # On 1.15.0+, the invited account may not be added to the workspace immediately.
+            # Call the activate endpoint manually to complete the process.
+            $InviteLink = @($InvitedMember.InvitationLink)[0]
+            $InviteToken = if ($InviteLink -match "token=([^&]+)") { $Matches[1] }
+            $ActivateEndpoint = "$($env:PSDIFY_URL)/console/api/activate"
+            $ActivateBody = @{ token = $InviteToken } | ConvertTo-Json
+            $null = Invoke-DifyRestMethod -Uri $ActivateEndpoint -Method "POST" -Body $ActivateBody
+        }
 
         # Connect as the new account
         Disconnect-Dify -Force

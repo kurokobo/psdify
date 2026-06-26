@@ -24,7 +24,7 @@ $Environments = @(
     @{
         Id       = "community-release"
         Mode     = "community"
-        Version  = "1.14.2"
+        Version  = "1.15.0"
         Override = "compose_release.yaml"
         Env      = "env_release.env"
     },
