@@ -35,7 +35,7 @@ Describe "Get-DifySystemModel" -Tag "systemmodel" {
             @{
                 Type     = "llm"
                 Provider = "openai"
-                Name     = "gpt-4o-mini"
+                Name     = "gpt-5.6-luna"
             },
             @{
                 Type     = "text-embedding"

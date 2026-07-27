@@ -32,7 +32,7 @@ Describe "Get-DifyApp" -Tag "app" {
         $null = New-DifyModel -Provider "openai" -From "predefined" -Credential @{
             "openai_api_key" = $env:PSDIFY_TEST_OPENAI_KEY
         }
-        $null = Set-DifySystemModel -Type "llm" -Provider "openai" -Name "gpt-4o-mini"
+        $null = Set-DifySystemModel -Type "llm" -Provider "openai" -Name "gpt-5.6-luna"
         $null = Set-DifySystemModel -Type "text-embedding" -Provider "openai" -Name "text-embedding-3-small"
 
         $TestKnowledge = New-DifyKnowledge -Name "Test Knowledge"
