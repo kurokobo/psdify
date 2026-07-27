@@ -68,7 +68,7 @@ model_config:
     completion_params:
       stop: []
     mode: chat
-    name: gpt-4o-mini
+    name: gpt-5.6-luna
     provider: openai
   more_like_this:
     enabled: false

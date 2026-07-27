@@ -522,7 +522,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
           <maml:name>Server</maml:name>
           <maml:description>
             <maml:para>Specifies the server URL to connect to. If not specified, the default value is `https://cloud.dify.ai`.</maml:para>
-            <maml:para>This also can be set using the environment variable `$env:PSDIFY_URL`.</maml:para>
+            <maml:para>This also can be set using the environment variable `$env:PSDIFY_URL`. If both are provided, the argument takes priority.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -539,7 +539,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
             <maml:para>- `Code`: Authenticate using an email and a code sent via email.</maml:para>
             <maml:para>- `AccessToken`: Authenticate using a pre-obtained access token and CSRF token. Requires Dify 1.9.2 or later.</maml:para>
             <maml:para></maml:para>
-            <maml:para>This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`. The default value is `Password`.</maml:para>
+            <maml:para>This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`. If both are provided, the argument takes priority. The default value is `Password`.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -552,7 +552,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
           <maml:name>Email</maml:name>
           <maml:description>
             <maml:para>Specifies the email address to use for authentication. This is required for both password-based and email-based code authentication methods.</maml:para>
-            <maml:para>This also can be set using the environment variable `$env:PSDIFY_EMAIL`.</maml:para>
+            <maml:para>This also can be set using the environment variable `$env:PSDIFY_EMAIL`. If both are provided, the argument takes priority.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -589,7 +589,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
           <maml:name>Password</maml:name>
           <maml:description>
             <maml:para>Specifies the password to use for password-based authentication. This parameter accepts a secure string.</maml:para>
-            <maml:para>This also can be set using the environment variable `$env:PSDIFY_PASSWORD`.</maml:para>
+            <maml:para>This also can be set using the environment variable `$env:PSDIFY_PASSWORD`. If both are provided, the argument takes priority.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
           <dev:type>
@@ -602,7 +602,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
           <maml:name>AccessToken</maml:name>
           <maml:description>
             <maml:para>Specifies the access token for access token authentication. This parameter accepts a secure string.</maml:para>
-            <maml:para>This also can be set using the environment variable `$env:PSDIFY_ACCESS_TOKEN`.</maml:para>
+            <maml:para>This also can be set using the environment variable `$env:PSDIFY_ACCESS_TOKEN`. If both are provided, the argument takes priority.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
           <dev:type>
@@ -615,7 +615,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
           <maml:name>CSRFToken</maml:name>
           <maml:description>
             <maml:para>Specifies the CSRF token for access token authentication. This parameter accepts a secure string.</maml:para>
-            <maml:para>This also can be set using the environment variable `$env:PSDIFY_CSRF_TOKEN`.</maml:para>
+            <maml:para>This also can be set using the environment variable `$env:PSDIFY_CSRF_TOKEN`. If both are provided, the argument takes priority.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
           <dev:type>
@@ -642,7 +642,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
         <maml:name>AccessToken</maml:name>
         <maml:description>
           <maml:para>Specifies the access token for access token authentication. This parameter accepts a secure string.</maml:para>
-          <maml:para>This also can be set using the environment variable `$env:PSDIFY_ACCESS_TOKEN`.</maml:para>
+          <maml:para>This also can be set using the environment variable `$env:PSDIFY_ACCESS_TOKEN`. If both are provided, the argument takes priority.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
         <dev:type>
@@ -659,7 +659,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
           <maml:para>- `Code`: Authenticate using an email and a code sent via email.</maml:para>
           <maml:para>- `AccessToken`: Authenticate using a pre-obtained access token and CSRF token. Requires Dify 1.9.2 or later.</maml:para>
           <maml:para></maml:para>
-          <maml:para>This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`. The default value is `Password`.</maml:para>
+          <maml:para>This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`. If both are provided, the argument takes priority. The default value is `Password`.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -684,7 +684,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
         <maml:name>CSRFToken</maml:name>
         <maml:description>
           <maml:para>Specifies the CSRF token for access token authentication. This parameter accepts a secure string.</maml:para>
-          <maml:para>This also can be set using the environment variable `$env:PSDIFY_CSRF_TOKEN`.</maml:para>
+          <maml:para>This also can be set using the environment variable `$env:PSDIFY_CSRF_TOKEN`. If both are provided, the argument takes priority.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
         <dev:type>
@@ -697,7 +697,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
         <maml:name>Email</maml:name>
         <maml:description>
           <maml:para>Specifies the email address to use for authentication. This is required for both password-based and email-based code authentication methods.</maml:para>
-          <maml:para>This also can be set using the environment variable `$env:PSDIFY_EMAIL`.</maml:para>
+          <maml:para>This also can be set using the environment variable `$env:PSDIFY_EMAIL`. If both are provided, the argument takes priority.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -722,7 +722,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
         <maml:name>Password</maml:name>
         <maml:description>
           <maml:para>Specifies the password to use for password-based authentication. This parameter accepts a secure string.</maml:para>
-          <maml:para>This also can be set using the environment variable `$env:PSDIFY_PASSWORD`.</maml:para>
+          <maml:para>This also can be set using the environment variable `$env:PSDIFY_PASSWORD`. If both are provided, the argument takes priority.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
         <dev:type>
@@ -735,7 +735,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
         <maml:name>Server</maml:name>
         <maml:description>
           <maml:para>Specifies the server URL to connect to. If not specified, the default value is `https://cloud.dify.ai`.</maml:para>
-          <maml:para>This also can be set using the environment variable `$env:PSDIFY_URL`.</maml:para>
+          <maml:para>This also can be set using the environment variable `$env:PSDIFY_URL`. If both are provided, the argument takes priority.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1519,9 +1519,32 @@ Export-DifyApp -App $AppsToBeExported</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Detail</maml:name>
+          <maml:description>
+            <maml:para>When specified, retrieves detailed information for each app by making an additional API request per app. The returned objects include additional fields for the app icon, WebApp (Site) configuration, API access status, and related URLs.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Detail</maml:name>
+        <maml:description>
+          <maml:para>When specified, retrieves detailed information for each app by making an additional API request per app. The returned objects include additional fields for the app icon, WebApp (Site) configuration, API access status, and related URLs.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Id</maml:name>
         <maml:description>
@@ -1656,6 +1679,20 @@ Export-DifyApp -App $AppsToBeExported</dev:code>
         <dev:code>Get-DifyApp -Name "..." -Mode "chat"</dev:code>
         <dev:remarks>
           <maml:para>Combine filters to get apps by name and mode.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 8 --------------------------</maml:title>
+        <dev:code>Get-DifyApp -Detail</dev:code>
+        <dev:remarks>
+          <maml:para>Get all apps with detailed information including WebApp (Site) and API settings. This requires an additional API request per app.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 9 --------------------------</maml:title>
+        <dev:code>Get-DifyApp -Name "..." -Detail</dev:code>
+        <dev:remarks>
+          <maml:para>Get a specific app with detailed information.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -4352,7 +4389,7 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Server</maml:name>
           <maml:description>
-            <maml:para>Specifies the server URL for the Dify instance. If not provided, the `$env:PSDIFY_URL` environment variable will be used.</maml:para>
+            <maml:para>Specifies the server URL for the Dify instance. If not provided, the `$env:PSDIFY_URL` environment variable will be used. If both are provided, the argument takes priority.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4367,7 +4404,7 @@ Get-DifyPluginInstallationStatus -TaskInfo $TaskInfo</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Server</maml:name>
         <maml:description>
-          <maml:para>Specifies the server URL for the Dify instance. If not provided, the `$env:PSDIFY_URL` environment variable will be used.</maml:para>
+          <maml:para>Specifies the server URL for the Dify instance. If not provided, the `$env:PSDIFY_URL` environment variable will be used. If both are provided, the argument takes priority.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -4799,7 +4836,8 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Server</maml:name>
           <maml:description>
-            <maml:para>Specifies the server URL of the Dify instance to be initialized. Defaults to &lt;https://cloud.dify.ai&gt; if not specified.</maml:para>
+            <maml:para>Specifies the server URL of the Dify instance to be initialized. Required; throws an error if neither this parameter nor `$env:PSDIFY_URL` is provided.</maml:para>
+            <maml:para>This also can be set using the environment variable `$env:PSDIFY_URL`. If both are provided, the argument takes priority.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4812,6 +4850,7 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
           <maml:name>Email</maml:name>
           <maml:description>
             <maml:para>Specifies the email address to be used for creating the admin account.</maml:para>
+            <maml:para>This also can be set using the environment variable `$env:PSDIFY_EMAIL`. If both are provided, the argument takes priority.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4836,6 +4875,7 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
           <maml:name>InitPassword</maml:name>
           <maml:description>
             <maml:para>Specifies the initial setup password required to initialize the Dify instance. Typically used only for the Community Edition.</maml:para>
+            <maml:para>This also can be set using the environment variable `$env:PSDIFY_INIT_PASSWORD`. If both are provided, the argument takes priority.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
           <dev:type>
@@ -4848,6 +4888,7 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
           <maml:name>Password</maml:name>
           <maml:description>
             <maml:para>Specifies the password to be used for the admin account. If not provided, you will be prompted to enter it manually.</maml:para>
+            <maml:para>This also can be set using the environment variable `$env:PSDIFY_PASSWORD`. If both are provided, the argument takes priority.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
           <dev:type>
@@ -4863,6 +4904,7 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
         <maml:name>Email</maml:name>
         <maml:description>
           <maml:para>Specifies the email address to be used for creating the admin account.</maml:para>
+          <maml:para>This also can be set using the environment variable `$env:PSDIFY_EMAIL`. If both are provided, the argument takes priority.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -4875,6 +4917,7 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
         <maml:name>InitPassword</maml:name>
         <maml:description>
           <maml:para>Specifies the initial setup password required to initialize the Dify instance. Typically used only for the Community Edition.</maml:para>
+          <maml:para>This also can be set using the environment variable `$env:PSDIFY_INIT_PASSWORD`. If both are provided, the argument takes priority.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
         <dev:type>
@@ -4899,6 +4942,7 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
         <maml:name>Password</maml:name>
         <maml:description>
           <maml:para>Specifies the password to be used for the admin account. If not provided, you will be prompted to enter it manually.</maml:para>
+          <maml:para>This also can be set using the environment variable `$env:PSDIFY_PASSWORD`. If both are provided, the argument takes priority.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">SecureString</command:parameterValue>
         <dev:type>
@@ -4910,7 +4954,8 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Server</maml:name>
         <maml:description>
-          <maml:para>Specifies the server URL of the Dify instance to be initialized. Defaults to &lt;https://cloud.dify.ai&gt; if not specified.</maml:para>
+          <maml:para>Specifies the server URL of the Dify instance to be initialized. Required; throws an error if neither this parameter nor `$env:PSDIFY_URL` is provided.</maml:para>
+          <maml:para>This also can be set using the environment variable `$env:PSDIFY_URL`. If both are provided, the argument takes priority.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -4944,7 +4989,7 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
       <maml:alert>
         <maml:para>- This cmdlet is only applicable for the Community Edition of Dify.</maml:para>
         <maml:para>- Ensure that the `Server` parameter points to the correct Dify instance URL.</maml:para>
-        <maml:para>- You can use environment variables (`$env:PSDIFY_URL`, `$env:PSDIFY_EMAIL`, etc.) to simplify cmdlet arguments.</maml:para>
+        <maml:para>- You can use environment variables (`$env:PSDIFY_URL`, `$env:PSDIFY_EMAIL`, `$env:PSDIFY_INIT_PASSWORD`, `$env:PSDIFY_PASSWORD`) to simplify cmdlet arguments. If both an argument and an environment variable are provided, the argument takes priority.</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -7912,6 +7957,707 @@ $env:PSDIFY_APP_TOKEN = "app-****************"</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Set-DifyApp</command:name>
+      <command:verb>Set</command:verb>
+      <command:noun>DifyApp</command:noun>
+      <maml:description>
+        <maml:para>Update basic settings of an app.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `Set-DifyApp` cmdlet updates basic settings of an app, such as its name, description, and icon. It accepts app objects from the pipeline, typically from `Get-DifyApp`.</maml:para>
+      <maml:para>When `-SyncFromSite` is specified, the app's name, description, and icon are updated to match the current WebApp (Site) settings. This switch cannot be combined with other parameters.</maml:para>
+      <maml:para>If icon-related parameters (`-Icon`, `-IconType`, `-IconBackground`) are omitted, the existing values are preserved.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Set-DifyApp</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>App</maml:name>
+          <maml:description>
+            <maml:para>Specifies the app objects to update. This parameter accepts pipeline input from `Get-DifyApp`.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSObject[]</command:parameterValue>
+          <dev:type>
+            <maml:name>PSObject[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Specifies the new name for the app. If omitted, the existing name is preserved.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>Description</maml:name>
+          <maml:description>
+            <maml:para>Specifies the new description for the app. If omitted, the existing description is preserved.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>Icon</maml:name>
+          <maml:description>
+            <maml:para>Specifies the icon for the app. Accepts an emoji-mart short name (e.g., `"robot"`, `"smile"`) or a native emoji character (e.g., `"🤖"`). If omitted, the existing icon is preserved.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+          <maml:name>IconType</maml:name>
+          <maml:description>
+            <maml:para>Specifies the icon type. Use `"emoji"` when specifying an emoji icon. If omitted, the existing icon type is preserved.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+          <maml:name>IconBackground</maml:name>
+          <maml:description>
+            <maml:para>Specifies the background color for the app icon in hex format (e.g., `"#FFEAD5"`). If omitted, the existing background color is preserved.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SyncFromSite</maml:name>
+          <maml:description>
+            <maml:para>When specified, updates the app's name, description, and icon to match the current WebApp (Site) settings. Cannot be combined with `-Name`, `-Description`, `-Icon`, `-IconType`, or `-IconBackground`.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>App</maml:name>
+        <maml:description>
+          <maml:para>Specifies the app objects to update. This parameter accepts pipeline input from `Get-DifyApp`.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PSObject[]</command:parameterValue>
+        <dev:type>
+          <maml:name>PSObject[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>Description</maml:name>
+        <maml:description>
+          <maml:para>Specifies the new description for the app. If omitted, the existing description is preserved.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>Icon</maml:name>
+        <maml:description>
+          <maml:para>Specifies the icon for the app. Accepts an emoji-mart short name (e.g., `"robot"`, `"smile"`) or a native emoji character (e.g., `"🤖"`). If omitted, the existing icon is preserved.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+        <maml:name>IconBackground</maml:name>
+        <maml:description>
+          <maml:para>Specifies the background color for the app icon in hex format (e.g., `"#FFEAD5"`). If omitted, the existing background color is preserved.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+        <maml:name>IconType</maml:name>
+        <maml:description>
+          <maml:para>Specifies the icon type. Use `"emoji"` when specifying an emoji icon. If omitted, the existing icon type is preserved.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Specifies the new name for the app. If omitted, the existing name is preserved.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SyncFromSite</maml:name>
+        <maml:description>
+          <maml:para>When specified, updates the app's name, description, and icon to match the current WebApp (Site) settings. Cannot be combined with `-Name`, `-Description`, `-Icon`, `-IconType`, or `-IconBackground`.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Management.Automation.PSObject[]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-DifyApp -Name "My App" | Set-DifyApp -Name "New Name"</dev:code>
+        <dev:remarks>
+          <maml:para>Rename an app.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>Get-DifyApp -Name "My App" | Set-DifyApp -Description "New description"</dev:code>
+        <dev:remarks>
+          <maml:para>Update the description of an app.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>Get-DifyApp -Name "My App" | Set-DifyApp -Icon "robot" -IconType "emoji"</dev:code>
+        <dev:remarks>
+          <maml:para>Update the icon of an app. The `-Icon` parameter accepts an emoji-mart short name (e.g., `"robot"`) or a native emoji character (e.g., `"🤖"`).</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>Get-DifyApp | Set-DifyApp -SyncFromSite</dev:code>
+        <dev:remarks>
+          <maml:para>Sync all apps' name, description, and icon from their respective WebApp (Site) settings.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Set-DifyAppAPI</command:name>
+      <command:verb>Set</command:verb>
+      <command:noun>DifyAppAPI</command:noun>
+      <maml:description>
+        <maml:para>Enable or disable API access for an app.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `Set-DifyAppAPI` cmdlet enables or disables API access for an app. Either `-Enable` or `-Disable` must be specified; they cannot be combined with each other.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Set-DifyAppAPI</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>App</maml:name>
+          <maml:description>
+            <maml:para>Specifies the app objects to update. This parameter accepts pipeline input from `Get-DifyApp`.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSObject[]</command:parameterValue>
+          <dev:type>
+            <maml:name>PSObject[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Disable</maml:name>
+          <maml:description>
+            <maml:para>Disables API access for the app. Cannot be combined with `-Enable`.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Enable</maml:name>
+          <maml:description>
+            <maml:para>Enables API access for the app. Cannot be combined with `-Disable`.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>App</maml:name>
+        <maml:description>
+          <maml:para>Specifies the app objects to update. This parameter accepts pipeline input from `Get-DifyApp`.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PSObject[]</command:parameterValue>
+        <dev:type>
+          <maml:name>PSObject[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Disable</maml:name>
+        <maml:description>
+          <maml:para>Disables API access for the app. Cannot be combined with `-Enable`.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Enable</maml:name>
+        <maml:description>
+          <maml:para>Enables API access for the app. Cannot be combined with `-Disable`.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Management.Automation.PSObject[]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-DifyApp -Name "My App" | Set-DifyAppAPI -Enable</dev:code>
+        <dev:remarks>
+          <maml:para>Enable API access for the specified app.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>Get-DifyApp | Set-DifyAppAPI -Disable</dev:code>
+        <dev:remarks>
+          <maml:para>Disable API access for all apps.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Set-DifyAppSite</command:name>
+      <command:verb>Set</command:verb>
+      <command:noun>DifyAppSite</command:noun>
+      <maml:description>
+        <maml:para>Update WebApp (Site) settings or enable/disable WebApp access for an app.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `Set-DifyAppSite` cmdlet updates the WebApp (Site) settings for an app. It can enable or disable WebApp access, update configuration such as title, description, icon, and language, or sync settings from the app itself.</maml:para>
+      <maml:para>At least one parameter must be specified. `-SyncFromApp` cannot be combined with any other parameter. `-Enable` and `-Disable` cannot be combined with each other, but either can be combined with other settings parameters.</maml:para>
+      <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Set-DifyAppSite</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>App</maml:name>
+          <maml:description>
+            <maml:para>Specifies the app objects to update. This parameter accepts pipeline input from `Get-DifyApp`.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">PSObject[]</command:parameterValue>
+          <dev:type>
+            <maml:name>PSObject[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Title</maml:name>
+          <maml:description>
+            <maml:para>Specifies the title shown on the WebApp page.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>Description</maml:name>
+          <maml:description>
+            <maml:para>Specifies the new description shown on the WebApp page.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>Icon</maml:name>
+          <maml:description>
+            <maml:para>Specifies the icon shown on the WebApp page. Accepts an emoji-mart short name (e.g., `"robot"`, `"smile"`) or a native emoji character (e.g., `"🤖"`).</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+          <maml:name>IconType</maml:name>
+          <maml:description>
+            <maml:para>Specifies the icon type for the WebApp. Use `"emoji"` when specifying an emoji icon.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+          <maml:name>IconBackground</maml:name>
+          <maml:description>
+            <maml:para>Specifies the background color for the WebApp icon in hex format (e.g., `"#FFEAD5"`).</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
+          <maml:name>Language</maml:name>
+          <maml:description>
+            <maml:para>Specifies the default language for the WebApp. For example, `"en-US"` or `"ja-JP"`.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Disable</maml:name>
+          <maml:description>
+            <maml:para>Disables WebApp access for the app. Cannot be combined with `-Enable` or `-SyncFromApp`.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Enable</maml:name>
+          <maml:description>
+            <maml:para>Enables WebApp access for the app. Cannot be combined with `-Disable` or `-SyncFromApp`.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SyncFromApp</maml:name>
+          <maml:description>
+            <maml:para>When specified, updates the WebApp title, description, and icon to match the current app settings. Cannot be combined with any other parameter.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>App</maml:name>
+        <maml:description>
+          <maml:para>Specifies the app objects to update. This parameter accepts pipeline input from `Get-DifyApp`.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PSObject[]</command:parameterValue>
+        <dev:type>
+          <maml:name>PSObject[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>Description</maml:name>
+        <maml:description>
+          <maml:para>Specifies the new description shown on the WebApp page.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Disable</maml:name>
+        <maml:description>
+          <maml:para>Disables WebApp access for the app. Cannot be combined with `-Enable` or `-SyncFromApp`.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Enable</maml:name>
+        <maml:description>
+          <maml:para>Enables WebApp access for the app. Cannot be combined with `-Disable` or `-SyncFromApp`.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>Icon</maml:name>
+        <maml:description>
+          <maml:para>Specifies the icon shown on the WebApp page. Accepts an emoji-mart short name (e.g., `"robot"`, `"smile"`) or a native emoji character (e.g., `"🤖"`).</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+        <maml:name>IconBackground</maml:name>
+        <maml:description>
+          <maml:para>Specifies the background color for the WebApp icon in hex format (e.g., `"#FFEAD5"`).</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+        <maml:name>IconType</maml:name>
+        <maml:description>
+          <maml:para>Specifies the icon type for the WebApp. Use `"emoji"` when specifying an emoji icon.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
+        <maml:name>Language</maml:name>
+        <maml:description>
+          <maml:para>Specifies the default language for the WebApp. For example, `"en-US"` or `"ja-JP"`.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SyncFromApp</maml:name>
+        <maml:description>
+          <maml:para>When specified, updates the WebApp title, description, and icon to match the current app settings. Cannot be combined with any other parameter.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Title</maml:name>
+        <maml:description>
+          <maml:para>Specifies the title shown on the WebApp page.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Management.Automation.PSObject[]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>Get-DifyApp -Name "My App" | Set-DifyAppSite -Enable</dev:code>
+        <dev:remarks>
+          <maml:para>Enable WebApp access for the specified app.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>Get-DifyApp | Set-DifyAppSite -Disable</dev:code>
+        <dev:remarks>
+          <maml:para>Disable WebApp access for all apps.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>Get-DifyApp -Name "My App" | Set-DifyAppSite -Title "My App" -Language "ja-JP"</dev:code>
+        <dev:remarks>
+          <maml:para>Update the WebApp title and default language for the specified app.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>Get-DifyApp -Name "My App" | Set-DifyAppSite -Enable -Title "My App"</dev:code>
+        <dev:remarks>
+          <maml:para>Enable WebApp access and update the title in a single operation.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>Get-DifyApp | Set-DifyAppSite -SyncFromApp</dev:code>
+        <dev:remarks>
+          <maml:para>Sync all apps' WebApp title, description, and icon from the respective app settings.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Set-DifyAppTrace</command:name>
       <command:verb>Set</command:verb>
       <command:noun>DifyAppTrace</command:noun>
@@ -9116,7 +9862,7 @@ Set-DifySystemModel -Model $SystemModelToBeChanged</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Server</maml:name>
           <maml:description>
-            <maml:para>Specifies the URL of the Dify server to check. If the `$env:PSDIFY_URL` environment variable is set, this parameter is optional.</maml:para>
+            <maml:para>Specifies the URL of the Dify server to check. If not provided, the `$env:PSDIFY_URL` environment variable will be used. If both are provided, the argument takes priority.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -9167,7 +9913,7 @@ Set-DifySystemModel -Model $SystemModelToBeChanged</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Server</maml:name>
         <maml:description>
-          <maml:para>Specifies the URL of the Dify server to check. If the `$env:PSDIFY_URL` environment variable is set, this parameter is optional.</maml:para>
+          <maml:para>Specifies the URL of the Dify server to check. If not provided, the `$env:PSDIFY_URL` environment variable will be used. If both are provided, the argument takes priority.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>

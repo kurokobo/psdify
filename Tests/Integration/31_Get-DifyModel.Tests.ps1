@@ -57,23 +57,23 @@ Describe "Get-DifyModel" -Tag "model" {
         }
 
         It "should add new customizable models" {
-            $Models = New-DifyModel -Provider "openai" -From "customizable" -Type "llm" -Name "gpt-4o-mini" -Credential @{
+            $Models = New-DifyModel -Provider "openai" -From "customizable" -Type "llm" -Name "gpt-5.6-luna" -Credential @{
                 "openai_api_key" = $env:PSDIFY_TEST_OPENAI_KEY
             }
 
             @($Models).Count | Should -Be 1
             $Models.Provider | Should -Match "openai|langgenius/openai/openai"
-            $Models.Model | Should -Be "gpt-4o-mini"
+            $Models.Model | Should -Be "gpt-5.6-luna"
             $Models.Type | Should -Be  "llm"
             $Models.FetchFrom | Should -Be "customizable-model"
         }
 
         It "should add more customizable models" {
             if (Compare-SimpleVersion -Version $env:PSDIFY_VERSION -Ge "1.8.0") {
-                $Models = New-DifyModel -Provider "openai" -From "customizable" -Type "llm" -Name "gpt-4o-mini" -Credential @{
+                $Models = New-DifyModel -Provider "openai" -From "customizable" -Type "llm" -Name "gpt-5.6-luna" -Credential @{
                     "openai_api_key" = $env:PSDIFY_TEST_OPENAI_KEY
                 }
-                $ProviderCredentials = Get-DifyModelProviderCredential -Provider "langgenius/openai/openai" -Name "gpt-4o-mini" -Type "llm" -From "customizable"
+                $ProviderCredentials = Get-DifyModelProviderCredential -Provider "langgenius/openai/openai" -Name "gpt-5.6-luna" -Type "llm" -From "customizable"
 
                 @($Models).Count | Should -Be 1
                 @($ProviderCredentials).Count | Should -Be 2
@@ -99,11 +99,11 @@ Describe "Get-DifyModel" -Tag "model" {
         }
 
         It "should get models by name" {
-            $Models = Get-DifyModel -Provider "openai" -Name "o4-mini"
+            $Models = Get-DifyModel -Provider "openai" -Name "gpt-5.6-luna" -From "predefined"
 
             @($Models).Count | Should -Be 1
             $Models.Provider | Should -Match "openai|langgenius/openai/openai"
-            $Models.Model | Should -Be "o4-mini"
+            $Models.Model | Should -Be "gpt-5.6-luna"
             $Models.Type | Should -Be  "llm"
             $Models.FetchFrom | Should -Be "predefined-model"
         }

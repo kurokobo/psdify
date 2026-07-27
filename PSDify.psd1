@@ -1,6 +1,6 @@
 @{
     RootModule           = 'PSDify.psm1'
-    ModuleVersion        = '0.11.6'
+    ModuleVersion        = '0.12.0'
     CompatiblePSEditions = @('Core', 'Desktop')
     GUID                 = 'b791c4c0-ed46-4561-8713-5d4242e6bac7'
     Author               = 'kurokobo'
@@ -67,6 +67,9 @@
         'Get-DifyAppAPIKey',
         'New-DifyAppAPIKey',
         'Remove-DifyAppAPIKey',
+
+        'Set-DifyAppSite',        'Set-DifyAppAPI',
+        'Set-DifyApp',
 
         'Get-DifyAppTrace',
         'Get-DifyAppTraceConfig',
