@@ -25,7 +25,7 @@ For a full list of available cmdlets, refer to the [📚Documentation](https://k
 
 ## Tested Environments
 
-The latest tested Dify version is **1.14.2**.
+The latest tested Dify version is **1.15.0**.
 
 !!! note
 
@@ -147,7 +147,7 @@ Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -Na
 
 !!! note
 
-    PSDify Helper has been submitted to the Chrome Web Store and is currently **pending review**. See the [📚Documentation](https://kurokobo.github.io/psdify/extension/) for installation and usage instructions.
+    PSDify Helper is available on the [Chrome Web Store](https://chromewebstore.google.com/detail/psdify-helper/ilhdadmkkcheoojjemdbklgelnaikhfp). It is also compatible with Microsoft Edge. See the [📚Documentation](https://kurokobo.github.io/psdify/extension/helper/) for installation and usage instructions.
 
 Right-click any Dify console page to open the **PSDify** submenu:
 
@@ -166,3 +166,5 @@ Right-click any Dify console page to open the **PSDify** submenu:
 - **Copy CSRF Token** — Copies the raw CSRF token.
 
 The extension works with `cloud.dify.ai` out of the box. Self-hosted instances can be added from the extension's options page.
+
+The extension reads session cookies solely to copy them to the clipboard upon your request. No data is transmitted to any server or stored locally.
