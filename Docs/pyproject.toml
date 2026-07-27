@@ -3,9 +3,8 @@ name = "docs"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
-    "mkdocs-material",
+    "zensical",
 ]
 
 [tool.uv]
 exclude-newer = "1 week"
-exclude-newer-package = { pygments = "5 days" }

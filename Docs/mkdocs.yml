@@ -18,16 +18,6 @@ theme:
     - navigation.sections
     - navigation.path
 
-markdown_extensions:
-  - admonition
-  - pymdownx.highlight:
-      anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
-  - pymdownx.superfences
-
 extra:
   search:
     language: "en, ja"
@@ -51,15 +41,19 @@ nav:
           - Basic:
               - cmdlets/Get-DifyApp.md
               - cmdlets/Remove-DifyApp.md
+              - cmdlets/Set-DifyApp.md
+          - WebApp (Site):
+              - cmdlets/Set-DifyAppSite.md
           - DSL File:
               - cmdlets/Import-DifyApp.md
               - cmdlets/Export-DifyApp.md
               - cmdlets/Get-DifyDSLContent.md
               - cmdlets/Set-DifyDSLContent.md
-          - API Key:
+          - API:
               - cmdlets/Get-DifyAppAPIKey.md
               - cmdlets/New-DifyAppAPIKey.md
               - cmdlets/Remove-DifyAppAPIKey.md
+              - cmdlets/Set-DifyAppAPI.md
           - Tracing:
               - cmdlets/Get-DifyAppTrace.md
               - cmdlets/Set-DifyAppTrace.md
