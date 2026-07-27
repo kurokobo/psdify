@@ -19,7 +19,7 @@ Retrieve app information from Dify.
 
 ```powershell
 Get-DifyApp [[-Id] <String>] [[-Name] <String>] [[-Search] <String>] [[-Mode] <String>] [[-Tags] <String[]>]
- [<CommonParameters>]
+ [-Detail] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -86,7 +86,39 @@ Get-DifyApp -Name "..." -Mode "chat"
 
 Combine filters to get apps by name and mode.
 
+### Example 8
+
+```powershell
+Get-DifyApp -Detail
+```
+
+Get all apps with detailed information including WebApp (Site) and API settings. This requires an additional API request per app.
+
+### Example 9
+
+```powershell
+Get-DifyApp -Name "..." -Detail
+```
+
+Get a specific app with detailed information.
+
 ## PARAMETERS
+
+### -Detail
+
+When specified, retrieves detailed information for each app by making an additional API request per app. The returned objects include additional fields for the app icon, WebApp (Site) configuration, API access status, and related URLs.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Id
 

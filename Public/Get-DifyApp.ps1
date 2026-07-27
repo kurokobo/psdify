@@ -5,7 +5,8 @@ function Get-DifyApp {
         [String] $Name = "",
         [String] $Search = "",
         [String] $Mode = "",
-        [String[]] $Tags = @()
+        [String[]] $Tags = @(),
+        [Switch] $Detail
     )
 
     $ValidModes = @("chat", "workflow", "agent-chat", "channel", "all")
@@ -65,6 +66,28 @@ function Get-DifyApp {
                 UpdatedBy   = $UpdatedBy
                 UpdatedAt   = Convert-UnixTimeToLocalDateTime($App.updated_at)
                 Tags        = $AppTags
+            }
+            if ($Detail) {
+                $DetailEndpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/apps", $App.id)
+                try {
+                    $DetailResponse = Invoke-DifyRestMethod -Uri $DetailEndpoint -Method "GET" -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
+                }
+                catch {
+                    throw "Failed to obtain app details: $_"
+                }
+                Add-Member -InputObject $AppObject -NotePropertyName "Icon" -NotePropertyValue $DetailResponse.icon
+                Add-Member -InputObject $AppObject -NotePropertyName "IconType" -NotePropertyValue $DetailResponse.icon_type
+                Add-Member -InputObject $AppObject -NotePropertyName "IconBackground" -NotePropertyValue $DetailResponse.icon_background
+                Add-Member -InputObject $AppObject -NotePropertyName "EnableSite" -NotePropertyValue $DetailResponse.enable_site
+                Add-Member -InputObject $AppObject -NotePropertyName "EnableAPI" -NotePropertyValue $DetailResponse.enable_api
+                Add-Member -InputObject $AppObject -NotePropertyName "SiteToken" -NotePropertyValue $DetailResponse.site.access_token
+                Add-Member -InputObject $AppObject -NotePropertyName "SiteTitle" -NotePropertyValue $DetailResponse.site.title
+                Add-Member -InputObject $AppObject -NotePropertyName "SiteDescription" -NotePropertyValue $DetailResponse.site.description
+                Add-Member -InputObject $AppObject -NotePropertyName "SiteIcon" -NotePropertyValue $DetailResponse.site.icon
+                Add-Member -InputObject $AppObject -NotePropertyName "SiteIconType" -NotePropertyValue $DetailResponse.site.icon_type
+                Add-Member -InputObject $AppObject -NotePropertyName "SiteIconBackground" -NotePropertyValue $DetailResponse.site.icon_background
+                Add-Member -InputObject $AppObject -NotePropertyName "SiteLanguage" -NotePropertyValue $DetailResponse.site.default_language
+                Add-Member -InputObject $AppObject -NotePropertyName "APIBaseUrl" -NotePropertyValue $DetailResponse.api_base_url
             }
             if ($Id -and $AppObject.Id -eq $Id) {
                 return $AppObject
