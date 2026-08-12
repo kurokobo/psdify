@@ -508,11 +508,11 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
       <command:verb>Connect</command:verb>
       <command:noun>Dify</command:noun>
       <maml:description>
-        <maml:para>Authenticate with Dify using password, email-based login, or pre-obtained access token, enabling operations with other PSDify cmdlets.</maml:para>
+        <maml:para>Authenticate with Dify using password, pre-obtained access token, or email-based login enabling operations with other PSDify cmdlets.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The `Connect-Dify` cmdlet allows you to authenticate with a Dify server using various methods such as password-based login, email-based code authentication, or access token authentication. After successful authentication, some variables required for subsequent operations are set.</maml:para>
+      <maml:para>The `Connect-Dify` cmdlet allows you to authenticate with a Dify server using various methods such as password-based login, access token authentication, or email-based code authentication. After successful authentication, some variables required for subsequent operations are set.</maml:para>
       <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
@@ -536,7 +536,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
           <maml:description>
             <maml:para>Specifies the authentication method to use. Valid values are:</maml:para>
             <maml:para>- `Password`: Authenticate using an email and password.</maml:para>
-            <maml:para>- `Code`: Authenticate using an email and a code sent via email.</maml:para>
+            <maml:para>- `Code`: Authenticate using an email and a code sent via email. Not available on Dify Cloud (`cloud.dify.ai`) due to Cloudflare Turnstile verification requirements.</maml:para>
             <maml:para>- `AccessToken`: Authenticate using a pre-obtained access token and CSRF token. Requires Dify 1.9.2 or later.</maml:para>
             <maml:para></maml:para>
             <maml:para>This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`. If both are provided, the argument takes priority. The default value is `Password`.</maml:para>
@@ -656,7 +656,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
         <maml:description>
           <maml:para>Specifies the authentication method to use. Valid values are:</maml:para>
           <maml:para>- `Password`: Authenticate using an email and password.</maml:para>
-          <maml:para>- `Code`: Authenticate using an email and a code sent via email.</maml:para>
+          <maml:para>- `Code`: Authenticate using an email and a code sent via email. Not available on Dify Cloud (`cloud.dify.ai`) due to Cloudflare Turnstile verification requirements.</maml:para>
           <maml:para>- `AccessToken`: Authenticate using a pre-obtained access token and CSRF token. Requires Dify 1.9.2 or later.</maml:para>
           <maml:para></maml:para>
           <maml:para>This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`. If both are provided, the argument takes priority. The default value is `Password`.</maml:para>
@@ -790,15 +790,6 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>Connect-Dify -AuthMethod "Code" -Email "dify@example.com"</dev:code>
-        <dev:remarks>
-          <maml:para>Email authentication, mainly for the Dify Cloud Edition. Enter the code manually which will be sent to your email address after execution.</maml:para>
-          <maml:para>SSO-authenticated accounts can also log in via email authentication using the associated email address.</maml:para>
-          <maml:para>You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://cloud.dify.ai"`, `$env:PSDIFY_AUTH_METHOD = "Code"`, `$env:PSDIFY_EMAIL = "dify@example.com"`.</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>Connect-Dify -Server "https://dify.example.com" -Email "dify@example.com"</dev:code>
         <dev:remarks>
           <maml:para>Password authentication, mainly for the Dify Community Edition. Enter the password manually after execution.</maml:para>
@@ -807,7 +798,7 @@ Add-DifyDocument -Knowledge $Knowledge -Path "Docs/*.md" -Wait -Interval 10 -Tim
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>$DifyPassword = ConvertTo-SecureString -String "AwesomeDify123!" -AsPlainText -Force
 Connect-Dify -Server "https://dify.example.com" -Email "dify@example.com" -Password $DifyPassword</dev:code>
         <dev:remarks>
@@ -815,19 +806,29 @@ Connect-Dify -Server "https://dify.example.com" -Email "dify@example.com" -Passw
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>$AccessToken = ConvertTo-SecureString -String "eyJhbGci..." -AsPlainText -Force
 $CSRFToken = ConvertTo-SecureString -String "eyJhbGci..." -AsPlainText -Force
-Connect-Dify -Server "https://dify.example.com" -AuthMethod "AccessToken" -AccessToken $AccessToken -CSRFToken $CSRFToken</dev:code>
+Connect-Dify -Server "https://cloud.dify.ai" -AuthMethod "AccessToken" -AccessToken $AccessToken -CSRFToken $CSRFToken</dev:code>
         <dev:remarks>
-          <maml:para>Access token authentication using a pre-obtained access token and CSRF token. This method is available for Dify 1.9.2 or later, and is useful when you already have valid tokens (e.g., extracted from a browser session) and want to avoid re-authentication.</maml:para>
+          <maml:para>Access token authentication using a pre-obtained access token and CSRF token. This method is available for Dify 1.9.2 or later.</maml:para>
           <maml:para>This method is particularly useful in environments where password-based authentication is not available, such as:</maml:para>
+          <maml:para>- Dify Cloud Edition (`cloud.dify.ai`), where email code authentication is blocked by Cloudflare Turnstile and cannot be used outside of a browser.</maml:para>
           <maml:para>- Dify Enterprise Edition with SSO (Single Sign-On) enabled, where direct password login is not supported.</maml:para>
-          <maml:para>- Dify Cloud Edition, where only email-based code authentication is available interactively.</maml:para>
           <maml:para></maml:para>
-          <maml:para>In these cases, you can obtain the `access_token` and `csrf_token` from your browser's cookies after logging in manually, and pass them to this cmdlet.</maml:para>
-          <maml:para>You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://dify.example.com"`, `$env:PSDIFY_AUTH_METHOD = "AccessToken"`, `$env:PSDIFY_ACCESS_TOKEN = "eyJhbGci..."`, `$env:PSDIFY_CSRF_TOKEN = "eyJhbGci..."`.</maml:para>
-          <maml:para>The companion Chrome/Edge extension "PSDify Helper" can extract these tokens from your browser session and copy the complete login command to your clipboard with a single right-click - no developer tools needed. For details, refer to the "Browser Extension" page in the PSDify documentation.</maml:para>
+          <maml:para>The companion Chrome/Edge extension "PSDify Helper" can copy the complete login command to your clipboard with a single right-click after logging in to Dify in your browser. For details, refer to the "Browser Extension" page in the PSDify documentation.</maml:para>
+          <maml:para>Alternatively, you can obtain the `access_token` and `csrf_token` manually from your browser's cookies after logging in, and pass them to this cmdlet.</maml:para>
+          <maml:para>You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://cloud.dify.ai"`, `$env:PSDIFY_AUTH_METHOD = "AccessToken"`, `$env:PSDIFY_ACCESS_TOKEN = "eyJhbGci..."`, `$env:PSDIFY_CSRF_TOKEN = "eyJhbGci..."`.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>Connect-Dify -AuthMethod "Code" -Email "dify@example.com"</dev:code>
+        <dev:remarks>
+          <maml:para>Email authentication using a one-time code, mainly for self-hosted Dify instances where email code login is enabled.</maml:para>
+          <maml:para>NOTE: This method is not available on Dify Cloud (`cloud.dify.ai`). Dify Cloud requires Cloudflare Turnstile verification when requesting an email code, which cannot be completed outside of a browser. Use `-AuthMethod AccessToken` for Dify Cloud instead. The PSDify Helper browser extension makes this easy with a single right-click. See the "Browser Extension" page in the PSDify documentation for details.</maml:para>
+          <maml:para>SSO-authenticated accounts on self-hosted instances can also log in via email authentication using the associated email address.</maml:para>
+          <maml:para>You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://dify.example.com"`, `$env:PSDIFY_AUTH_METHOD = "Code"`, `$env:PSDIFY_EMAIL = "dify@example.com"`.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

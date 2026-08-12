@@ -13,7 +13,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Authenticate with Dify using password, email-based login, or pre-obtained access token, enabling operations with other PSDify cmdlets.
+Authenticate with Dify using password, pre-obtained access token, or email-based login enabling operations with other PSDify cmdlets.
 
 ## SYNTAX
 
@@ -25,25 +25,13 @@ Connect-Dify [[-Server] <String>] [[-AuthMethod] <String>] [[-Email] <String>] [
 
 ## DESCRIPTION
 
-The `Connect-Dify` cmdlet allows you to authenticate with a Dify server using various methods such as password-based login, email-based code authentication, or access token authentication. After successful authentication, some variables required for subsequent operations are set.
+The `Connect-Dify` cmdlet allows you to authenticate with a Dify server using various methods such as password-based login, access token authentication, or email-based code authentication. After successful authentication, some variables required for subsequent operations are set.
 
 NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
 ## EXAMPLES
 
 ### Example 1
-
-```powershell
-Connect-Dify -AuthMethod "Code" -Email "dify@example.com"
-```
-
-Email authentication, mainly for the Dify Cloud Edition. Enter the code manually which will be sent to your email address after execution.
-
-SSO-authenticated accounts can also log in via email authentication using the associated email address.
-
-You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://cloud.dify.ai"`, `$env:PSDIFY_AUTH_METHOD = "Code"`, `$env:PSDIFY_EMAIL = "dify@example.com"`.
-
-### Example 2
 
 ```powershell
 Connect-Dify -Server "https://dify.example.com" -Email "dify@example.com"
@@ -55,7 +43,7 @@ If using a self-signed certificate for HTTPS in the Community Edition, disable c
 
 You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://dify.example.com"`, `$env:PSDIFY_AUTH_METHOD = "Password"`, `$env:PSDIFY_EMAIL = "dify@example.com"`, `$env:PSDIFY_PASSWORD = "AwesomeDify123!"`.
 
-### Example 3
+### Example 2
 
 ```powershell
 $DifyPassword = ConvertTo-SecureString -String "AwesomeDify123!" -AsPlainText -Force
@@ -64,26 +52,41 @@ Connect-Dify -Server "https://dify.example.com" -Email "dify@example.com" -Passw
 
 Password authentication with predefined password.
 
-### Example 4
+### Example 3
 
 ```powershell
 $AccessToken = ConvertTo-SecureString -String "eyJhbGci..." -AsPlainText -Force
 $CSRFToken = ConvertTo-SecureString -String "eyJhbGci..." -AsPlainText -Force
-Connect-Dify -Server "https://dify.example.com" -AuthMethod "AccessToken" -AccessToken $AccessToken -CSRFToken $CSRFToken
+Connect-Dify -Server "https://cloud.dify.ai" -AuthMethod "AccessToken" -AccessToken $AccessToken -CSRFToken $CSRFToken
 ```
 
-Access token authentication using a pre-obtained access token and CSRF token. This method is available for Dify 1.9.2 or later, and is useful when you already have valid tokens (e.g., extracted from a browser session) and want to avoid re-authentication.
+Access token authentication using a pre-obtained access token and CSRF token. This method is available for Dify 1.9.2 or later.
 
 This method is particularly useful in environments where password-based authentication is not available, such as:
 
+- Dify Cloud Edition (`cloud.dify.ai`), where email code authentication is blocked by Cloudflare Turnstile and cannot be used outside of a browser.
 - Dify Enterprise Edition with SSO (Single Sign-On) enabled, where direct password login is not supported.
-- Dify Cloud Edition, where only email-based code authentication is available interactively.
 
-In these cases, you can obtain the `access_token` and `csrf_token` from your browser's cookies after logging in manually, and pass them to this cmdlet.
+The companion Chrome/Edge extension "PSDify Helper" can copy the complete login command to your clipboard with a single right-click after logging in to Dify in your browser. For details, refer to the "Browser Extension" page in the PSDify documentation.
 
-You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://dify.example.com"`, `$env:PSDIFY_AUTH_METHOD = "AccessToken"`, `$env:PSDIFY_ACCESS_TOKEN = "eyJhbGci..."`, `$env:PSDIFY_CSRF_TOKEN = "eyJhbGci..."`.
+Alternatively, you can obtain the `access_token` and `csrf_token` manually from your browser's cookies after logging in, and pass them to this cmdlet.
 
-The companion Chrome/Edge extension "PSDify Helper" can extract these tokens from your browser session and copy the complete login command to your clipboard with a single right-click - no developer tools needed. For details, refer to the "Browser Extension" page in the PSDify documentation.
+You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://cloud.dify.ai"`, `$env:PSDIFY_AUTH_METHOD = "AccessToken"`, `$env:PSDIFY_ACCESS_TOKEN = "eyJhbGci..."`, `$env:PSDIFY_CSRF_TOKEN = "eyJhbGci..."`.
+
+### Example 4
+
+```powershell
+Connect-Dify -AuthMethod "Code" -Email "dify@example.com"
+```
+
+Email authentication using a one-time code, mainly for self-hosted Dify instances where email code login is enabled.
+
+NOTE: This method is not available on Dify Cloud (`cloud.dify.ai`). Dify Cloud requires Cloudflare Turnstile verification when requesting an email code, which cannot be completed outside of a browser. Use `-AuthMethod AccessToken` for Dify Cloud instead.
+The PSDify Helper browser extension makes this easy with a single right-click. See the "Browser Extension" page in the PSDify documentation for details.
+
+SSO-authenticated accounts on self-hosted instances can also log in via email authentication using the associated email address.
+
+You can use following environment variables to simplify cmdlet arguments: `$env:PSDIFY_URL = "https://dify.example.com"`, `$env:PSDIFY_AUTH_METHOD = "Code"`, `$env:PSDIFY_EMAIL = "dify@example.com"`.
 
 ## PARAMETERS
 
@@ -110,7 +113,7 @@ Accept wildcard characters: False
 Specifies the authentication method to use. Valid values are:
 
 - `Password`: Authenticate using an email and password.
-- `Code`: Authenticate using an email and a code sent via email.
+- `Code`: Authenticate using an email and a code sent via email. Not available on Dify Cloud (`cloud.dify.ai`) due to Cloudflare Turnstile verification requirements.
 - `AccessToken`: Authenticate using a pre-obtained access token and CSRF token. Requires Dify 1.9.2 or later.
 
 This also can be set using the environment variable `$env:PSDIFY_AUTH_METHOD`. If both are provided, the argument takes priority. The default value is `Password`.

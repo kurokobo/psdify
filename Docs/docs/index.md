@@ -25,7 +25,7 @@ For a full list of available cmdlets, refer to the [📚Documentation](https://k
 
 ## Tested Environments
 
-The latest tested Dify version is **1.15.0**.
+The latest tested Dify version is **1.16.1**.
 
 !!! note
 
@@ -44,11 +44,24 @@ Install-Module -Name PSDify
 
 ### Connecting to Dify
 
+    [!TIP]
+
+    **For Dify Cloud Edition**, email code login is no longer available due to Cloudflare Turnstile.
+    Instead, use the **PSDify Helper** browser extension to copy a ready-to-paste `Connect-Dify` command with `-AuthMethod "AccessToken"` from your browser with a single right-click, without needing to extract tokens manually.
+    See the [Browser Extension](#browser-extension) section below.
+
 ```powershell
 # Authenticate with a password (for Community Edition)
 Connect-Dify -AuthMethod "Password" -Server "https://dify.example.com" -Email "dify@example.com"
 
-# Authenticate with a code (for Cloud Edition)
+# Authenticate with tokens (for Dify Cloud or Enterprise Edition)
+# The PSDify Helper browser extension can extract the tokens and construct the command for you with a single right-click.
+# See the "Browser Extension" section below for details.
+$AccessToken = ConvertTo-SecureString -String "eyJhbGci..." -AsPlainText -Force
+$CSRFToken = ConvertTo-SecureString -String "eyJhbGci..." -AsPlainText -Force
+Connect-Dify -AuthMethod "AccessToken" -Server "https://cloud.dify.ai" -AccessToken $AccessToken -CSRFToken $CSRFToken
+
+# Authenticate with a one-time code (for Enterprise Edition with Email Code Login enabled)
 Connect-Dify -AuthMethod "Code" -Server "https://dify.example.com" -Email "dify@example.com"
 ```
 
@@ -143,15 +156,17 @@ Initialize-Dify -Server "https://dify.example.com" -Email "dify@example.com" -Na
 
 ## Browser Extension
 
-**PSDify Helper** is a companion Chrome/Edge extension that copies a ready-to-paste `Connect-Dify` command from the Dify console — no manual token extraction needed.
+**PSDify Helper** is a companion Chrome/Edge extension that copies a ready-to-paste `Connect-Dify` command from the Dify console, without needing to extract tokens manually.
 
 !!! note
 
-    PSDify Helper is available on the [Chrome Web Store](https://chromewebstore.google.com/detail/psdify-helper/ilhdadmkkcheoojjemdbklgelnaikhfp). It is also compatible with Microsoft Edge. See the [📚Documentation](https://kurokobo.github.io/psdify/extension/helper/) for installation and usage instructions.
+    PSDify Helper is available on the [Chrome Web Store](https://chromewebstore.google.com/detail/psdify-helper/ilhdadmkkcheoojjemdbklgelnaikhfp).
+    It is also compatible with Microsoft Edge.
+    See the [📚Documentation](https://kurokobo.github.io/psdify/extension/helper/) for installation and usage instructions.
 
 Right-click any Dify console page to open the **PSDify** submenu:
 
-- **Copy Login Command** — Places the following on your clipboard:
+- **Copy Login Command**: Places the following on your clipboard:
 
   ```powershell
   Import-Module PSDify
@@ -162,8 +177,8 @@ Right-click any Dify console page to open the **PSDify** submenu:
   Connect-Dify
   ```
 
-- **Copy Access Token** — Copies the raw access token.
-- **Copy CSRF Token** — Copies the raw CSRF token.
+- **Copy Access Token**: Copies the raw access token.
+- **Copy CSRF Token**: Copies the raw CSRF token.
 
 The extension works with `cloud.dify.ai` out of the box. Self-hosted instances can be added from the extension's options page.
 

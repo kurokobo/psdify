@@ -136,6 +136,9 @@ function Connect-Dify {
                     }
                 }
                 catch {
+                    if ($_ -match "turnstile_verification_failed") {
+                        throw "Email code login is not supported on $($Server) because Cloudflare Turnstile verification is required. Use -AuthMethod AccessToken instead."
+                    }
                     throw "Failed to request the code to Dify on $($Server): $_"
                 }
 
