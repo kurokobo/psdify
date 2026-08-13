@@ -81,9 +81,9 @@ Describe "Connect-Dify" -Tag "auth" {
         }
     }
 
-    Context "Password authentication against Dify Cloud Edition" -Skip:($env:PSDIFY_TEST_MODE -ne "cloud") {
+    Context "Access token authentication against Dify Cloud Edition" -Skip:($env:PSDIFY_TEST_MODE -ne "cloud") {
         It "should connect Dify by arguments" {
-            $Result = Connect-Dify -Server $DefaultServer -Email $DefaultEmail -AuthMethod "Code"
+            $Result = Connect-Dify -Server $DefaultServer -AuthMethod "AccessToken" -AccessToken $DefaultAccessToken -CSRFToken $DefaultCSRFToken
 
             $Result.Server | Should -Be $DefaultServer
             $Result.Email | Should -Be $DefaultEmail
