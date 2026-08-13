@@ -40,6 +40,12 @@ switch ($env:PSDIFY_TEST_MODE) {
         if (-not $env:PSDIFY_TEST_EMAIL -and -not $env:PSDIFY_TEST_OVERRIDE_EMAIL) {
             throw "PSDIFY_TEST_EMAIL is required for cloud mode"
         }
+        if (-not $env:PSDIFY_TEST_ACCESS_TOKEN) {
+            throw "PSDIFY_TEST_ACCESS_TOKEN is required for cloud mode"
+        }
+        if (-not $env:PSDIFY_TEST_CSRF_TOKEN) {
+            throw "PSDIFY_TEST_CSRF_TOKEN is required for cloud mode"
+        }
     }
     default {
         throw "PSDIFY_TEST_MODE must be either community or cloud"
@@ -69,8 +75,10 @@ if ($env:PSDIFY_TEST_MODE -eq "community") {
 else {
     $DefaultServer = "https://cloud.dify.ai/"
     $DefaultAPIServer = "https://api.dify.ai/"
-    $DefaultAuthMethod = "Code"
+    $DefaultAuthMethod = "AccessToken"
     $DefaultEmail = $env:PSDIFY_TEST_EMAIL
+    $DefaultAccessToken = $env:PSDIFY_TEST_ACCESS_TOKEN | ConvertTo-SecureString -AsPlainText -Force
+    $DefaultCSRFToken = $env:PSDIFY_TEST_CSRF_TOKEN | ConvertTo-SecureString -AsPlainText -Force
 }
 
 # handle overrides
@@ -106,4 +114,13 @@ Write-Host " Mode       : $env:PSDIFY_TEST_MODE" -ForegroundColor Cyan
 Write-Host " Server     : $DefaultServer" -ForegroundColor Cyan
 if ($env:PSDIFY_TEST_MODE -eq "community") {
     Write-Host " Version    : $env:PSDIFY_TEST_VERSION" -ForegroundColor Cyan
+}
+
+function Connect-DifyTest {
+    if ($env:PSDIFY_TEST_MODE -eq "cloud") {
+        Connect-Dify -Server $DefaultServer -AuthMethod "AccessToken" -AccessToken $DefaultAccessToken -CSRFToken $DefaultCSRFToken
+    }
+    else {
+        Connect-Dify -Server $DefaultServer -Email $DefaultEmail -Password $DefaultPassword -AuthMethod $DefaultAuthMethod
+    }
 }

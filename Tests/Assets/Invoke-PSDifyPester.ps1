@@ -14,14 +14,12 @@ $Environments = @(
         Mode      = "cloud"
         Server    = $env:PSDIFY_TEST_CLOUD_PROD_SERVER
         ApiServer = $env:PSDIFY_TEST_CLOUD_PROD_API_SERVER
-        Email     = $env:PSDIFY_TEST_CLOUD_PROD_EMAIL
     },
     @{
         Id        = "cloud-dev"
         Mode      = "cloud"
         Server    = $env:PSDIFY_TEST_CLOUD_DEV_SERVER
         ApiServer = $env:PSDIFY_TEST_CLOUD_DEV_API_SERVER
-        Email     = $env:PSDIFY_TEST_CLOUD_DEV_EMAIL
     },
     @{
         Id      = "community-release"

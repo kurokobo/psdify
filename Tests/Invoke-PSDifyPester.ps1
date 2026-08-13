@@ -14,7 +14,6 @@ $Environments = @(
         Mode      = "cloud"
         Server    = $env:PSDIFY_TEST_CLOUD_PROD_SERVER
         ApiServer = $env:PSDIFY_TEST_CLOUD_PROD_API_SERVER
-        Email     = $env:PSDIFY_TEST_CLOUD_PROD_EMAIL
     },
     @{
         Id      = "community-legacy"

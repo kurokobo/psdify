@@ -9,7 +9,7 @@ BeforeAll {
     . (Join-Path -Path (Split-Path -Path $PSScriptRoot) -ChildPath "Initialize-PSDifyPester.ps1")
 
     Start-DifyInstance -Path $env:PSDIFY_TEST_ROOT_DIFY -Version $env:PSDIFY_TEST_VERSION
-    Show-DifyConnectionStatus (Connect-Dify -Server $DefaultServer -Email $DefaultEmail -Password $DefaultPassword -AuthMethod $DefaultAuthMethod)
+    Show-DifyConnectionStatus (Connect-DifyTest)
 }
 
 Describe "Connection" -Tag "tool" {

@@ -1,7 +1,8 @@
 # For automated testing
 $env:PSDIFY_TEST_CLOUD_PROD_SERVER = "https://cloud.dify.ai/"
 $env:PSDIFY_TEST_CLOUD_PROD_API_SERVER = "https://api.dify.ai/"
-$env:PSDIFY_TEST_CLOUD_PROD_EMAIL = ""
+$env:PSDIFY_TEST_ACCESS_TOKEN = ""
+$env:PSDIFY_TEST_CSRF_TOKEN = ""
 
 # For manual testing
 ## Test mode: "community" or "cloud"
