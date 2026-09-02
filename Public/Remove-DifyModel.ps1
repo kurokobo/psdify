@@ -71,14 +71,25 @@ function Remove-DifyModel {
                     foreach ($Credential in $AvailableCredentials) {
                         $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/model-providers", $CustomizableModel.Provider, "/models/credentials")
                         $Method = "DELETE"
-                        $Body = @{
-                            "credential_id" = $Credential.CredentialId
-                            "model"         = $CustomizableModel.Model
-                            "model_type"    = $CustomizableModel.Type
-                        } | ConvertTo-Json -Depth 10
+                        if (Compare-SimpleVersion -Version $env:PSDIFY_VERSION -Ge "1.17.0") {
+                            $Query = @{
+                                "credential_id" = $Credential.CredentialId
+                                "model"         = $CustomizableModel.Model
+                                "model_type"    = $CustomizableModel.Type
+                            }
+                            $Body = $null
+                        }
+                        else {
+                            $Query = $null
+                            $Body = @{
+                                "credential_id" = $Credential.CredentialId
+                                "model"         = $CustomizableModel.Model
+                                "model_type"    = $CustomizableModel.Type
+                            } | ConvertTo-Json -Depth 10
+                        }
                         if ($PSCmdlet.ShouldProcess("$($Credential.CredentialName) on $($CustomizableModel.Model) of $($CustomizableModel.Provider)", "Remove Model Credential")) {
                             try {
-                                $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
+                                $null = Invoke-DifyRestMethod -Uri $Endpoint -Method $Method -Body $Body -Query $Query -SessionOrToken $script:PSDIFY_CONSOLE_AUTH
                             }
                             catch {
                                 throw "Failed to remove customizable model credential: $_"
