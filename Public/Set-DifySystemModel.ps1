@@ -49,6 +49,22 @@ function Set-DifySystemModel {
             )
         }
 
+        # Dify 1.18.0+ replaces all default models and deletes omitted types, so preserve the current settings
+        $RequestedTypes = @($Models | ForEach-Object { $_["model_type"] })
+        if (Compare-SimpleVersion -Version $env:PSDIFY_VERSION -Ge "1.18.0") {
+            $CurrentModels = Get-DifySystemModel
+            foreach ($CurrentModel in $CurrentModels) {
+                if ($CurrentModel.Type -in $RequestedTypes -or -not $CurrentModel.Provider -or -not $CurrentModel.Model) {
+                    continue
+                }
+                $Models += @{
+                    "model_type" = $CurrentModel.Type
+                    "provider"   = $CurrentModel.Provider
+                    "model"      = $CurrentModel.Model
+                }
+            }
+        }
+
         $Endpoint = Join-Url -Segments @($env:PSDIFY_URL, "/console/api/workspaces/current/default-model")
         $Method = "POST"
         $Body = @{
@@ -65,6 +81,6 @@ function Set-DifySystemModel {
             throw "Failed to set system model"
         }
 
-        return Get-DifySystemModel -Type @($Models.model_type | Sort-Object -Unique)
+        return Get-DifySystemModel -Type @($RequestedTypes | Sort-Object -Unique)
     }
 }

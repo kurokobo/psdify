@@ -25,7 +25,7 @@ For a full list of available cmdlets, refer to the [📚Documentation](https://k
 
 ## Tested Environments
 
-The latest tested Dify version is **1.17.0**.
+The latest tested Dify version is **1.18.0**.
 
 !!! note
 
