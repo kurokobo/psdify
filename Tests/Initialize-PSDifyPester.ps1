@@ -102,6 +102,11 @@ Get-ChildItem -Path $env:PSDIFY_TEST_ROOT_HELPER -Filter "*.ps1" | ForEach-Objec
     . $_.FullName
 }
 
+# retry requests rejected by the knowledge base rate limit of Dify Cloud
+if ($env:PSDIFY_TEST_MODE -eq "cloud") {
+    Enable-DifyRateLimitRetry
+}
+
 # if the environment seems to be already connected to different server, disconnect
 if ($env:PSDIFY_URL -and $script:PSDIFY_CONSOLE_AUTH -and ($env:PSDIFY_URL -ne $DefaultServer)) {
     Disconnect-Dify -Force

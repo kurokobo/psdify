@@ -51,7 +51,17 @@ Describe "Get-DifyDoument" -Tag "document" {
                 (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "document_test1.md"),
                 (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "document_test2.md")
             )
-            $Documents = Add-DifyDocument -Knowledge $TestKnowledge1 -Path $TestFiles
+            try {
+                $Documents = Add-DifyDocument -Knowledge $TestKnowledge1 -Path $TestFiles
+            }
+            catch {
+                # The Sandbox plan of Dify Cloud does not support batch upload, so add documents one by one instead
+                if ($env:PSDIFY_TEST_MODE -ne "cloud" -or "$_" -notmatch "does not support batch upload") {
+                    throw
+                }
+                Write-Host "Batch upload is not supported by the current plan, adding documents one by one" -ForegroundColor Yellow
+                $Documents = @($TestFiles | ForEach-Object { Add-DifyDocument -Knowledge $TestKnowledge1 -Path $_ })
+            }
 
             @($Documents).Count | Should -Be 2
             $Documents[0].Batch | Should -Not -BeNullOrEmpty

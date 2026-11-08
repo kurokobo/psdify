@@ -83,5 +83,31 @@ Describe "Get-DifySystemModel" -Tag "systemmodel" {
                 $SystemModel.Model | Should -Be $NewSystemModel.Name
             }
         }
+
+        It "should remove system model" {
+            if (Compare-SimpleVersion -Version $env:PSDIFY_VERSION -Ge "1.18.0") {
+                $SystemModel = Set-DifySystemModel -Type "tts" -Remove
+
+                $SystemModel.Type | Should -Be "tts"
+                $SystemModel.Provider | Should -BeNullOrEmpty
+                $SystemModel.Model | Should -BeNullOrEmpty
+
+                $SystemModels = Get-DifySystemModel
+                foreach ($NewSystemModel in $NewSystemModels | Where-Object { $_.Type -ne "tts" }) {
+                    $SystemModel = $SystemModels | Where-Object { $_.Type -eq $NewSystemModel.Type }
+
+                    $SystemModel.Provider | Should -Match $NewSystemModel.Provider
+                    $SystemModel.Model | Should -Be $NewSystemModel.Name
+                }
+                $SystemModels | Where-Object { $_.Type -eq "tts" } | Select-Object -ExpandProperty Model | Should -BeNullOrEmpty
+
+                $TTSSystemModel = $NewSystemModels | Where-Object { $_.Type -eq "tts" }
+                $SystemModel = Set-DifySystemModel -Type $TTSSystemModel.Type -Provider $TTSSystemModel.Provider -Name $TTSSystemModel.Name
+                $SystemModel.Model | Should -Be $TTSSystemModel.Name
+            }
+            else {
+                { Set-DifySystemModel -Type "tts" -Remove } | Should -Throw "*requires Dify 1.18.0 or later*"
+            }
+        }
     }
 }

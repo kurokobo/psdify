@@ -38,7 +38,10 @@ Describe "Send-DifyChatMessage" -Tag "chat" {
         $null = Set-DifySystemModel -Type "text-embedding" -Provider "openai" -Name "text-embedding-3-small"
 
         $TestKnowledge = New-DifyKnowledge -Name "Test Knowledge"
-        $null = Add-DifyDocument -Knowledge $TestKnowledge -Path (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "document_test*.md") -Wait
+        # Add documents one by one since the Sandbox plan of Dify Cloud does not support batch upload
+        Get-ChildItem -Path (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "document_test*.md") | ForEach-Object {
+            $null = Add-DifyDocument -Knowledge $TestKnowledge -Path $_.FullName -Wait
+        }
 
         $OldKnowledgeId = "c1410caa-1a19-4a86-b9c8-a4c252d6e930"
         $TestAppWithoutKnowledge = Import-DifyApp -Path (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "app_chat.yml")
