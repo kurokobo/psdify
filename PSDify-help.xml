@@ -9474,6 +9474,8 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
     <maml:description>
       <maml:para>The `Set-DifySystemModel` cmdlet configures the default system model for the workspace. It can take a model object from the pipeline or specify the type, provider, and name directly. This allows granular control over the system model used for different functionalities like LLM, text embedding, speech-to-text, and more.</maml:para>
       <maml:para>The cmdlet validates the input parameters to ensure they conform to the supported model types and providers.</maml:para>
+      <maml:para>By specifying `-Remove`, the system model for the specified type can be removed (unset). Removing system models requires Dify 1.18.0 or later.</maml:para>
+      <maml:para>On Dify 1.18.0 or later, the API replaces all system models at once, so this cmdlet automatically keeps the current system models for the types that are not specified. However, if the current system models contain invalid settings whose provider or model is no longer available (e.g., the provider plugin has been uninstalled or its credentials have been removed), Dify rejects the entire request. To avoid this, such invalid settings are automatically removed with a warning when this cmdlet is invoked.</maml:para>
       <maml:para>NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.</maml:para>
     </maml:description>
     <command:syntax>
@@ -9527,6 +9529,17 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Remove</maml:name>
+          <maml:description>
+            <maml:para>Removes (unsets) the system model for the type specified by `-Type` or for the types of the model objects passed via `-Model` or the pipeline. `-Provider` and `-Name` cannot be specified with this parameter. This requires Dify 1.18.0 or later.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -9565,6 +9578,18 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Remove</maml:name>
+        <maml:description>
+          <maml:para>Removes (unsets) the system model for the type specified by `-Type` or for the types of the model objects passed via `-Model` or the pipeline. `-Provider` and `-Name` cannot be specified with this parameter. This requires Dify 1.18.0 or later.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Type</maml:name>
@@ -9614,17 +9639,31 @@ $RawContent -replace "8b960203-299d-4345-b953-3308663dd790", "574d9556-189a-4d35
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>Get-DifySystemModel -Type "llm" -Provider "openai" -Name "gpt-4o-mini" | Set-DifySystemModel</dev:code>
+        <dev:code>Get-DifyModel -Provider "openai" -Name "gpt-4o-mini" | Set-DifySystemModel</dev:code>
         <dev:remarks>
-          <maml:para>Set the system model using the result from `Get-DifySystemModel`.</maml:para>
+          <maml:para>Set the system model using the result from `Get-DifyModel`.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>$SystemModelToBeChanged = Get-DifySystemModel -Type "llm" -Provider "openai" -Name "gpt-4o-mini"
+        <dev:code>$SystemModelToBeChanged = Get-DifyModel -Provider "openai" -Name "gpt-4o-mini"
 Set-DifySystemModel -Model $SystemModelToBeChanged</dev:code>
         <dev:remarks>
           <maml:para>Set the system model by passing a model object.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>Set-DifySystemModel -Type "rerank" -Remove</dev:code>
+        <dev:remarks>
+          <maml:para>Remove the system model for "rerank". This requires Dify 1.18.0 or later.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>Get-DifySystemModel -Type "rerank", "tts" | Set-DifySystemModel -Remove</dev:code>
+        <dev:remarks>
+          <maml:para>Remove the system models for the types passed from the pipeline. This requires Dify 1.18.0 or later.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

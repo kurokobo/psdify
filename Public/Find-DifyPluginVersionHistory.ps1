@@ -18,21 +18,30 @@ function Find-DifyPluginVersionHistory {
         $Id = $Plugin.Id
     }
 
-    $VersionHistories  = @()
-    $Endpoint = Join-Url -Segments @("https://marketplace.dify.ai/plugin", $Id)
+    # Use the public marketplace API
+    $MarketPlaceApiPrefix = "https://marketplace.dify.ai/api/v1"
+
+    $VersionHistories = @()
+    $Endpoint = Join-Url -Segments @($MarketPlaceApiPrefix, "plugins", $Id, "versions")
     $Method = "GET"
-    try {
-        $Response = Invoke-WebRequest -Uri $Endpoint -Method $Method -UseBasicParsing
-        $ScriptContents = [regex]::Matches(
-            $Response.Content,
-            '<script[^>]*>(.*?)</script>',
-            'Singleline'
-        ) | ForEach-Object {
-            $_.Groups[1].Value
+    $Page = 1
+    $PageSize = 100
+    $HasMore = $true
+
+    while ($HasMore) {
+        $Uri = "$($Endpoint)?page=$($Page)&page_size=$($PageSize)"
+        try {
+            $Response = Invoke-RestMethod -Uri $Uri -Method $Method -UseBasicParsing -ErrorAction Stop
         }
-        $PluginDetailRaw = ($ScriptContents | Where-Object { $_ -like "*unique_identifier*" })
-        $PluginDetailObject = ($PluginDetailRaw -replace "self\.__next_f\.push\((.*)\)$", '$1' | ConvertFrom-Json)[1] -replace "[^{]*({.*})[^}]*$", '$1' | ConvertFrom-Json
-        foreach ($History in $PluginDetailObject.versionHistory) {
+        catch {
+            throw "Failed to obtain plugin details: $_"
+        }
+        if ($Response.code -ne 0) {
+            throw "Failed to obtain plugin details: $($Response.msg)"
+        }
+
+        $VersionsInPage = @($Response.data.versions)
+        foreach ($History in $VersionsInPage) {
             $VersionObj = [PSCustomObject]@{
                 Id                 = $Id
                 Version            = $History.version
@@ -40,21 +49,29 @@ function Find-DifyPluginVersionHistory {
                 UniqueIdentifier   = $History.unique_identifier
                 Checksum           = $History.checksum
                 CreatedAt          = [datetime]::Parse($History.created_at)
-                DownloadUrl        = Join-Url -Segments @("https://marketplace.dify.ai/api/v1", "plugins", $Id, $History.version, "download")
+                DownloadUrl        = Join-Url -Segments @($MarketPlaceApiPrefix, "plugins", $Id, $History.version, "download")
                 MinimumDifyVersion = [string]($History.minimum_dify_version_major) + "." + [string]($History.minimum_dify_version_minor) + "." + [string]($History.minimum_dify_version_patch)
                 Status             = $History.status
             }
             $VersionHistories += $VersionObj
         }
-    }
-    catch {
-        throw "Failed to obtain plugin details: $_"
+
+        if ($VersionsInPage.Count -lt $PageSize) {
+            $HasMore = $false
+        }
+        else {
+            $Page++
+        }
     }
     if ($Version) {
         $VersionHistories = $VersionHistories | Where-Object { $_.Version -eq $Version }
     }
 
     if ($Version -and $Download) {
+        if (@($VersionHistories).Count -eq 0) {
+            throw "No plugin version found to download: $($Id):$($Version)"
+        }
+        $VersionHistories = @($VersionHistories)
         $PluginId = $VersionHistories[0].Id
         $PluginVersion = $VersionHistories[0].Version
         $DownloadUrl = $VersionHistories[0].DownloadUrl

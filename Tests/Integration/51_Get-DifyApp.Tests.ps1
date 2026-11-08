@@ -36,7 +36,10 @@ Describe "Get-DifyApp" -Tag "app" {
         $null = Set-DifySystemModel -Type "text-embedding" -Provider "openai" -Name "text-embedding-3-small"
 
         $TestKnowledge = New-DifyKnowledge -Name "Test Knowledge"
-        $null = Add-DifyDocument -Knowledge $TestKnowledge -Path (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "document_test*.md") -Wait
+        # Add documents one by one since the Sandbox plan of Dify Cloud does not support batch upload
+        Get-ChildItem -Path (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "document_test*.md") | ForEach-Object {
+            $null = Add-DifyDocument -Knowledge $TestKnowledge -Path $_.FullName -Wait
+        }
         $TestFiles = @(
             @{
                 Path = (Join-Path -Path $env:PSDIFY_TEST_ROOT_ASSETS -ChildPath "app_chat.yml")
@@ -113,7 +116,8 @@ Describe "Get-DifyApp" -Tag "app" {
     }
 
     Context "Import apps" {
-        AfterAll {
+        # Remove apps after each test to stay within the app limit of the Sandbox plan of Dify Cloud
+        AfterEach {
             Get-DifyApp | Remove-DifyApp -Confirm:$false
         }
         It "should import apps by specifying file path" {

@@ -19,7 +19,7 @@ Set the default system model for the workspace.
 
 ```powershell
 Set-DifySystemModel [[-Model] <PSObject[]>] [[-Type] <String>] [[-Provider] <String>] [[-Name] <String>]
- [<CommonParameters>]
+ [-Remove] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -27,6 +27,10 @@ Set-DifySystemModel [[-Model] <PSObject[]>] [[-Type] <String>] [[-Provider] <Str
 The `Set-DifySystemModel` cmdlet configures the default system model for the workspace. It can take a model object from the pipeline or specify the type, provider, and name directly. This allows granular control over the system model used for different functionalities like LLM, text embedding, speech-to-text, and more.
 
 The cmdlet validates the input parameters to ensure they conform to the supported model types and providers.
+
+By specifying `-Remove`, the system model for the specified type can be removed (unset). Removing system models requires Dify 1.18.0 or later.
+
+On Dify 1.18.0 or later, the API replaces all system models at once, so this cmdlet automatically keeps the current system models for the types that are not specified. However, if the current system models contain invalid settings whose provider or model is no longer available (e.g., the provider plugin has been uninstalled or its credentials have been removed), Dify rejects the entire request. To avoid this, such invalid settings are automatically removed with a warning when this cmdlet is invoked.
 
 NOTE: This help was primarily created by a generative AI. It may contain partially inaccurate expressions.
 
@@ -43,19 +47,35 @@ Set the system model for "llm" using the OpenAI "gpt-4o-mini" model by directly 
 ### Example 2
 
 ```powershell
-Get-DifySystemModel -Type "llm" -Provider "openai" -Name "gpt-4o-mini" | Set-DifySystemModel
+Get-DifyModel -Provider "openai" -Name "gpt-4o-mini" | Set-DifySystemModel
 ```
 
-Set the system model using the result from `Get-DifySystemModel`.
+Set the system model using the result from `Get-DifyModel`.
 
 ### Example 3
 
 ```powershell
-$SystemModelToBeChanged = Get-DifySystemModel -Type "llm" -Provider "openai" -Name "gpt-4o-mini"
+$SystemModelToBeChanged = Get-DifyModel -Provider "openai" -Name "gpt-4o-mini"
 Set-DifySystemModel -Model $SystemModelToBeChanged
 ```
 
 Set the system model by passing a model object.
+
+### Example 4
+
+```powershell
+Set-DifySystemModel -Type "rerank" -Remove
+```
+
+Remove the system model for "rerank". This requires Dify 1.18.0 or later.
+
+### Example 5
+
+```powershell
+Get-DifySystemModel -Type "rerank", "tts" | Set-DifySystemModel -Remove
+```
+
+Remove the system models for the types passed from the pipeline. This requires Dify 1.18.0 or later.
 
 ## PARAMETERS
 
@@ -103,6 +123,22 @@ Aliases:
 Required: False
 Position: 2
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Remove
+
+Removes (unsets) the system model for the type specified by `-Type` or for the types of the model objects passed via `-Model` or the pipeline. `-Provider` and `-Name` cannot be specified with this parameter. This requires Dify 1.18.0 or later.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

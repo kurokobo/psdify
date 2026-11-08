@@ -55,7 +55,8 @@ Describe "Get-DifyAppTrace" -Tag "trace" {
             }
         }
     }
-    Context "New app trace config (disabled)" {
+    # The trace provider (Phoenix) used for testing is only reachable from the local Dify instance
+    Context "New app trace config (disabled)" -Skip:($env:PSDIFY_TEST_MODE -ne "community") {
         It "should create app trace config" {
             $TraceConfig = New-DifyAppTraceConfig -App $TestApp -Provider "phoenix" -Config @{
                 api_key  = "phoenix-admin-secret-00000000000"
